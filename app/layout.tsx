@@ -1,3 +1,4 @@
+import Header from '@/components/Header';
 import type { Metadata } from 'next';
 import { Inter, Quicksand, Tangerine } from 'next/font/google';
 import './globals.css';
@@ -32,10 +33,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang='sv'>
       <body
         className={`${QuicksandSansSerif.variable} ${InterSansSerif.variable} ${TangerineCalligraphy.variable} min-h-screen antialiased`}>
-        {children}
+        <Header />
+        <main>{children}</main>
       </body>
     </html>
   );
