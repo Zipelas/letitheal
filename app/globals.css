@@ -4,7 +4,7 @@
   --background: #f0fff0;
   --foreground: #111827;
 }
-
+/* Headings and paragraphs */
 h1 {
   font-size: 3rem; /* mobile base <640px */
   font-family: var(--font-quicksand-sans-serif);
@@ -32,7 +32,7 @@ p {
     font-size: 1.75rem;
   }
   p {
-    font-size: 1.5rem;
+    font-size: 1.125rem;
   }
 }
 
@@ -64,4 +64,12 @@ body {
 /* Text-Color */
 .text-color {
   color: var(--foreground);
+}
+/* Images and Icons */
+.hero-1 {
+  src: url('/hero-1.png');
+}
+
+.logo-nav {
+  src: url('/logo.png');
 }
