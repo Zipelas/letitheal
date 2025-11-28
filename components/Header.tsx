@@ -10,12 +10,12 @@ const Header = () => {
           className='flex items-center gap-2'
           aria-label='Let it Heal startsida'>
           <Image
-            src='/logo.png'
+            src='/images/logo.png'
             alt='Let it Heal Logo'
             width={32}
             height={32}
           />
-          <span className='text-tangerine-calligraphy font-bold text-2xl sm:text-3xl'>
+          <span className='text-tangerine-calligraphy font-bold text-2xl sm:text-3xl hidden sm:block'>
             Let it Heal
           </span>
         </Link>
