@@ -46,8 +46,8 @@ p {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-tangerine-calligraphy),
-    var(--font-quicksand-sans-serif), var(--font-inter-sans-serif), Arial;
+  font-family: var(--font-quicksand-sans-serif), var(--font-inter-sans-serif),
+    var(--font-tangerine-calligraphy), Arial;
 }
 /* Fonts */
 .text-tangerine-calligraphy {
@@ -80,4 +80,10 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
+}
+footer {
+  background-color: var(--foreground);
+  border-radius: 10px;
+  color: var(--background);
+  padding: 1rem;
 }
