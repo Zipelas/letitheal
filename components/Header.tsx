@@ -5,18 +5,19 @@ const Header = () => {
   return (
     <header className='flex flex-row items-center justify-between p-4 shadow-sm'>
       <div className='flex items-center gap-1'>
-        <Link href='/'>
+        <Link
+          href='/'
+          className='flex items-center gap-2'
+          aria-label='Let it Heal startsida'>
           <Image
             src='/logo.png'
             alt='Let it Heal Logo'
             width={32}
             height={32}
           />
-        </Link>
-        <Link
-          href='/'
-          className='text-tangerine-calligraphy font-bold text-2xl sm:text-3xl'>
-          Let it Heal
+          <span className='text-tangerine-calligraphy font-bold text-2xl sm:text-3xl'>
+            Let it Heal
+          </span>
         </Link>
       </div>
       <nav>
