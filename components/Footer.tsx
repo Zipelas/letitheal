@@ -1,6 +1,25 @@
-import React from 'react'
-import Image from 'next/image'
+import Image from 'next/image';
 import Link from 'next/link';
+import SocialCard from './SocialCard';
+
+const socials = [
+  {
+    image: '/icons/socials/facebook.svg',
+    title: 'Facebook',
+    href: 'https://facebook.com/',
+  },
+  {
+    image: '/icons/socials/instagram.svg',
+    title: 'Instagram',
+    href: 'https://instagram.com/',
+  },
+  { image: '/icons/socials/x.svg', title: 'X', href: 'https://x.com/' },
+  {
+    image: '/icons/socials/youtube.svg',
+    title: 'Youtube',
+    href: 'https://youtube.com/',
+  },
+];
 
 const Footer = () => {
   return (
@@ -11,7 +30,7 @@ const Footer = () => {
           className='flex items-center gap-2'
           aria-label='Let it Heal startsida'>
           <Image
-            src='/logo.png'
+            src='/images/logo.png'
             alt='Let it Heal Logo'
             width={32}
             height={32}
@@ -31,9 +50,11 @@ const Footer = () => {
       </div>
       <nav>
         <ul className='socials'>
-            {[1,2,3,4].map((icon) => (
-                <li key={icon}>Icon {icons}</li>
-            ))}
+          {socials.map((icon) => (
+            <li key={icon.title}>
+              <SocialCard {...icon} />
+            </li>
+          ))}
         </ul>
       </nav>
       {/* <nav className='m-4 sm:m-2'>
@@ -81,6 +102,6 @@ const Footer = () => {
       </nav> */}
     </footer>
   );
-}
+};
 
-export default Footer
+export default Footer;
