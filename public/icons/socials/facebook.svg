@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-labelledby="title">
+  <title>Facebook icon</title>
+  <circle cx="12" cy="12" r="12" fill="#1877F2"/>
+  <text x="12" y="16" text-anchor="middle"
+        font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+        font-size="14" font-weight="700" fill="#FFFFFF">
+    f
+  </text>
+</svg>
