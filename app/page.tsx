@@ -7,7 +7,7 @@ const page = () => {
           Let it Heal
         </h1>
         <Image
-          src='/hero-1.png'
+          src='/images/hero-1.png'
           alt='Hero image showing a peaceful healing scene'
           width={600}
           height={400}
@@ -23,7 +23,7 @@ const page = () => {
       <section id='onSite'>
         <h2 className='font-bold text-center'>Healing på plats</h2>
         <Image
-          src='/hero-1.png'
+          src='/images/hero-1.png'
           alt='Hero image showing a peaceful healing scene'
           width={600}
           height={400}
@@ -39,7 +39,7 @@ const page = () => {
       <section id='online'>
         <h2 className='font-bold text-center'>Healing online</h2>
         <Image
-          src='/hero-1.png'
+          src='/images/hero-1.png'
           alt='Hero image showing a peaceful healing scene'
           width={600}
           height={400}
