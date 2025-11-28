@@ -73,3 +73,11 @@ body {
 .logo-nav {
   src: url('/logo.png');
 }
+
+header {
+  background-color: var(--background);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
