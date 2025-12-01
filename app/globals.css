@@ -3,6 +3,7 @@
 :root {
   --background: #f0fff0;
   --foreground: #111827;
+  --header-h: 64px;
 }
 /* Headings and paragraphs */
 h1 {
@@ -74,13 +75,19 @@ body {
   src: url('/logo.png');
 }
 
-header {
+.site-header {
   background-color: var(--background);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   width: 100%;
+  height: var(--header-h)
 }
+
+main { 
+  padding-top: var(--header-h);
+}
+
 footer {
   background-color: var(--foreground);
   position: sticky;
