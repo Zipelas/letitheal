@@ -24,22 +24,22 @@ const Header = () => {
         <ul>
           <Link
             href='/#onSite'
-            className='text-inter-sans-serif p-2 sm:p-4'>
+            className='text-inter-sans-serif p-1 sm:p-4'>
             På plats
           </Link>
           <Link
             href='/#online'
-            className='text-inter-sans-serif p-2 sm:p-4'>
+            className='text-inter-sans-serif p-1 sm:p-4'>
             Online
           </Link>
           <Link
             href='/booking'
-            className='text-inter-sans-serif p-2 sm:p-4'>
+            className='text-inter-sans-serif p-1 sm:p-4'>
             Boka
           </Link>
           <Link
             href='/reviews'
-            className='text-inter-sans-serif p-2 sm:p-4'>
+            className='text-inter-sans-serif p-1 sm:p-4'>
             Recensioner
           </Link>
         </ul>
