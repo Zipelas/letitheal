@@ -5,37 +5,6 @@
   --foreground: #111827;
   --header-h: 64px;
 }
-/* Headings and paragraphs */
-h1 {
-  font-size: 3rem; /* mobile base <640px */
-  font-family: var(--font-quicksand-sans-serif);
-}
-h2 {
-  font-size: 2rem; /* mobile base <640px */
-  font-family: var(--font-quicksand-sans-serif);
-}
-h3 {
-  font-size: 1.5rem; /* mobile base <640px */
-  font-family: var(--font-quicksand-sans-serif);
-}
-p {
-  font-size: 1rem; /* mobile base <640px */
-  font-family: var(--font-inter-sans-serif);
-}
-@media (min-width: 640px) {
-  h1 {
-    font-size: 6rem;
-  }
-  h2 {
-    font-size: 2.3rem;
-  }
-  h3 {
-    font-size: 1.75rem;
-  }
-  p {
-    font-size: 1.125rem;
-  }
-}
 
 /* @media (prefers-color-scheme: dark) {
   :root {
@@ -50,6 +19,20 @@ body {
   font-family: var(--font-quicksand-sans-serif), var(--font-inter-sans-serif),
     var(--font-tangerine-calligraphy), Arial;
 }
+
+.site-header {
+  background-color: var(--background);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: var(--header-h);
+}
+
+main {
+  padding-top: var(--header-h);
+}
+
 /* Fonts */
 .text-tangerine-calligraphy {
   font-family: var(--font-tangerine-calligraphy), cursive;
@@ -75,17 +58,22 @@ body {
   src: url('/logo.png');
 }
 
-.site-header {
-  background-color: var(--background);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: var(--header-h)
+/* Headings and paragraphs */
+h1 {
+  font-size: 3rem; /* mobile base <640px */
+  font-family: var(--font-quicksand-sans-serif);
 }
-
-main { 
-  padding-top: var(--header-h);
+h2 {
+  font-size: 2rem; /* mobile base <640px */
+  font-family: var(--font-quicksand-sans-serif);
+}
+h3 {
+  font-size: 1.5rem; /* mobile base <640px */
+  font-family: var(--font-quicksand-sans-serif);
+}
+p {
+  font-size: 1rem; /* mobile base <640px */
+  font-family: var(--font-inter-sans-serif);
 }
 
 footer {
@@ -94,4 +82,27 @@ footer {
   border-radius: 10px;
   color: var(--background);
   padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .site-header {
+    height: 72px;
+  }
+
+  main {
+    padding-top: 72px;
+  }
+
+  h1 {
+    font-size: 6rem;
+  }
+  h2 {
+    font-size: 2.3rem;
+  }
+  h3 {
+    font-size: 1.75rem;
+  }
+  p {
+    font-size: 1.125rem;
+  }
 }
