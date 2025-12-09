@@ -33,3 +33,36 @@ GET http://localhost:3000/api/heals?slug=onsite-healing-session
 
 ### Heals API - delete (replace <HEAL_ID>)
 DELETE http://localhost:3000/api/heals?id=693862752bb3191e14103e18
+
+### Users API - create
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+	"email": "mcshaffa@gmail.com",
+	"password": "shaffa1234",
+	"firstName": "Andros",
+	"lastName": "Zipelas",
+	"address": { "street": "Kalendervägen 107D", "city": "Göteborg", "postalCode": "412 52" },
+	"phone": "031-12 34 56",
+	"termsAccepted": true
+}
+
+### Users API - list
+GET http://localhost:3000/api/users
+
+### Users API - update (replace <USER_ID>)
+PUT http://localhost:3000/api/users?id=693880ca4cf59d192957f3c4
+Content-Type: application/json
+
+{
+	"firstName": "Andreas",
+	"lastName": "Fagerlund",
+	"phone": "031-12 34 56",
+	"address": { "street": "Kalendervägen 107D", "city": "Göteborg", "postalCode": "412 52" }
+	// Optional password reset:
+	// "password": "NewStrongPass123"
+}
+
+### Users API - delete (replace <USER_ID>)
+DELETE http://localhost:3000/api/users?id=693880ca4cf59d192957f3c4
