@@ -1,0 +1,35 @@
+### Heals API - create (slug auto-generated from title)
+POST http://localhost:3000/api/heals
+Content-Type: application/json
+
+{
+	"title": "Online Healing",
+	"description": "A relaxing onsite healing session.",
+	"overview": "This session provides a comprehensive healing experience.",
+	"imageUrl": "/images/hero-1.png",
+	"location": "Skånegatan 17, 412 52 Göteborg",
+	"date": "2025-12-15",
+	"time": "10:00",
+	"price": 499,
+	"mode": "onsite",
+	"tags": ["healing", "relaxation", "wellness"]
+}
+
+### Heals API - list
+GET http://localhost:3000/api/heals
+
+### Heals API - update (replace <HEAL_ID>)
+PUT http://localhost:3000/api/heals?id=693869152bb3191e14103e29
+Content-Type: application/json
+
+{
+	"title": "Andros Zipelas Healing Session",
+    "description": "Let it Heal är en plats där du kan hitta information om healing, framför allt Reiki som är en holistisk japansk behandlingsmetod som syftar till stressreducering, avslappning och andlig läkning.",
+	"price": 699
+}
+
+### Heals API - get by slug (example)
+GET http://localhost:3000/api/heals?slug=onsite-healing-session
+
+### Heals API - delete (replace <HEAL_ID>)
+DELETE http://localhost:3000/api/heals?id=693862752bb3191e14103e18
