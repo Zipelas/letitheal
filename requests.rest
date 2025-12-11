@@ -60,9 +60,12 @@ Content-Type: application/json
 	"lastName": "Fagerlund",
 	"phone": "031-12 34 56",
 	"address": { "street": "Kalendervägen 107D", "city": "Göteborg", "postalCode": "412 52" }
-	// Optional password reset:
-	// "password": "NewStrongPass123"
 }
+# Optional password reset example:
+# PUT http://localhost:3000/api/users?id=REPLACE_WITH_USER_ID
+# {
+#   "password": "NewStrongPass123"
+# }
 
 ### Users API - delete (replace <USER_ID>)
 DELETE http://localhost:3000/api/users?id=693880ca4cf59d192957f3c4
@@ -88,13 +91,14 @@ GET http://localhost:3000/api/bookings
 
 ### Bookings API - update (replace <BOOKING_ID>)
 PUT http://localhost:3000/api/bookings?id=REPLACE_WITH_BOOKING_ID
-	"heal": "REPLACE_WITH_REAL_HEAL_ID",
+Content-Type: application/json
 
 {
 	"address": { "street": "Kalendervägen 107D", "city": "Göteborg", "postalCode": "412 52" },
 	"mode": "online",
-	"scheduledAt": "2025-12-21T11:00:00.000Z"
-	"scheduledAt": "2025-12-20T10:00:00.000Z",
+	"scheduledAt": "2025-12-21T11:00:00.000Z",
+	"status": "confirmed"
+}
 
 ### Bookings API - delete (replace <BOOKING_ID>)
 DELETE http://localhost:3000/api/bookings?id=REPLACE_WITH_BOOKING_ID
