@@ -66,3 +66,36 @@ Content-Type: application/json
 
 ### Users API - delete (replace <USER_ID>)
 DELETE http://localhost:3000/api/users?id=693880ca4cf59d192957f3c4
+
+### Bookings API - create
+POST http://localhost:3000/api/bookings
+Content-Type: application/json
+
+{
+	"heal": "693869152bb3191e14103e29",
+	"firstName": "Katarina",
+	"lastName": "Borgman",
+	"address": { "street": "Fritzbergsvägen 1", "city": "Stockholm", "postalCode": "412 52" },
+	"phone": "031-12 34 56",
+	"email": "hello@letitheal.se",
+	"scheduledAt": "2025-12-20T10:00:00.000Z",
+	"mode": "onsite",
+	"termsAccepted": true
+}
+
+### Bookings API - list
+GET http://localhost:3000/api/bookings
+
+### Bookings API - update (replace <BOOKING_ID>)
+PUT http://localhost:3000/api/bookings?id=REPLACE_WITH_BOOKING_ID
+	"heal": "REPLACE_WITH_REAL_HEAL_ID",
+
+{
+	"address": { "street": "Kalendervägen 107D", "city": "Göteborg", "postalCode": "412 52" },
+	"mode": "online",
+	"scheduledAt": "2025-12-21T11:00:00.000Z"
+	"scheduledAt": "2025-12-20T10:00:00.000Z",
+
+### Bookings API - delete (replace <BOOKING_ID>)
+DELETE http://localhost:3000/api/bookings?id=REPLACE_WITH_BOOKING_ID
+
