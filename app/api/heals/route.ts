@@ -2,6 +2,36 @@ import { dbConnect } from '@/lib/mongoose';
 import Heal from '@/models/Heal';
 import { NextRequest, NextResponse } from 'next/server';
 
+// If client doesn't provide an explicit slug, automatically generate a unique one
+// by appending -2, -3, ... when the base slug already exists.
+async function generateUniqueSlug(base: string) {
+  // Find all slugs matching base or base-<number>
+  const regex = new RegExp(`^${base}(?:-\\d+)?$`);
+  const existing = await Heal.find({ slug: { $regex: regex } })
+    .select('slug')
+    .lean();
+
+  if (existing.length === 0) return base;
+
+  // Track highest numeric suffix among matches
+  let maxSuffix = 1; // 1 indicates the base exists, so next should be 2
+  let baseExists = false;
+  for (const doc of existing) {
+    const s = (doc as { slug: string }).slug;
+    if (s === base) {
+      baseExists = true;
+      continue;
+    }
+    const m = s.match(/-(\d+)$/);
+    if (m) {
+      const n = parseInt(m[1], 10);
+      if (!Number.isNaN(n) && n > maxSuffix) maxSuffix = n;
+    }
+  }
+  if (!baseExists) return base; // only suffixed variants exist; base is free
+  return `${base}-${maxSuffix + 1}`;
+}
+
 export async function GET() {
   await dbConnect();
   const items = await Heal.find({}).sort({ createdAt: -1 }).lean();
@@ -85,28 +115,37 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     );
 
-  // Generate slug if missing
-  const computedSlug = (slug ?? title ?? '')
+  // Generate base slug from provided slug or title
+  const baseSlug = (slug ?? title ?? '')
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
-  if (!computedSlug) {
+  if (!baseSlug) {
     return NextResponse.json(
       { error: 'slug could not be generated' },
       { status: 400 }
     );
   }
 
-  // Ensure slug uniqueness (race-safe approach relies on unique index; we still pre-check to give friendly error)
-  const existing = await Heal.findOne({ slug: computedSlug }).lean();
-  if (existing) {
-    return NextResponse.json({ error: 'slug already exists' }, { status: 409 });
+  // If client explicitly provided slug, enforce uniqueness strictly (409 on conflict).
+  // If not provided, auto-deduplicate by appending -2, -3, ... as needed.
+  let finalSlug = baseSlug;
+  if (slug) {
+    const exists = await Heal.exists({ slug: baseSlug });
+    if (exists) {
+      return NextResponse.json(
+        { error: 'slug already exists' },
+        { status: 409 }
+      );
+    }
+  } else {
+    finalSlug = await generateUniqueSlug(baseSlug);
   }
 
   const doc = await Heal.create({
     title,
-    slug: computedSlug,
+    slug: finalSlug,
     description,
     overview,
     imageUrl,
