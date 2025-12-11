@@ -19,11 +19,11 @@ Content-Type: application/json
 GET http://localhost:3000/api/heals
 
 ### Heals API - update (replace <HEAL_ID>)
-PUT http://localhost:3000/api/heals?id=693869152bb3191e14103e29
+PUT http://localhost:3000/api/heals?id=693ace351de36a23f279e0d2
 Content-Type: application/json
 
 {
-	"title": "Andros Zipelas Healing Session",
+	"title": "Updating heal 2",
     "description": "Let it Heal är en plats där du kan hitta information om healing, framför allt Reiki som är en holistisk japansk behandlingsmetod som syftar till stressreducering, avslappning och andlig läkning.",
 	"price": 699
 }
@@ -32,19 +32,20 @@ Content-Type: application/json
 GET http://localhost:3000/api/heals?slug=onsite-healing-session
 
 ### Heals API - delete (replace <HEAL_ID>)
-DELETE http://localhost:3000/api/heals?id=693862752bb3191e14103e18
+DELETE http://localhost:3000/api/heals?id=693ace351de36a23f279e0d2
 
 ### Users API - create
 POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
-	"email": "mcshaffa@gmail.com",
-	"password": "shaffa1234",
-	"firstName": "Andros",
-	"lastName": "Zipelas",
+	"firstName": "Andreas",
+	"lastName": "Fagerlund",
 	"address": { "street": "Kalendervägen 107D", "city": "Göteborg", "postalCode": "412 52" },
 	"phone": "031-12 34 56",
+	"email": "mcshaffa@gmail.com",
+	"role": "admin",
+	"password": "shaffa1234",	
 	"termsAccepted": true
 }
 
@@ -68,7 +69,7 @@ Content-Type: application/json
 # }
 
 ### Users API - delete (replace <USER_ID>)
-DELETE http://localhost:3000/api/users?id=693880ca4cf59d192957f3c4
+DELETE http://localhost:3000/api/users?id=693ad15f685ceb7d3addc075
 
 ### Bookings API - create
 POST http://localhost:3000/api/bookings
