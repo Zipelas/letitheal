@@ -4,9 +4,13 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // If client doesn't provide an explicit slug, automatically generate a unique one
 // by appending -2, -3, ... when the base slug already exists.
+function escapeRegex(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 async function generateUniqueSlug(base: string) {
   // Find all slugs matching base or base-<number>
-  const regex = new RegExp(`^${base}(?:-\\d+)?$`);
+  const regex = new RegExp(`^${escapeRegex(base)}(?:-\\d+)?$`);
   const existing = await Heal.find({ slug: { $regex: regex } })
     .select('slug')
     .lean();

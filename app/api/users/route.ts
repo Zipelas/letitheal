@@ -10,6 +10,7 @@ export async function GET() {
     .lean();
   return NextResponse.json(users);
 }
+import { Types } from 'mongoose';
 
 export async function POST(req: NextRequest) {
   await dbConnect();
@@ -21,7 +22,7 @@ export async function POST(req: NextRequest) {
     address?: { street?: string; city?: string; postalCode?: string };
     phone?: string;
     termsAccepted?: boolean;
-    role?: 'user' | 'admin';
+    role?: 'user' | 'admin'; // ignored for security; server controls role
   };
 
   if (!body) {
@@ -36,7 +37,7 @@ export async function POST(req: NextRequest) {
     address,
     phone,
     termsAccepted,
-    role,
+    role, // ignored for security; server controls role
   } = body;
 
   if (!email)
@@ -66,19 +67,31 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const passwordHash = await argon2.hash(password);
-
-  const doc = await User.create({
-    email,
-    passwordHash,
-    firstName,
-    lastName,
-    address,
-    phone,
-    role: role === 'admin' ? 'admin' : 'user',
-    termsAccepted: true,
-    termsAcceptedAt: new Date(),
+  const passwordHash = await argon2.hash(password, {
+    memoryCost: 19 * 1024, // ~19 MiB (OWASP recommendation)
+    timeCost: 2,
+    parallelism: 1,
   });
+
+  let doc;
+  try {
+    doc = await User.create({
+      email,
+      passwordHash,
+      firstName,
+      lastName,
+      address,
+      phone,
+      role: 'user',
+      termsAccepted: true,
+      termsAcceptedAt: new Date(),
+    });
+  } catch (e) {
+    if (typeof e === 'object' && e && (e as any).code === 11000) {
+      return NextResponse.json({ error: 'email already in use' }, { status: 409 });
+    }
+    throw e;
+  }
 
   const safe = {
     _id: doc._id,
@@ -117,12 +130,18 @@ export async function PUT(req: NextRequest) {
       { status: 400 }
     );
   }
+  if (!Types.ObjectId.isValid(id)) {
+    return NextResponse.json({ error: 'invalid id' }, { status: 400 });
+  }
 
   const update: Record<string, unknown> = {};
   if (typeof body.firstName === 'string') update.firstName = body.firstName;
   if (typeof body.lastName === 'string') update.lastName = body.lastName;
   if (typeof body.phone === 'string') update.phone = body.phone;
-  if (typeof body.role === 'string') update.role = body.role;
+  // role is server-controlled; do not allow changes here
+  if (typeof body.role === 'string') {
+    return NextResponse.json({ error: 'role cannot be changed via PUT' }, { status: 400 });
+  }
   if (body.address && typeof body.address === 'object')
     update.address = body.address;
 
@@ -141,7 +160,11 @@ export async function PUT(req: NextRequest) {
         { error: 'password min length 8' },
         { status: 400 }
       );
-    const passwordHash = await argon2.hash(body.password);
+    const passwordHash = await argon2.hash(body.password, {
+      memoryCost: 19 * 1024,
+      timeCost: 2,
+      parallelism: 1,
+    });
     update.passwordHash = passwordHash;
   }
 
@@ -151,6 +174,7 @@ export async function PUT(req: NextRequest) {
 
   const updated = await User.findByIdAndUpdate(id, update, {
     new: true,
+    runValidators: true,
     projection: { passwordHash: 0 },
   }).lean();
   if (!updated) {
@@ -168,6 +192,9 @@ export async function DELETE(req: NextRequest) {
       { error: 'id is required as query ?id=' },
       { status: 400 }
     );
+  }
+  if (!Types.ObjectId.isValid(id)) {
+    return NextResponse.json({ error: 'invalid id' }, { status: 400 });
   }
 
   const deleted = await User.findByIdAndDelete(id, {
