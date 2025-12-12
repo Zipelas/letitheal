@@ -92,7 +92,10 @@ export async function POST(req: NextRequest) {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
   if (!computedSlug) {
-    return NextResponse.json({ error: 'slug could not be generated' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'slug could not be generated' },
+      { status: 400 }
+    );
   }
 
   // Ensure slug uniqueness (race-safe approach relies on unique index; we still pre-check to give friendly error)
@@ -149,7 +152,10 @@ export async function PUT(req: NextRequest) {
   if (typeof body.title === 'string') update.title = body.title;
   // Disallow slug changes to keep stable permalinks
   if (typeof body.slug === 'string') {
-    return NextResponse.json({ error: 'slug cannot be changed' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'slug cannot be changed' },
+      { status: 400 }
+    );
   }
   if (typeof body.description === 'string')
     update.description = body.description;
