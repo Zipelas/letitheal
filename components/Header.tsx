@@ -22,7 +22,7 @@ const Header = () => {
         </Link>
       </div>
       <nav>
-        <ul>
+        <ul className='flex items-center gap-4'>
           <Link
             href='/#onSite'
             className='text-inter-sans-serif p-1 sm:p-4'>
@@ -38,7 +38,7 @@ const Header = () => {
             className='text-inter-sans-serif p-1 sm:p-4'>
             Boka
           </Link>
-          <Button className='login-button text-inter-sans-serif'>
+          <Button className='login-button text-inter-sans-serif font-medium'>
             Logga in
           </Button>
         </ul>
