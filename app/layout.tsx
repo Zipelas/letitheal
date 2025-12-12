@@ -38,7 +38,7 @@ export default function RootLayout({
       <body
         className={`${QuicksandSansSerif.variable} ${InterSansSerif.variable} ${TangerineCalligraphy.variable} min-h-screen antialiased`}>
         <Header />
-        <main>{children}</main>
+        <main className='bg-[#f0fff0]'>{children}</main>
         <Footer />
       </body>
     </html>
