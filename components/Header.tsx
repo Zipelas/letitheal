@@ -25,17 +25,17 @@ const Header = () => {
         <ul className='flex items-center gap-4'>
           <Link
             href='/#onSite'
-            className='text-inter-sans-serif p-1 sm:p-4'>
+            className='text-inter-sans-serif font-medium p-1 sm:p-4'>
             På plats
           </Link>
           <Link
             href='/#online'
-            className='text-inter-sans-serif p-1 sm:p-4'>
+            className='text-inter-sans-serif font-medium p-1 sm:p-4'>
             Online
           </Link>
           <Link
             href='/booking'
-            className='text-inter-sans-serif p-1 sm:p-4'>
+            className='text-inter-sans-serif font-medium p-1 sm:p-4'>
             Boka
           </Link>
           <Button className='login-button text-inter-sans-serif font-medium'>
