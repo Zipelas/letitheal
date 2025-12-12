@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import Button from './Button';
 
 const Header = () => {
   return (
@@ -37,11 +38,9 @@ const Header = () => {
             className='text-inter-sans-serif p-1 sm:p-4'>
             Boka
           </Link>
-          <Link
-            href='/reviews'
-            className='text-inter-sans-serif p-1 sm:p-4'>
-            Recensioner
-          </Link>
+          <Button className='login-button text-inter-sans-serif'>
+            Logga in
+          </Button>
         </ul>
       </nav>
     </header>
