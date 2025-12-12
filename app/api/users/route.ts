@@ -1,16 +1,13 @@
 import { dbConnect } from '@/lib/mongoose';
 import User from '@/models/User';
-import argon2 from 'argon2';
 import { NextRequest, NextResponse } from 'next/server';
+import argon2 from 'argon2';
 
 export async function GET() {
   await dbConnect();
-  const users = await User.find({}, { passwordHash: 0 })
-    .sort({ createdAt: -1 })
-    .lean();
+  const users = await User.find({}, { passwordHash: 0 }).sort({ createdAt: -1 }).lean();
   return NextResponse.json(users);
 }
-import { Types } from 'mongoose';
 
 export async function POST(req: NextRequest) {
   await dbConnect();
@@ -22,76 +19,44 @@ export async function POST(req: NextRequest) {
     address?: { street?: string; city?: string; postalCode?: string };
     phone?: string;
     termsAccepted?: boolean;
-    role?: 'user' | 'admin'; // ignored for security; server controls role
   };
 
   if (!body) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const {
-    email,
-    password,
-    firstName,
-    lastName,
-    address,
-    phone,
-    termsAccepted,
-    role, // ignored for security; server controls role
-  } = body;
+  const { email, password, firstName, lastName, address, phone, termsAccepted } = body;
 
-  if (!email)
-    return NextResponse.json({ error: 'email is required' }, { status: 400 });
+  if (!email) return NextResponse.json({ error: 'email is required' }, { status: 400 });
   if (!/.+@.+\..+/.test(email))
     return NextResponse.json({ error: 'invalid email' }, { status: 400 });
 
   if (!password || typeof password !== 'string' || password.length < 8) {
-    return NextResponse.json(
-      { error: 'password min length 8' },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: 'password min length 8' }, { status: 400 });
   }
 
   if (termsAccepted !== true) {
-    return NextResponse.json(
-      { error: 'termsAccepted must be true' },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: 'termsAccepted must be true' }, { status: 400 });
   }
 
   const existing = await User.findOne({ email }).lean();
   if (existing) {
-    return NextResponse.json(
-      { error: 'email already in use' },
-      { status: 409 }
-    );
+    return NextResponse.json({ error: 'email already in use' }, { status: 409 });
   }
 
-  const passwordHash = await argon2.hash(password, {
-    memoryCost: 19 * 1024, // ~19 MiB (OWASP recommendation)
-    timeCost: 2,
-    parallelism: 1,
+  const passwordHash = await argon2.hash(password);
+
+  const doc = await User.create({
+    email,
+    passwordHash,
+    firstName,
+    lastName,
+    address,
+    phone,
+    role: 'user',
+    termsAccepted: true,
+    termsAcceptedAt: new Date(),
   });
-
-  let doc;
-  try {
-    doc = await User.create({
-      email,
-      passwordHash,
-      firstName,
-      lastName,
-      address,
-      phone,
-      role: 'user',
-      termsAccepted: true,
-      termsAcceptedAt: new Date(),
-    });
-  } catch (e) {
-    if (typeof e === 'object' && e && (e as any).code === 11000) {
-      return NextResponse.json({ error: 'email already in use' }, { status: 409 });
-    }
-    throw e;
-  }
 
   const safe = {
     _id: doc._id,
@@ -130,41 +95,24 @@ export async function PUT(req: NextRequest) {
       { status: 400 }
     );
   }
-  if (!Types.ObjectId.isValid(id)) {
-    return NextResponse.json({ error: 'invalid id' }, { status: 400 });
-  }
 
   const update: Record<string, unknown> = {};
   if (typeof body.firstName === 'string') update.firstName = body.firstName;
   if (typeof body.lastName === 'string') update.lastName = body.lastName;
   if (typeof body.phone === 'string') update.phone = body.phone;
-  // role is server-controlled; do not allow changes here
-  if (typeof body.role === 'string') {
-    return NextResponse.json({ error: 'role cannot be changed via PUT' }, { status: 400 });
-  }
-  if (body.address && typeof body.address === 'object')
-    update.address = body.address;
+  if (typeof body.role === 'string') update.role = body.role;
+  if (body.address && typeof body.address === 'object') update.address = body.address;
 
   // Disallow changing termsAccepted here; must be true at creation
   if (typeof body.termsAccepted === 'boolean') {
-    return NextResponse.json(
-      { error: 'termsAccepted cannot be changed via PUT' },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: 'termsAccepted cannot be changed via PUT' }, { status: 400 });
   }
 
   // Optional password reset: when provided, hash and store
   if (typeof body.password === 'string') {
     if (body.password.length < 8)
-      return NextResponse.json(
-        { error: 'password min length 8' },
-        { status: 400 }
-      );
-    const passwordHash = await argon2.hash(body.password, {
-      memoryCost: 19 * 1024,
-      timeCost: 2,
-      parallelism: 1,
-    });
+      return NextResponse.json({ error: 'password min length 8' }, { status: 400 });
+    const passwordHash = await argon2.hash(body.password);
     update.passwordHash = passwordHash;
   }
 
@@ -174,7 +122,6 @@ export async function PUT(req: NextRequest) {
 
   const updated = await User.findByIdAndUpdate(id, update, {
     new: true,
-    runValidators: true,
     projection: { passwordHash: 0 },
   }).lean();
   if (!updated) {
@@ -193,13 +140,8 @@ export async function DELETE(req: NextRequest) {
       { status: 400 }
     );
   }
-  if (!Types.ObjectId.isValid(id)) {
-    return NextResponse.json({ error: 'invalid id' }, { status: 400 });
-  }
 
-  const deleted = await User.findByIdAndDelete(id, {
-    projection: { passwordHash: 0 },
-  }).lean();
+  const deleted = await User.findByIdAndDelete(id, { projection: { passwordHash: 0 } }).lean();
   if (!deleted) {
     return NextResponse.json({ error: 'User not found' }, { status: 404 });
   }
