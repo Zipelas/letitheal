@@ -71,6 +71,18 @@ main {
   background-color: #174f2a;
 }
 
+.logout-button {
+  background-color: #BB1716;
+  color: #f0fff0;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-family: var(--font-inter-sans-serif);
+}
+
+.logout-button:hover {
+  background-color: #7a0f0e;
+}
+
 /* Headings and paragraphs */
 h1 {
   font-size: 3rem; /* mobile base <640px */
