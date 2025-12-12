@@ -2,24 +2,17 @@ import { dbConnect } from '@/lib/mongoose';
 import Booking from '@/models/Booking';
 import Heal from '@/models/Heal';
 import { NextRequest, NextResponse } from 'next/server';
-import { Types } from 'mongoose';
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   await dbConnect();
-  const url = new URL(req.url);
-  const limitParam = url.searchParams.get('limit');
-  const pageParam = url.searchParams.get('page');
-  const limit = Math.min(Math.max(parseInt(limitParam || '20', 10) || 20, 1), 100);
-  const page = Math.max(parseInt(pageParam || '1', 10) || 1, 1);
-  const skip = (page - 1) * limit;
-  const items = await Booking.find({}).sort({ createdAt: -1 }).skip(skip).limit(limit).lean();
+  const items = await Booking.find({}).sort({ createdAt: -1 }).lean();
   return NextResponse.json(items);
 }
 
 export async function POST(req: NextRequest) {
   try {
     await dbConnect();
-  } catch {
+  } catch (e) {
     return NextResponse.json({ error: 'DB connect failed' }, { status: 500 });
   }
   const body = (await req.json().catch(() => null)) as null | {
@@ -77,10 +70,6 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     );
 
-  // Validate heal id format before querying
-  if (!Types.ObjectId.isValid(heal)) {
-    return NextResponse.json({ error: 'invalid heal id' }, { status: 400 });
-  }
   // Verify referenced Heal exists
   const healExists = await Heal.findById(heal).select('_id').lean();
   if (!healExists) {
@@ -143,9 +132,6 @@ export async function PUT(req: NextRequest) {
       { status: 400 }
     );
   }
-  if (!Types.ObjectId.isValid(id)) {
-    return NextResponse.json({ error: 'invalid id' }, { status: 400 });
-  }
 
   const update: Record<string, unknown> = {};
   if (typeof body.firstName === 'string') update.firstName = body.firstName;
@@ -154,13 +140,7 @@ export async function PUT(req: NextRequest) {
     update.address = body.address;
   if (typeof body.phone === 'string') update.phone = body.phone;
   if (typeof body.email === 'string') update.email = body.email;
-  if (typeof body.status === 'string') {
-    const allowed: Array<'pending' | 'confirmed' | 'cancelled' | 'completed'> = ['pending', 'confirmed', 'cancelled', 'completed'];
-    if (!allowed.includes(body.status)) {
-      return NextResponse.json({ error: 'invalid status' }, { status: 400 });
-    }
-    update.status = body.status;
-  }
+  if (typeof body.status === 'string') update.status = body.status;
   if (body.mode === 'onsite' || body.mode === 'online') update.mode = body.mode;
   if (
     typeof body.scheduledAt === 'string' ||
@@ -192,7 +172,6 @@ export async function PUT(req: NextRequest) {
 
   const updated = await Booking.findByIdAndUpdate(id, update, {
     new: true,
-    runValidators: true,
   }).lean();
   if (!updated)
     return NextResponse.json({ error: 'Booking not found' }, { status: 404 });
@@ -208,9 +187,6 @@ export async function DELETE(req: NextRequest) {
       { error: 'id is required as query ?id=' },
       { status: 400 }
     );
-  }
-  if (!Types.ObjectId.isValid(id)) {
-    return NextResponse.json({ error: 'invalid id' }, { status: 400 });
   }
 
   const deleted = await Booking.findByIdAndDelete(id).lean();

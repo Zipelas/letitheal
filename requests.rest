@@ -19,11 +19,11 @@ Content-Type: application/json
 GET http://localhost:3000/api/heals
 
 ### Heals API - update (replace <HEAL_ID>)
-PUT http://localhost:3000/api/heals?id=693869152bb3191e14103e29
+PUT http://localhost:3000/api/heals?id=693ace351de36a23f279e0d2
 Content-Type: application/json
 
 {
-	"title": "Andros Zipelas Healing Session",
+	"title": "Updating heal 2",
     "description": "Let it Heal är en plats där du kan hitta information om healing, framför allt Reiki som är en holistisk japansk behandlingsmetod som syftar till stressreducering, avslappning och andlig läkning.",
 	"price": 699
 }
@@ -32,19 +32,20 @@ Content-Type: application/json
 GET http://localhost:3000/api/heals?slug=onsite-healing-session
 
 ### Heals API - delete (replace <HEAL_ID>)
-DELETE http://localhost:3000/api/heals?id=693862752bb3191e14103e18
+DELETE http://localhost:3000/api/heals?id=693ace351de36a23f279e0d2
 
 ### Users API - create
 POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
-	"email": "mcshaffa@gmail.com",
-	"password": "shaffa1234",
-	"firstName": "Andros",
-	"lastName": "Zipelas",
+	"firstName": "Ina",
+	"lastName": "Fagerlund",
 	"address": { "street": "Kalendervägen 107D", "city": "Göteborg", "postalCode": "412 52" },
 	"phone": "031-12 34 56",
+	"email": "katarina.borgman@gmail.com",
+	"role": "admin",
+	"password": "Ina!1234",	
 	"termsAccepted": true
 }
 
@@ -52,34 +53,38 @@ Content-Type: application/json
 GET http://localhost:3000/api/users
 
 ### Users API - update (replace <USER_ID>)
-PUT http://localhost:3000/api/users?id=693880ca4cf59d192957f3c4
+PUT http://localhost:3000/api/users?id=693ad402685ceb7d3addc085
 Content-Type: application/json
 
 {
-	"firstName": "Andreas",
-	"lastName": "Fagerlund",
-	"phone": "031-12 34 56",
-	"address": { "street": "Kalendervägen 107D", "city": "Göteborg", "postalCode": "412 52" }
-	// Optional password reset:
-	// "password": "NewStrongPass123"
+	"firstName": "Ina",
+	"lastName": "Jönsson",
+	"phone": "031-78 90 12",
+	"address": { "street": "Fritzbergsvägen 1", "city": "Vallentund", "postalCode": "131 23" },
+	"role": "user"
 }
+# Optional password reset example:
+# PUT http://localhost:3000/api/users?id=693ad402685ceb7d3addc085
+# {
+#   "password": "NewStrongPass123"
+# }
 
 ### Users API - delete (replace <USER_ID>)
-DELETE http://localhost:3000/api/users?id=693880ca4cf59d192957f3c4
+DELETE http://localhost:3000/api/users?id=693ad15f685ceb7d3addc075
 
 ### Bookings API - create
 POST http://localhost:3000/api/bookings
 Content-Type: application/json
 
 {
-	"heal": "REPLACE_WITH_HEAL_ID",
-	"firstName": "Katarina",
-	"lastName": "Borgman",
-	"address": { "street": "Fritzbergsvägen 1", "city": "Stockholm", "postalCode": "412 52" },
+	"heal": "693869152bb3191e14103e29",
+	"firstName": "Andreas",
+	"lastName": "Fagerlund",
+	"address": { "street": "Kalendervägen 107D", "city": "Göteborg", "postalCode": "412 52" },
 	"phone": "031-12 34 56",
 	"email": "hello@letitheal.se",
 	"scheduledAt": "2025-12-20T10:00:00.000Z",
-	"mode": "onsite",
+	"mode": "online",
 	"termsAccepted": true
 }
 
@@ -87,15 +92,20 @@ Content-Type: application/json
 GET http://localhost:3000/api/bookings
 
 ### Bookings API - update (replace <BOOKING_ID>)
-PUT http://localhost:3000/api/bookings?id=REPLACE_WITH_BOOKING_ID
-	"heal": "REPLACE_WITH_REAL_HEAL_ID",
+PUT http://localhost:3000/api/bookings?id=693ad727685ceb7d3addc091
+Content-Type: application/json
 
 {
+	"firstName": "Andreas",
+	"lastName": "Jönsson",
 	"address": { "street": "Kalendervägen 107D", "city": "Göteborg", "postalCode": "412 52" },
+	"phone": "031-78 90 12",
+	"email": "mcshaffa@gmail.com",
 	"mode": "online",
-	"scheduledAt": "2025-12-21T11:00:00.000Z"
-	"scheduledAt": "2025-12-20T10:00:00.000Z",
+	"scheduledAt": "2025-12-21T11:00:00.000Z",
+	"status": "confirmed"
+}
 
 ### Bookings API - delete (replace <BOOKING_ID>)
-DELETE http://localhost:3000/api/bookings?id=REPLACE_WITH_BOOKING_ID
+DELETE http://localhost:3000/api/bookings?id=693ad727685ceb7d3addc091
 

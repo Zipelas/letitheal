@@ -21,6 +21,7 @@ export async function POST(req: NextRequest) {
     address?: { street?: string; city?: string; postalCode?: string };
     phone?: string;
     termsAccepted?: boolean;
+    role?: 'user' | 'admin';
   };
 
   if (!body) {
@@ -35,6 +36,7 @@ export async function POST(req: NextRequest) {
     address,
     phone,
     termsAccepted,
+    role,
   } = body;
 
   if (!email)
@@ -73,7 +75,7 @@ export async function POST(req: NextRequest) {
     lastName,
     address,
     phone,
-    role: 'user',
+    role: role === 'admin' ? 'admin' : 'user',
     termsAccepted: true,
     termsAcceptedAt: new Date(),
   });
