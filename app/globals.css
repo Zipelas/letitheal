@@ -59,6 +59,18 @@ main {
   src: url('/logo.png');
 }
 
+.login-button {
+  background-color: #2e7d32;
+  color: #f0fff0;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-family: var(--font-inter-sans-serif);
+}
+
+.login-button:hover {
+  background-color: #174f2a;
+}
+
 /* Headings and paragraphs */
 h1 {
   font-size: 3rem; /* mobile base <640px */
