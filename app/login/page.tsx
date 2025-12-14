@@ -21,8 +21,8 @@ export default function LoginPage() {
   };
 
   return (
-    <section className='max-w-md mx-auto p-4'>
-      <h1 className='text-2xl font-semibold mb-4'>Logga in</h1>
+    <section className='border-2 border-[#2e7d32] rounded-xl max-w-md mx-auto p-4 mt-4'>
+      <h1 className='!text-2xl sm:!text-3xl font-semibold mb-4'>Logga in</h1>
       <form
         onSubmit={onSubmit}
         className='flex flex-col gap-3'>
@@ -32,7 +32,7 @@ export default function LoginPage() {
             type='email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className='border rounded p-2'
+            className='border border-[#2e7d32] rounded-md p-2'
             required
           />
         </label>
@@ -42,7 +42,7 @@ export default function LoginPage() {
             type='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className='border rounded p-2'
+            className='border border-[#2e7d32] rounded-md p-2'
             required
           />
         </label>
