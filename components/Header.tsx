@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import Button from './Button';
+import AuthButton from './AuthButton';
 
 const Header = () => {
   return (
@@ -38,9 +38,7 @@ const Header = () => {
             className='text-inter-sans-serif font-medium p-1 sm:p-4'>
             Boka
           </Link>
-          <Button className='login-button text-inter-sans-serif font-medium'>
-            Logga in
-          </Button>
+          <AuthButton />
         </ul>
       </nav>
     </header>
