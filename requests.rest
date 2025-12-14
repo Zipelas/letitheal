@@ -39,13 +39,13 @@ POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
-	"firstName": "Ina",
+	"firstName": "Andreas",
 	"lastName": "Fagerlund",
 	"address": { "street": "Kalendervägen 107D", "city": "Göteborg", "postalCode": "412 52" },
 	"phone": "031-12 34 56",
-	"email": "katarina.borgman@gmail.com",
+	"email": "mcshaffa@gmail.com",
 	"role": "admin",
-	"password": "Ina!1234",	
+	"password": "Shaffa1234",	
 	"termsAccepted": true
 }
 
@@ -71,7 +71,7 @@ Content-Type: application/json
 # }
 
 ### Users API - delete (replace <USER_ID>)
-DELETE http://localhost:3000/api/users?id=693bd762685ceb7d3addc0a5
+DELETE http://localhost:3000/api/users?id=693ad31f685ceb7d3addc07e
 
 ### Bookings API - create
 POST http://localhost:3000/api/bookings
