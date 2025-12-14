@@ -72,7 +72,7 @@ main {
 }
 
 .logout-button {
-  background-color: #BB1716;
+  background-color: #bb1716;
   color: #f0fff0;
   padding: 0.5rem 1rem;
   border-radius: 5px;
@@ -80,7 +80,7 @@ main {
 }
 
 .logout-button:hover {
-  background-color: #7a0f0e;
+  background-color: #980e0e;
 }
 
 /* Headings and paragraphs */
