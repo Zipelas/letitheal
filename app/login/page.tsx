@@ -21,7 +21,7 @@ export default function LoginPage() {
   };
 
   return (
-    <main className='max-w-md mx-auto p-4'>
+    <section className='max-w-md mx-auto p-4'>
       <h1 className='text-2xl font-semibold mb-4'>Logga in</h1>
       <form
         onSubmit={onSubmit}
@@ -53,6 +53,6 @@ export default function LoginPage() {
           Logga in
         </button>
       </form>
-    </main>
+    </section>
   );
 }
