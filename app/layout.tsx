@@ -1,5 +1,6 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import Providers from '@/components/Providers';
 import type { Metadata } from 'next';
 import { Inter, Quicksand, Tangerine } from 'next/font/google';
 import './globals.css';
@@ -37,9 +38,11 @@ export default function RootLayout({
     <html lang='sv'>
       <body
         className={`${QuicksandSansSerif.variable} ${InterSansSerif.variable} ${TangerineCalligraphy.variable} min-h-screen antialiased`}>
-        <Header />
-        <main className='bg-[#f0fff0]'>{children}</main>
-        <Footer />
+        <Providers>
+          <Header />
+          <main className='bg-[#f0fff0]'>{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
