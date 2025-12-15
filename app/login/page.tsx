@@ -96,6 +96,7 @@ export default function LoginPage() {
                 <input
                   name='firstName'
                   className='border border-[#2e7d32] rounded-md p-2'
+                  placeholder='Peter'
                 />
               </label>
               <label className='flex flex-col'>
@@ -103,8 +104,35 @@ export default function LoginPage() {
                 <input
                   name='lastName'
                   className='border border-[#2e7d32] rounded-md p-2'
+                  placeholder='Andersson'
                 />
               </label>
+              <label className='flex flex-col'>
+                <span className='mb-1'>Gatuadress</span>
+                <input
+                  name='street'
+                  className='border border-[#2e7d32] rounded-md p-2'
+                  placeholder='Vasagatan 7'
+                />
+              </label>
+              <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+                <label className='flex flex-col'>
+                  <span className='mb-1'>Postnummer</span>
+                  <input
+                    name='postalCode'
+                    className='border border-[#2e7d32] rounded-md p-2'
+                    placeholder='131 98'
+                  />
+                </label>
+                <label className='flex flex-col'>
+                  <span className='mb-1'>Stad</span>
+                  <input
+                    name='city'
+                    className='border border-[#2e7d32] rounded-md p-2'
+                    placeholder='Stockholm'
+                  />
+                </label>
+              </div>
               <label className='flex flex-col'>
                 <span className='mb-1'>E-post</span>
                 <input
@@ -112,6 +140,7 @@ export default function LoginPage() {
                   type='email'
                   required
                   className='border border-[#2e7d32] rounded-md p-2'
+                  placeholder='exempel@gmail.com'
                 />
               </label>
               <label className='flex flex-col'>
@@ -121,6 +150,7 @@ export default function LoginPage() {
                   type='password'
                   required
                   className='border border-[#2e7d32] rounded-md p-2'
+                  placeholder='********'
                 />
               </label>
               <label className='inline-flex items-center gap-2'>
