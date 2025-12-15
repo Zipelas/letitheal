@@ -88,30 +88,61 @@ export default function LoginPage() {
         {showRegister && (
           <div className='mt-6 border-t pt-6'>
             <h2 className='text-xl font-semibold mb-3'>Skapa konto</h2>
-            <form onSubmit={onRegister} className='flex flex-col gap-3'>
+            <form
+              onSubmit={onRegister}
+              className='flex flex-col gap-3'>
               <label className='flex flex-col'>
                 <span className='mb-1'>Förnamn</span>
-                <input name='firstName' className='border border-[#2e7d32] rounded-md p-2' />
+                <input
+                  name='firstName'
+                  className='border border-[#2e7d32] rounded-md p-2'
+                />
               </label>
               <label className='flex flex-col'>
                 <span className='mb-1'>Efternamn</span>
-                <input name='lastName' className='border border-[#2e7d32] rounded-md p-2' />
+                <input
+                  name='lastName'
+                  className='border border-[#2e7d32] rounded-md p-2'
+                />
               </label>
               <label className='flex flex-col'>
                 <span className='mb-1'>E-post</span>
-                <input name='email' type='email' required className='border border-[#2e7d32] rounded-md p-2' />
+                <input
+                  name='email'
+                  type='email'
+                  required
+                  className='border border-[#2e7d32] rounded-md p-2'
+                />
               </label>
               <label className='flex flex-col'>
                 <span className='mb-1'>Lösenord</span>
-                <input name='password' type='password' required className='border border-[#2e7d32] rounded-md p-2' />
+                <input
+                  name='password'
+                  type='password'
+                  required
+                  className='border border-[#2e7d32] rounded-md p-2'
+                />
               </label>
               <label className='inline-flex items-center gap-2'>
-                <input name='termsAccepted' type='checkbox' className='accent-[#2e7d32]' />
+                <input
+                  name='termsAccepted'
+                  type='checkbox'
+                  className='accent-[#2e7d32]'
+                />
                 <span>Jag godkänner villkoren</span>
               </label>
               <div className='flex gap-3'>
-                <button type='submit' className='login-button font-medium'>Registrera</button>
-                <button type='button' className='font-medium underline' onClick={() => setShowRegister(false)}>Avbryt</button>
+                <button
+                  type='submit'
+                  className='login-button font-medium'>
+                  Registrera
+                </button>
+                <button
+                  type='button'
+                  className='font-medium underline'
+                  onClick={() => setShowRegister(false)}>
+                  Avbryt
+                </button>
               </div>
             </form>
           </div>
