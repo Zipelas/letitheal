@@ -1,8 +1,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import AuthButton from './AuthButton';
+import { getSession } from '@/lib/auth';
 
-const Header = () => {
+const Header = async () => {
+  let session: any = null;
+  try {
+    session = await getSession();
+  } catch (e) {
+    // If JWT decryption fails (e.g., secret changed), treat as signed-out
+    session = null;
+  }
   return (
     <header className='site-header flex flex-row items-center justify-between px-4 shadow-sm'>
       <div className='flex items-center gap-1'>
@@ -33,11 +41,13 @@ const Header = () => {
             className='text-inter-sans-serif font-medium p-1 sm:p-4'>
             Online
           </Link>
-          <Link
-            href='/booking'
-            className='text-inter-sans-serif font-medium p-1 sm:p-4'>
-            Boka
-          </Link>
+          {session && (
+            <Link
+              href='/booking'
+              className='text-inter-sans-serif font-medium p-1 sm:p-4'>
+              Boka
+            </Link>
+          )}
           <AuthButton />
         </ul>
       </nav>
