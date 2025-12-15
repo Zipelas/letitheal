@@ -1,10 +1,11 @@
 import { getSession } from '@/lib/auth';
+import type { Session } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
 import AuthButton from './AuthButton';
 
 const Header = async () => {
-  let session: { user?: { name?: string; email?: string } } | null = null;
+  let session: Session | null = null;
   try {
     session = await getSession();
   } catch {
