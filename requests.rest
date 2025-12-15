@@ -1,0 +1,112 @@
+### Heals API - create (slug auto-generated from title)
+POST http://localhost:3000/api/heals
+Content-Type: application/json
+
+{
+	"title": "Online Healing",
+	"description": "A relaxing onsite healing session.",
+	"overview": "This session provides a comprehensive healing experience.",
+	"imageUrl": "/images/hero-1.png",
+	"location": "Skånegatan 17, 412 52 Göteborg",
+	"date": "2025-12-15",
+	"time": "10:00",
+	"price": 499,
+	"mode": "onsite",
+	"tags": ["healing", "relaxation", "wellness"]
+}
+
+### Heals API - list
+GET http://localhost:3000/api/heals
+
+### Heals API - update (replace <HEAL_ID>)
+PUT http://localhost:3000/api/heals?id=693c186183f590d849270ccd
+Content-Type: application/json
+
+{
+	"title": "Updating heal 2",
+    "description": "Let it Heal är en plats där du kan hitta information om healing, framför allt Reiki som är en holistisk japansk behandlingsmetod som syftar till stressreducering, avslappning och andlig läkning.",
+	"price": 699
+}
+
+### Heals API - get by slug (example)
+GET http://localhost:3000/api/heals?slug=onsite-healing-session
+
+### Heals API - delete (replace <HEAL_ID>)
+DELETE http://localhost:3000/api/heals?id=693c09a983f590d849270cc4
+
+### Users API - create
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+	"firstName": "Ina",
+	"lastName": "Fagerlund",
+	"address": { "street": "Kalendervägen 107D", "city": "Göteborg", "postalCode": "412 52" },
+	"phone": "031-12 34 56",
+	"email": "katarina.borgman@gmail.com",
+	"role": "admin",
+	"password": "Ina!1234",	
+	"termsAccepted": true
+}
+
+### Users API - list
+GET http://localhost:3000/api/users
+
+### Users API - update (replace <USER_ID>)
+PUT http://localhost:3000/api/users?id=693c19da83f590d849270cd8
+Content-Type: application/json
+
+{
+	"firstName": "Ina",
+	"lastName": "Jönsson",
+	"address": { "street": "Fritzbergsvägen 1", "city": "Vallentund", "postalCode": "131 23" },
+	"phone": "031-78 90 12",
+	"email": "katarina.borgman@gmail.com",
+	"role": "user"
+}
+# Optional password reset example:
+# PUT http://localhost:3000/api/users?id=693ad402685ceb7d3addc085
+# {
+#   "password": "NewStrongPass123"
+# }
+
+### Users API - delete (replace <USER_ID>)
+DELETE http://localhost:3000/api/users?id=693bd762685ceb7d3addc0a5
+
+### Bookings API - create
+POST http://localhost:3000/api/bookings
+Content-Type: application/json
+
+{
+	"heal": "693869152bb3191e14103e29",
+	"firstName": "Andreas",
+	"lastName": "Fagerlund",
+	"address": { "street": "Kalendervägen 107D", "city": "Göteborg", "postalCode": "412 52" },
+	"phone": "031-12 34 56",
+	"email": "hello@letitheal.se",
+	"scheduledAt": "2025-12-20T10:00:00.000Z",
+	"mode": "online",
+	"termsAccepted": true
+}
+
+### Bookings API - list
+GET http://localhost:3000/api/bookings
+
+### Bookings API - update (replace <BOOKING_ID>)
+PUT http://localhost:3000/api/bookings?id=693c1a9d83f590d849270ce3
+Content-Type: application/json
+
+{
+	"firstName": "Ina",
+	"lastName": "Jönsson",
+	"address": { "street": "Fritzbergsvägen 1", "city": "Vallentuna", "postalCode": "131 23" },
+	"phone": "031-78 90 12",
+	"email": "katarina.borgman@gmail.com",
+	"mode": "online",
+	"scheduledAt": "2025-12-21T11:00:00.000Z",
+	"status": "confirmed"
+}
+
+### Bookings API - delete (replace <BOOKING_ID>)
+DELETE http://localhost:3000/api/bookings?id=693bd844685ceb7d3addc0b2
+
