@@ -6,7 +6,16 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { email, password, firstName, lastName, termsAccepted } = body || {};
+    const {
+      email,
+      password,
+      firstName,
+      lastName,
+      street,
+      postalCode,
+      city,
+      termsAccepted,
+    } = body || {};
 
     if (!email || !password) {
       return NextResponse.json(
@@ -31,6 +40,11 @@ export async function POST(req: Request) {
       email,
       firstName,
       lastName,
+      address: {
+        street,
+        city,
+        postalCode,
+      },
       termsAccepted: !!termsAccepted,
       termsAcceptedAt: termsAccepted ? new Date() : undefined,
       role: 'user',
