@@ -48,7 +48,7 @@ const UserSchema = new Schema<UserDoc>(
   { timestamps: true }
 );
 
-UserSchema.index({ email: 1 }, { unique: true });
+// Index handled via `unique: true` on the email field; avoid duplicate schema.index
 
 // In dev, Next.js HMR can keep an old compiled model.
 // Ensure we re-register the model when schema changes.
