@@ -1,13 +1,13 @@
+import { getSession } from '@/lib/auth';
 import Image from 'next/image';
 import Link from 'next/link';
 import AuthButton from './AuthButton';
-import { getSession } from '@/lib/auth';
 
 const Header = async () => {
-  let session: any = null;
+  let session: { user?: { name?: string; email?: string } } | null = null;
   try {
     session = await getSession();
-  } catch (e) {
+  } catch {
     // If JWT decryption fails (e.g., secret changed), treat as signed-out
     session = null;
   }
