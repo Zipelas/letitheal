@@ -101,7 +101,9 @@ export default function LoginPage() {
         </form>
         {showRegister && (
           <div className='mt-6 border-t pt-6'>
-            <h2 className='text-xl font-semibold mb-3'>Skapa konto</h2>
+            <h2 className='text-2xl sm:text-3xl font-semibold mb-3'>
+              Skapa konto
+            </h2>
             <form
               onSubmit={onRegister}
               className='flex flex-col gap-3'>
