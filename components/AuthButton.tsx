@@ -1,12 +1,14 @@
 'use client';
 
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 type Props = { className?: string };
 
 export default function AuthButton({ className = '' }: Props) {
   const { data: session, status } = useSession();
   const isAuthed = !!session;
+  const router = useRouter();
 
   if (status === 'loading') {
     return (
@@ -29,7 +31,7 @@ export default function AuthButton({ className = '' }: Props) {
     <button
       type='button'
       className={`login-button text-inter-sans-serif font-medium ${className}`}
-      onClick={() => signIn()}>
+      onClick={() => router.push('/login')}>
       Logga in
     </button>
   );

@@ -4,6 +4,8 @@ import argon2 from 'argon2';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 
+export const runtime = 'nodejs';
+
 export const authOptions: NextAuthOptions = {
   session: { strategy: 'jwt' },
   providers: [
