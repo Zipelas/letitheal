@@ -13,7 +13,7 @@ const page = () => {
           height={400}
           className='hero-1 mx-auto my-4 rounded-lg shadow-lg'
         />
-        <p className='text-sm sm:text-base text-center text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
           Välkommen till Let it Heal! Här kan du hitta information om healing,
           med fokus på Reiki, en holistisk japansk behandlingsmetod som syftar
           till stressreducering, avslappning och andlig läkning.
@@ -31,7 +31,7 @@ const page = () => {
           height={400}
           className='hero-1 mx-auto my-4 rounded-lg shadow-lg'
         />
-        <p className='text-sm sm:text-base text-center text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim ea,
           soluta fugit molestias iusto aliquam id deleniti tempora minus omnis
           adipisci praesentium officiis repudiandae earum cumque pariatur vel!
@@ -49,7 +49,7 @@ const page = () => {
           height={400}
           className='hero-1 mx-auto my-4 rounded-lg shadow-lg'
         />
-        <p className='text-sm sm:text-base text-center text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim ea,
           soluta fugit molestias iusto aliquam id deleniti tempora minus omnis
           adipisci praesentium officiis repudiandae earum cumque pariatur vel!
