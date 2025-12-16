@@ -51,15 +51,17 @@ export default function LoginPage() {
   };
 
   return (
-    <div className='fixed inset-0 z-30 flex items-center justify-center backdrop-blur-sm bg-black/20 overflow-y-auto'>
-      <section className='relative border-2 border-[#2e7d32] rounded-xl max-w-md w-full mx-auto p-6 bg-(--background) shadow-lg my-8'>
-        <button
-          aria-label='Stäng'
-          title='Stäng'
-          onClick={() => router.back()}
-          className='absolute right-3 top-3 h-8 w-8 rounded-full bg-[#BB1716] text-white flex items-center justify-center leading-none hover:bg-[#980e0e] focus:outline-none focus:ring-2 focus:ring-red-500'>
-          ×
-        </button>
+    <div className='fixed inset-0 z-30 flex items-start justify-center backdrop-blur-sm bg-black/20 overflow-y-auto p-4'>
+      <section className='relative border-2 border-[#2e7d32] rounded-xl max-w-md w-full mx-auto p-6 bg-(--background) shadow-lg my-8 max-h-[90vh] overflow-y-auto'>
+        <div className='sticky top-0 z-10 -mt-2 -mr-2 mb-2 flex justify-end bg-transparent'>
+          <button
+            aria-label='Stäng'
+            title='Stäng'
+            onClick={() => router.back()}
+            className='h-8 w-8 rounded-full bg-[#BB1716] text-white flex items-center justify-center leading-none hover:bg-[#980e0e] focus:outline-none focus:ring-2 focus:ring-red-500'>
+            ×
+          </button>
+        </div>
         <h1 className='text-2xl sm:text-3xl font-semibold mb-4'>Logga in</h1>
         <form
           onSubmit={onSubmit}
