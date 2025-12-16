@@ -55,7 +55,8 @@ export async function POST(req: Request) {
       { id: user._id, email: user.email },
       { status: 201 }
     );
-  } catch (err) {
+  } catch (error) {
+    console.error('Register API error:', error);
     return NextResponse.json({ error: 'Serverfel' }, { status: 500 });
   }
 }
