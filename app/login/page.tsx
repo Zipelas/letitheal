@@ -175,6 +175,10 @@ export default function LoginPage() {
                 />
                 <span>Jag godkänner villkoren</span>
               </label>
+              <p className='text-sm text-gray-600 -mt-1'>
+                Jag godkänner villkoren och samtycker till att mina
+                personuppgifter lagras i en databas och behandlas enligt GDPR.
+              </p>
               <div className='flex gap-3'>
                 <button
                   type='submit'
