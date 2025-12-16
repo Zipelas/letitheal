@@ -1,18 +1,12 @@
 // lib/mongoose.ts
 import mongoose, { Mongoose } from 'mongoose';
 
-const MONGODB_URI: string = getRequiredEnv('MONGODB_URI');
-
 function getRequiredEnv(key: string): string {
   const value = process.env[key];
   if (!value) {
     throw new Error(`❌ Missing ${key} in environment variables`);
   }
   return value;
-}
-
-if (!MONGODB_URI) {
-  throw new Error('❌ Missing MONGODB_URI in environment variables');
 }
 
 /**
@@ -48,6 +42,7 @@ export async function dbConnect(): Promise<Mongoose> {
   }
 
   if (!cache.promise) {
+    const MONGODB_URI = getRequiredEnv('MONGODB_URI');
     cache.promise = mongoose
       .connect(MONGODB_URI, {
         bufferCommands: false,
