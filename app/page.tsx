@@ -13,7 +13,7 @@ const page = () => {
           height={400}
           className='hero-1 mx-auto my-4 rounded-lg shadow-lg'
         />
-        <p className='text-center text-color m-4 px-4'>
+        <p className='text-sm sm:text-base text-center text-color m-4 px-4'>
           Välkommen till Let it Heal! Här kan du hitta information om healing,
           med fokus på Reiki, en holistisk japansk behandlingsmetod som syftar
           till stressreducering, avslappning och andlig läkning.
@@ -21,7 +21,9 @@ const page = () => {
       </section>
 
       <section id='onSite'>
-        <h2 className='font-bold text-center'>Healing på plats</h2>
+        <h2 className='font-bold text-center text-3xl sm:text-4xl'>
+          Healing på plats
+        </h2>
         <Image
           src='/images/hero-1.png'
           alt='Hero image showing a peaceful healing scene'
@@ -29,7 +31,7 @@ const page = () => {
           height={400}
           className='hero-1 mx-auto my-4 rounded-lg shadow-lg'
         />
-        <p className='text-center text-color m-4 px-4'>
+        <p className='text-sm sm:text-base text-center text-color m-4 px-4'>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim ea,
           soluta fugit molestias iusto aliquam id deleniti tempora minus omnis
           adipisci praesentium officiis repudiandae earum cumque pariatur vel!
@@ -37,7 +39,9 @@ const page = () => {
         </p>
       </section>
       <section id='online'>
-        <h2 className='font-bold text-center'>Healing online</h2>
+        <h2 className='font-bold text-center text-3xl sm:text-4xl'>
+          Healing online
+        </h2>
         <Image
           src='/images/hero-1.png'
           alt='Hero image showing a peaceful healing scene'
@@ -45,7 +49,7 @@ const page = () => {
           height={400}
           className='hero-1 mx-auto my-4 rounded-lg shadow-lg'
         />
-        <p className='text-center text-color m-4 px-4'>
+        <p className='text-sm sm:text-base text-center text-color m-4 px-4'>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim ea,
           soluta fugit molestias iusto aliquam id deleniti tempora minus omnis
           adipisci praesentium officiis repudiandae earum cumque pariatur vel!
