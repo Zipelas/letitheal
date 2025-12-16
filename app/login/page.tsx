@@ -40,15 +40,18 @@ export default function LoginPage() {
       }
       setError(null);
       setShowRegister(false);
-    } catch (err) {
-      setError('Serverfel vid registrering');
+    } catch (error) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Registrering misslyckades:', error);
+      }
+      setError('Något gick fel. Försök igen.');
     }
   };
 
   return (
     <div className='fixed inset-0 z-30 flex items-center justify-center backdrop-blur-sm bg-black/20 overflow-y-auto'>
-      <section className='border-2 border-[#2e7d32] rounded-xl max-w-md w-full mx-auto p-6 bg-[var(--background)] shadow-lg my-8'>
-        <h1 className='!text-2xl sm:!text-3xl font-semibold mb-4'>Logga in</h1>
+      <section className='border-2 border-[#2e7d32] rounded-xl max-w-md w-full mx-auto p-6 bg-(--background) shadow-lg my-8'>
+        <h1 className='text-2xl sm:text-3xl font-semibold mb-4'>Logga in</h1>
         <form
           onSubmit={onSubmit}
           className='flex flex-col gap-3'>
