@@ -2,10 +2,33 @@ import { dbConnect } from '@/lib/mongoose';
 import User from '@/models/User';
 import argon2 from 'argon2';
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
+
+const RegisterSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .toLowerCase()
+    .email('Ogiltig e-postadress'),
+  password: z
+    .string()
+    .min(8, 'Lösenordet måste vara minst 8 tecken'),
+  firstName: z.string().trim().optional(),
+  lastName: z.string().trim().optional(),
+  street: z.string().trim().optional(),
+  postalCode: z.string().trim().optional(),
+  city: z.string().trim().optional(),
+  termsAccepted: z.coerce.boolean(),
+});
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const json = await req.json();
+    const parsed = RegisterSchema.safeParse(json);
+    if (!parsed.success) {
+      const firstErr = parsed.error.errors[0]?.message || 'Ogiltig data';
+      return NextResponse.json({ error: firstErr }, { status: 400 });
+    }
     const {
       email,
       password,
@@ -15,11 +38,11 @@ export async function POST(req: Request) {
       postalCode,
       city,
       termsAccepted,
-    } = body || {};
+    } = parsed.data;
 
-    if (!email || !password) {
+    if (!termsAccepted) {
       return NextResponse.json(
-        { error: 'Email och lösenord krävs' },
+        { error: 'Du måste godkänna villkoren' },
         { status: 400 }
       );
     }
