@@ -1,7 +1,17 @@
+import { getSession } from '@/lib/auth';
+import type { Session } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
+import AuthButton from './AuthButton';
 
-const Header = () => {
+const Header = async () => {
+  let session: Session | null = null;
+  try {
+    session = await getSession();
+  } catch {
+    // If JWT decryption fails (e.g., secret changed), treat as signed-out
+    session = null;
+  }
   return (
     <header className='site-header flex flex-row items-center justify-between px-4 shadow-sm'>
       <div className='flex items-center gap-1'>
@@ -21,27 +31,25 @@ const Header = () => {
         </Link>
       </div>
       <nav>
-        <ul>
+        <ul className='flex items-center gap-4'>
           <Link
             href='/#onSite'
-            className='text-inter-sans-serif p-1 sm:p-4'>
+            className='text-inter-sans-serif font-medium p-1 sm:p-4'>
             På plats
           </Link>
           <Link
             href='/#online'
-            className='text-inter-sans-serif p-1 sm:p-4'>
+            className='text-inter-sans-serif font-medium p-1 sm:p-4'>
             Online
           </Link>
-          <Link
-            href='/booking'
-            className='text-inter-sans-serif p-1 sm:p-4'>
-            Boka
-          </Link>
-          <Link
-            href='/reviews'
-            className='text-inter-sans-serif p-1 sm:p-4'>
-            Recensioner
-          </Link>
+          {session && (
+            <Link
+              href='/booking'
+              className='text-inter-sans-serif font-medium p-1 sm:p-4'>
+              Boka
+            </Link>
+          )}
+          <AuthButton />
         </ul>
       </nav>
     </header>

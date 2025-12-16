@@ -1,11 +1,5 @@
 // lib/mongoose.ts
-import dotenv from 'dotenv';
 import mongoose, { Mongoose } from 'mongoose';
-
-// Load env in dev/local; Next.js loads env automatically, but this is safe for scripts
-if (process.env.NODE_ENV !== 'production') {
-  dotenv.config();
-}
 
 const MONGODB_URI: string = getRequiredEnv('MONGODB_URI');
 
