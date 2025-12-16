@@ -1,9 +1,11 @@
 'use client';
 
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function LoginPage() {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -50,7 +52,14 @@ export default function LoginPage() {
 
   return (
     <div className='fixed inset-0 z-30 flex items-center justify-center backdrop-blur-sm bg-black/20 overflow-y-auto'>
-      <section className='border-2 border-[#2e7d32] rounded-xl max-w-md w-full mx-auto p-6 bg-(--background) shadow-lg my-8'>
+      <section className='relative border-2 border-[#2e7d32] rounded-xl max-w-md w-full mx-auto p-6 bg-(--background) shadow-lg my-8'>
+        <button
+          aria-label='Stäng'
+          title='Stäng'
+          onClick={() => router.back()}
+          className='absolute right-3 top-3 h-8 w-8 rounded-full bg-[#BB1716] text-white flex items-center justify-center leading-none hover:bg-[#980e0e] focus:outline-none focus:ring-2 focus:ring-red-500'>
+          ×
+        </button>
         <h1 className='text-2xl sm:text-3xl font-semibold mb-4'>Logga in</h1>
         <form
           onSubmit={onSubmit}
