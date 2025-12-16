@@ -3,6 +3,18 @@
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { z } from 'zod';
+
+const RegisterSchema = z.object({
+  email: z.string().trim().toLowerCase().email('Ogiltig e-postadress'),
+  password: z.string().min(8, 'Lösenordet måste vara minst 8 tecken'),
+  firstName: z.string().trim().optional(),
+  lastName: z.string().trim().optional(),
+  street: z.string().trim().optional(),
+  postalCode: z.string().trim().optional(),
+  city: z.string().trim().optional(),
+  termsAccepted: z.coerce.boolean(),
+});
 
 export default function LoginPage() {
   const router = useRouter();
@@ -29,11 +41,21 @@ export default function LoginPage() {
     const form = e.currentTarget;
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
+    const parsed = RegisterSchema.safeParse(payload);
+    if (!parsed.success) {
+      const firstErr = parsed.error.errors[0]?.message || 'Ogiltig data';
+      setError(firstErr);
+      return;
+    }
+    if (!parsed.data.termsAccepted) {
+      setError('Du måste godkänna villkoren');
+      return;
+    }
     try {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(parsed.data),
       });
       if (!res.ok) {
         const data = await res.json();

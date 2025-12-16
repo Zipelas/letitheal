@@ -5,14 +5,8 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
 const RegisterSchema = z.object({
-  email: z
-    .string()
-    .trim()
-    .toLowerCase()
-    .email('Ogiltig e-postadress'),
-  password: z
-    .string()
-    .min(8, 'Lösenordet måste vara minst 8 tecken'),
+  email: z.string().trim().toLowerCase().email('Ogiltig e-postadress'),
+  password: z.string().min(8, 'Lösenordet måste vara minst 8 tecken'),
   firstName: z.string().trim().optional(),
   lastName: z.string().trim().optional(),
   street: z.string().trim().optional(),
