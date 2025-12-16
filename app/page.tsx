@@ -3,7 +3,7 @@ const page = () => {
   return (
     <>
       <section>
-        <h1 className='text-tangerine-calligraphy text-color font-bold text-center'>
+        <h1 className='text-tangerine-calligraphy text-color text-5xl sm:text-8xl font-bold text-center mt-6'>
           Let it Heal
         </h1>
         <Image
