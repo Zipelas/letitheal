@@ -85,7 +85,6 @@ main {
 
 /* Headings and paragraphs */
 h1 {
-  font-size: 3rem; /* mobile base <640px */
   font-family: var(--font-quicksand-sans-serif);
 }
 h2 {
@@ -118,9 +117,6 @@ footer {
     padding-top: 72px;
   }
 
-  h1 {
-    font-size: 6rem;
-  }
   h2 {
     font-size: 2.3rem;
   }
