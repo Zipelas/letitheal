@@ -3,8 +3,22 @@ import User from '@/models/User';
 import argon2 from 'argon2';
 import { NextRequest, NextResponse } from 'next/server';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
+function getErrInfo(err: unknown): { name?: string; message?: string } {
+  const anyErr = err as { name?: string; message?: string };
+  return { name: anyErr?.name, message: anyErr?.message };
+}
+
 export async function GET() {
-  await dbConnect();
+  try {
+    await dbConnect();
+  } catch (e: unknown) {
+    const { name, message } = getErrInfo(e);
+    console.error('Users API GET DB connect error', { name, message });
+    return NextResponse.json({ error: 'DB connect error' }, { status: 500 });
+  }
   const users = await User.find({}, { passwordHash: 0 })
     .sort({ createdAt: -1 })
     .lean();
@@ -12,7 +26,13 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  await dbConnect();
+  try {
+    await dbConnect();
+  } catch (e: unknown) {
+    const { name, message } = getErrInfo(e);
+    console.error('Users API POST DB connect error', { name, message });
+    return NextResponse.json({ error: 'DB connect error' }, { status: 500 });
+  }
   const body = (await req.json().catch(() => null)) as null | {
     email?: string;
     password?: string;
@@ -96,7 +116,13 @@ export async function POST(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
-  await dbConnect();
+  try {
+    await dbConnect();
+  } catch (e: unknown) {
+    const { name, message } = getErrInfo(e);
+    console.error('Users API PUT DB connect error', { name, message });
+    return NextResponse.json({ error: 'DB connect error' }, { status: 500 });
+  }
   const url = new URL(req.url);
   const idFromQuery = url.searchParams.get('id');
   const body = (await req.json().catch(() => ({}))) as Partial<{
@@ -160,7 +186,13 @@ export async function PUT(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-  await dbConnect();
+  try {
+    await dbConnect();
+  } catch (e: unknown) {
+    const { name, message } = getErrInfo(e);
+    console.error('Users API DELETE DB connect error', { name, message });
+    return NextResponse.json({ error: 'DB connect error' }, { status: 500 });
+  }
   const url = new URL(req.url);
   const id = url.searchParams.get('id');
   if (!id || typeof id !== 'string') {
