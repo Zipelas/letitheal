@@ -1,4 +1,4 @@
-### Heals API - create (slug auto-generated from title)
+### Heals API - CREATE
 POST http://localhost:3000/api/heals
 Content-Type: application/json
 
@@ -15,15 +15,15 @@ Content-Type: application/json
 	"tags": ["healing", "relaxation", "wellness"]
 }
 
-### Heals API - list
+### Heals API - GET
 GET http://localhost:3000/api/heals
 
-### Heals API - update (replace <HEAL_ID>)
-PUT http://localhost:3000/api/heals?id=693c186183f590d849270ccd
+### Heals API - PUT
+PUT http://localhost:3000/api/heals?id=69428c3e660ee9388e5f3133
 Content-Type: application/json
 
 {
-	"title": "Updating heal 2",
+	"title": "Updating heal 3",
     "description": "Let it Heal är en plats där du kan hitta information om healing, framför allt Reiki som är en holistisk japansk behandlingsmetod som syftar till stressreducering, avslappning och andlig läkning.",
 	"price": 699
 }
@@ -31,37 +31,37 @@ Content-Type: application/json
 ### Heals API - get by slug (example)
 GET http://localhost:3000/api/heals?slug=onsite-healing-session
 
-### Heals API - delete (replace <HEAL_ID>)
-DELETE http://localhost:3000/api/heals?id=693c09a983f590d849270cc4
+### Heals API - DELETE
+DELETE http://localhost:3000/api/heals?id=69428c3e660ee9388e5f3133
 
-### Users API - create
+### Users API - CREATE
 POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
 	"firstName": "Andreas",
 	"lastName": "Fagerlund",
-	"address": { "street": "Kalendervägen 107D", "city": "Göteborg", "postalCode": "412 52" },
-	"phone": "031-12 34 56",
+	"address": { "street": "Kalendervägen 1007D", "city": "Göteborg", "postalCode": "41508" },
+	"phone": "031 12 34 56",
 	"email": "mcshaffa@gmail.com",
 	"role": "admin",
 	"password": "Shaffa1234",	
 	"termsAccepted": true
 }
 
-### Users API - list
+### Users API - GET
 GET http://localhost:3000/api/users
 
-### Users API - update (replace <USER_ID>)
-PUT http://localhost:3000/api/users?id=693c19da83f590d849270cd8
+### Users API - PUT
+PUT http://localhost:3000/api/users?id=69428e01660ee9388e5f3142
 Content-Type: application/json
 
 {
 	"firstName": "Ina",
 	"lastName": "Jönsson",
-	"address": { "street": "Fritzbergsvägen 1", "city": "Vallentund", "postalCode": "131 23" },
+	"address": { "street": "Fritzbergsvägen 1", "city": "Vallentund", "postalCode": "13123" },
 	"phone": "031-78 90 12",
-	"email": "katarina.borgman@gmail.com",
+	"email": "ina.jonsson@gmail.com",
 	"role": "user"
 }
 # Optional password reset example:
@@ -70,10 +70,10 @@ Content-Type: application/json
 #   "password": "NewStrongPass123"
 # }
 
-### Users API - delete (replace <USER_ID>)
-DELETE http://localhost:3000/api/users?id=693fe8556c4ab4ed9df343e3
+### Users API - DELETE
+DELETE http://localhost:3000/api/users?id=694294fb660ee9388e5f3161
 
-### Bookings API - create
+### Bookings API - CREATE
 POST http://localhost:3000/api/bookings
 Content-Type: application/json
 
@@ -89,16 +89,16 @@ Content-Type: application/json
 	"termsAccepted": true
 }
 
-### Bookings API - list
+### Bookings API - GET
 GET http://localhost:3000/api/bookings
 
-### Bookings API - update (replace <BOOKING_ID>)
-PUT http://localhost:3000/api/bookings?id=693c1a9d83f590d849270ce3
+### Bookings API - PUT
+PUT http://localhost:3000/api/bookings?id=69428ebc660ee9388e5f314e
 Content-Type: application/json
 
 {
-	"firstName": "Ina",
-	"lastName": "Jönsson",
+	"firstName": "Shaffa",
+	"lastName": "Karalla",
 	"address": { "street": "Fritzbergsvägen 1", "city": "Vallentuna", "postalCode": "131 23" },
 	"phone": "031-78 90 12",
 	"email": "katarina.borgman@gmail.com",
@@ -107,6 +107,6 @@ Content-Type: application/json
 	"status": "confirmed"
 }
 
-### Bookings API - delete (replace <BOOKING_ID>)
-DELETE http://localhost:3000/api/bookings?id=693bd844685ceb7d3addc0b2
+### Bookings API - DELETE
+DELETE http://localhost:3000/api/bookings?id=69428ebc660ee9388e5f314e
 
