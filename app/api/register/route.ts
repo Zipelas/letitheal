@@ -4,6 +4,8 @@ import argon2 from 'argon2';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
+export const runtime = 'nodejs';
+
 const RegisterSchema = z.object({
   email: z.string().trim().toLowerCase().email('Ogiltig e-postadress'),
   password: z.string().min(8, 'Lösenordet måste vara minst 8 tecken'),
