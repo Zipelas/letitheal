@@ -13,6 +13,7 @@ const RegisterSchema = z.object({
   street: z.string().trim().optional(),
   postalCode: z.string().trim().optional(),
   city: z.string().trim().optional(),
+  phone: z.string().trim().optional(),
   termsAccepted: z.coerce.boolean(),
 });
 
@@ -171,6 +172,15 @@ export default function LoginPage() {
                   />
                 </label>
               </div>
+              <label className='flex flex-col'>
+                <span className='mb-1'>Telefon</span>
+                <input
+                  name='phone'
+                  type='tel'
+                  className='border border-[#2e7d32] rounded-md p-2'
+                  placeholder='031-12 34 56'
+                />
+              </label>
               <label className='flex flex-col'>
                 <span className='mb-1'>E-post</span>
                 <input
