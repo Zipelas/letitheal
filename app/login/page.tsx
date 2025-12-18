@@ -13,6 +13,39 @@ const RegisterSchema = z.object({
   street: z.string().trim().optional(),
   postalCode: z.string().trim().optional(),
   city: z.string().trim().optional(),
+  phone: z
+    .string()
+    .trim()
+    .optional()
+    .superRefine((val, ctx) => {
+      if (val && val.length > 0) {
+        const digits = val.replace(/\D/g, '');
+        if (digits.length < 7) {
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Telefonnumret måste innehålla minst 7 siffror',
+          });
+        }
+        if (digits.length > 12) {
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Telefonnumret får innehålla högst 12 siffror',
+          });
+        }
+        if (!/^\+?[\d\s\-()]+$/.test(val)) {
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Ogiltigt telefonnummerformat',
+          });
+        }
+        if (val.includes('+') && !val.startsWith('+')) {
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Plustecken får bara stå först i numret',
+          });
+        }
+      }
+    }),
   termsAccepted: z.coerce.boolean(),
 });
 
@@ -25,6 +58,10 @@ export default function LoginPage() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    if (!email.includes('@')) {
+      setError('E-post måste innehålla @');
+      return;
+    }
     const res = await signIn('credentials', {
       email,
       password,
@@ -74,7 +111,7 @@ export default function LoginPage() {
 
   return (
     <div className='fixed inset-0 z-30 flex items-start justify-center backdrop-blur-sm bg-black/20 overflow-y-auto p-4'>
-      <section className='relative border-2 border-[#2e7d32] rounded-xl max-w-md w-full mx-auto p-6 bg-(--background) shadow-lg my-8 max-h-[90vh] overflow-y-auto'>
+      <section className='relative border-2 border-[#2e7d32] rounded-xl max-w-md w-full mx-auto p-6 text-inter-sans-serif bg-(--background) shadow-lg my-8 max-h-[90vh] overflow-y-auto'>
         <div className='sticky top-0 z-10 -mt-2 -mr-2 mb-2 flex justify-end bg-transparent'>
           <button
             aria-label='Stäng'
@@ -84,7 +121,9 @@ export default function LoginPage() {
             ×
           </button>
         </div>
-        <h1 className='text-2xl sm:text-3xl font-semibold mb-4'>Logga in</h1>
+        <h1 className='text-quicksand-sans-serif text-2xl sm:text-3xl font-semibold mb-4'>
+          Logga in
+        </h1>
         <form
           onSubmit={onSubmit}
           className='flex flex-col gap-3'>
@@ -123,7 +162,7 @@ export default function LoginPage() {
         </form>
         {showRegister && (
           <div className='mt-6 border-t pt-6'>
-            <h2 className='text-2xl sm:text-3xl font-semibold mb-3'>
+            <h2 className='text-quicksand-sans-serif text-2xl sm:text-3xl font-semibold mb-3'>
               Skapa konto
             </h2>
             <form
@@ -171,6 +210,15 @@ export default function LoginPage() {
                   />
                 </label>
               </div>
+              <label className='flex flex-col'>
+                <span className='mb-1'>Telefon</span>
+                <input
+                  name='phone'
+                  type='tel'
+                  className='border border-[#2e7d32] rounded-md p-2'
+                  placeholder='031-12 34 56'
+                />
+              </label>
               <label className='flex flex-col'>
                 <span className='mb-1'>E-post</span>
                 <input

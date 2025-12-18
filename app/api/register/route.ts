@@ -15,8 +15,41 @@ const RegisterSchema = z.object({
   street: z.string().trim().optional(),
   postalCode: z.string().trim().optional(),
   city: z.string().trim().optional(),
+  phone: z
+    .string()
+    .trim()
+    .optional()
+    .superRefine((val, ctx) => {
+      if (val && val.length > 0) {
+        const digits = val.replace(/\D/g, '');
+        if (digits.length < 7) {
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Telefonnumret måste innehålla minst 7 siffror',
+          });
+        }
+        if (!/^\+?[\d\s\-()]+$/.test(val)) {
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Ogiltigt telefonnummerformat',
+          });
+        }
+      }
+    }),
   termsAccepted: z.coerce.boolean(),
 });
+
+function normalizePhone(input: string): string {
+  const trimmed = input.trim();
+  if (!trimmed) return '';
+  let cleaned = trimmed.replace(/[^\d+]/g, '');
+  if (cleaned.startsWith('+')) {
+    cleaned = '+' + cleaned.slice(1).replace(/[^\d]/g, '');
+  } else {
+    cleaned = cleaned.replace(/[^\d]/g, '');
+  }
+  return cleaned;
+}
 
 export async function POST(req: Request) {
   try {
@@ -33,11 +66,19 @@ export async function POST(req: Request) {
       lastName,
       street,
       postalCode,
-      city,
+          if (digits.length < 7) {
+      phone,
       termsAccepted,
-    } = parsed.data;
+          if (digits.length > 12) {
+            ctx.addIssue({ code: 'custom', message: 'Telefonnumret får innehålla högst 12 siffror' });
+          }
+          // Allow optional single leading + for international numbers
+          if (!/^\+?[\d\s\-()]+$/.test(val)) {
 
     if (!termsAccepted) {
+          if (val.includes('+') && !val.startsWith('+')) {
+            ctx.addIssue({ code: 'custom', message: 'Plustecken får bara stå först i numret' });
+          }
       return NextResponse.json(
         { error: 'Du måste godkänna villkoren' },
         { status: 400 }
@@ -64,6 +105,7 @@ export async function POST(req: Request) {
         city,
         postalCode,
       },
+      phone: phone ? normalizePhone(phone) : undefined,
       termsAccepted: !!termsAccepted,
       termsAcceptedAt: termsAccepted ? new Date() : undefined,
       role: 'user',
@@ -75,7 +117,7 @@ export async function POST(req: Request) {
       { status: 201 }
     );
   } catch (error: unknown) {
-    console.error('Register API error');
+    console.error('Register API error:', error);
     return NextResponse.json({ error: 'Serverfel' }, { status: 500 });
   }
 }

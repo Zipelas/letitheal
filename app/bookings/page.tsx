@@ -17,16 +17,28 @@ const BookingSchema = z.object({
     .superRefine((val, ctx) => {
       const digits = val.replace(/\D/g, '');
       if (digits.length < 7) {
-        ctx.addIssue({ code: 'custom', message: 'Telefonnumret måste innehålla minst 7 siffror' });
+        ctx.addIssue({
+          code: 'custom',
+          message: 'Telefonnumret måste innehålla minst 7 siffror',
+        });
       }
       if (digits.length > 12) {
-        ctx.addIssue({ code: 'custom', message: 'Telefonnumret får innehålla högst 12 siffror' });
+        ctx.addIssue({
+          code: 'custom',
+          message: 'Telefonnumret får innehålla högst 12 siffror',
+        });
       }
       if (!/^\+?[\d\s\-()]+$/.test(val)) {
-        ctx.addIssue({ code: 'custom', message: 'Ogiltigt telefonnummerformat' });
+        ctx.addIssue({
+          code: 'custom',
+          message: 'Ogiltigt telefonnummerformat',
+        });
       }
       if (val.includes('+') && !val.startsWith('+')) {
-        ctx.addIssue({ code: 'custom', message: 'Plustecken får bara stå först i numret' });
+        ctx.addIssue({
+          code: 'custom',
+          message: 'Plustecken får bara stå först i numret',
+        });
       }
     }),
   email: z.string().trim().toLowerCase().email('Ogiltig e-postadress'),
@@ -41,7 +53,10 @@ export default function BookingsPage() {
     setError(null);
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries()) as Record<string, string>;
+    const payload = Object.fromEntries(formData.entries()) as Record<
+      string,
+      string
+    >;
     const parsed = BookingSchema.safeParse(payload);
     if (!parsed.success) {
       const firstErr = parsed.error.errors[0]?.message || 'Ogiltig data';
@@ -67,7 +82,9 @@ export default function BookingsPage() {
         <h1 className='text-quicksand-sans-serif text-2xl sm:text-3xl font-semibold mb-4'>
           Boka tid
         </h1>
-        <form onSubmit={onSubmit} className='flex flex-col gap-3'>
+        <form
+          onSubmit={onSubmit}
+          className='flex flex-col gap-3'>
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
             <label className='flex flex-col'>
               <span className='mb-1'>Förnamn</span>
