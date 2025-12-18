@@ -15,8 +15,21 @@ const RegisterSchema = z.object({
   street: z.string().trim().optional(),
   postalCode: z.string().trim().optional(),
   city: z.string().trim().optional(),
+  phone: z.string().trim().optional(),
   termsAccepted: z.coerce.boolean(),
 });
+
+function normalizePhone(input: string): string {
+  const trimmed = input.trim();
+  if (!trimmed) return '';
+  let cleaned = trimmed.replace(/[^\d+]/g, '');
+  if (cleaned.startsWith('+')) {
+    cleaned = '+' + cleaned.slice(1).replace(/[^\d]/g, '');
+  } else {
+    cleaned = cleaned.replace(/[^\d]/g, '');
+  }
+  return cleaned;
+}
 
 export async function POST(req: Request) {
   try {
@@ -34,6 +47,7 @@ export async function POST(req: Request) {
       street,
       postalCode,
       city,
+      phone,
       termsAccepted,
     } = parsed.data;
 
@@ -64,6 +78,7 @@ export async function POST(req: Request) {
         city,
         postalCode,
       },
+      phone: phone ? normalizePhone(phone) : undefined,
       termsAccepted: !!termsAccepted,
       termsAcceptedAt: termsAccepted ? new Date() : undefined,
       role: 'user',
@@ -75,7 +90,7 @@ export async function POST(req: Request) {
       { status: 201 }
     );
   } catch (error: unknown) {
-    console.error('Register API error');
+    console.error('Register API error:', error);
     return NextResponse.json({ error: 'Serverfel' }, { status: 500 });
   }
 }
