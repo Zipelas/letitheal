@@ -1,6 +1,8 @@
 const page = () => {
   return (
-    <div>page</div>
+    <section>
+      <div>Andros Zipelas</div>
+    </section>
   )
 }
 
