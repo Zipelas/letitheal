@@ -24,7 +24,7 @@ export default function BookingsPage() {
           </div>
           <button
             type='submit'
-            className='login-button font-medium'>
+            className='login-button font-medium w-fit self-start'>
             Fortsätt
           </button>
         </form>
