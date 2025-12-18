@@ -24,6 +24,14 @@ export default function BookingsPage() {
               />
             </label>
           </div>
+          <label className='flex flex-col'>
+            <span className='mb-1'>Gatuadress</span>
+            <input
+              name='street'
+              className='border border-[#2e7d32] rounded-md p-2'
+              placeholder='Vasagatan 7'
+            />
+          </label>
           <button
             type='submit'
             className='login-button font-medium w-fit self-start'>
