@@ -26,10 +26,22 @@ const RegisterSchema = z.object({
             message: 'Telefonnumret måste innehålla minst 7 siffror',
           });
         }
+        if (digits.length > 12) {
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Telefonnumret får innehålla högst 12 siffror',
+          });
+        }
         if (!/^\+?[\d\s\-()]+$/.test(val)) {
           ctx.addIssue({
             code: 'custom',
             message: 'Ogiltigt telefonnummerformat',
+          });
+        }
+        if (val.includes('+') && !val.startsWith('+')) {
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Plustecken får bara stå först i numret',
           });
         }
       }

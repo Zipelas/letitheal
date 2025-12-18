@@ -23,10 +23,16 @@ const RegisterSchema = z.object({
       if (val && val.length > 0) {
         const digits = val.replace(/\D/g, '');
         if (digits.length < 7) {
-          ctx.addIssue({ code: 'custom', message: 'Telefonnumret måste innehålla minst 7 siffror' });
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Telefonnumret måste innehålla minst 7 siffror',
+          });
         }
         if (!/^\+?[\d\s\-()]+$/.test(val)) {
-          ctx.addIssue({ code: 'custom', message: 'Ogiltigt telefonnummerformat' });
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Ogiltigt telefonnummerformat',
+          });
         }
       }
     }),
@@ -60,12 +66,19 @@ export async function POST(req: Request) {
       lastName,
       street,
       postalCode,
-      city,
+          if (digits.length < 7) {
       phone,
       termsAccepted,
-    } = parsed.data;
+          if (digits.length > 12) {
+            ctx.addIssue({ code: 'custom', message: 'Telefonnumret får innehålla högst 12 siffror' });
+          }
+          // Allow optional single leading + for international numbers
+          if (!/^\+?[\d\s\-()]+$/.test(val)) {
 
     if (!termsAccepted) {
+          if (val.includes('+') && !val.startsWith('+')) {
+            ctx.addIssue({ code: 'custom', message: 'Plustecken får bara stå först i numret' });
+          }
       return NextResponse.json(
         { error: 'Du måste godkänna villkoren' },
         { status: 400 }
