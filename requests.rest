@@ -59,7 +59,7 @@ Content-Type: application/json
 {
 	"firstName": "Ina",
 	"lastName": "Jönsson",
-	"address": { "street": "Fritzbergsvägen 1", "city": "Vallentund", "postalCode": "13123" },
+	"address": { "street": "Fritzbergsvägen 1", "city": "Vallentuna", "postalCode": "13123" },
 	"phone": "031-78 90 12",
 	"email": "ina.jonsson@gmail.com",
 	"role": "user"
