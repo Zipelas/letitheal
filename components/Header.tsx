@@ -44,7 +44,7 @@ const Header = async () => {
           </Link>
           {session && (
             <Link
-              href='/booking'
+              href='/bookings'
               className='text-inter-sans-serif font-medium p-1 sm:p-4'>
               Boka
             </Link>
