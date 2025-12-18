@@ -32,6 +32,24 @@ export default function BookingsPage() {
               placeholder='Vasagatan 7'
             />
           </label>
+          <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+            <label className='flex flex-col'>
+              <span className='mb-1'>Postnummer</span>
+              <input
+                name='postalCode'
+                className='border border-[#2e7d32] rounded-md p-2'
+                placeholder='131 98'
+              />
+            </label>
+            <label className='flex flex-col'>
+              <span className='mb-1'>Stad</span>
+              <input
+                name='city'
+                className='border border-[#2e7d32] rounded-md p-2'
+                placeholder='Stockholm'
+              />
+            </label>
+          </div>
           <button
             type='submit'
             className='login-button font-medium w-fit self-start'>
