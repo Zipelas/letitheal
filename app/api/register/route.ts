@@ -15,7 +15,21 @@ const RegisterSchema = z.object({
   street: z.string().trim().optional(),
   postalCode: z.string().trim().optional(),
   city: z.string().trim().optional(),
-  phone: z.string().trim().optional(),
+  phone: z
+    .string()
+    .trim()
+    .optional()
+    .superRefine((val, ctx) => {
+      if (val && val.length > 0) {
+        const digits = val.replace(/\D/g, '');
+        if (digits.length < 7) {
+          ctx.addIssue({ code: 'custom', message: 'Telefonnumret måste innehålla minst 7 siffror' });
+        }
+        if (!/^\+?[\d\s\-()]+$/.test(val)) {
+          ctx.addIssue({ code: 'custom', message: 'Ogiltigt telefonnummerformat' });
+        }
+      }
+    }),
   termsAccepted: z.coerce.boolean(),
 });
 
