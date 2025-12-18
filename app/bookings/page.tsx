@@ -64,6 +64,26 @@ export default function BookingsPage() {
               />
             </label>
           </div>
+          <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+            <label className='flex flex-col'>
+              <span className='mb-1'>Telefon</span>
+              <input
+                name='phone'
+                type='tel'
+                className='border border-[#2e7d32] rounded-md p-2'
+                placeholder='031-12 34 56'
+              />
+            </label>
+            <label className='flex flex-col'>
+              <span className='mb-1'>E-post</span>
+              <input
+                name='email'
+                type='email'
+                className='border border-[#2e7d32] rounded-md p-2'
+                placeholder='exempel@gmail.com'
+              />
+            </label>
+          </div>
           <button
             type='submit'
             className='login-button font-medium w-fit self-start'>
