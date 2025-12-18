@@ -1,7 +1,7 @@
 export default function BookingsPage() {
   return (
     <div className='fixed inset-0 z-30 flex items-start justify-center backdrop-blur-sm bg-black/20 overflow-y-auto p-4'>
-      <section className='relative border-2 border-[#2e7d32] rounded-xl max-w-md w-full mx-auto p-6 bg-(--background) shadow-lg my-8 max-h-[90vh] overflow-y-auto'>
+      <section className='relative border-2 border-[#2e7d32] rounded-xl w-full sm:max-w-md lg:w-[70vw] lg:max-w-none mx-auto p-6 bg-(--background) shadow-lg my-8 max-h-[90vh] overflow-y-auto'>
         <h1 className='text-2xl sm:text-3xl font-semibold mb-4'>Boka tid</h1>
         <form className='flex flex-col gap-3'>
           <label className='flex flex-col'>
