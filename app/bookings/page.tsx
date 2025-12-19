@@ -141,7 +141,7 @@ export default function BookingsPage() {
               <input
                 type='checkbox'
                 name='mode'
-                value='remote'
+                value='online'
                 className='h-5 w-5 accent-[#2e7d32] border-2 border-[#2e7d32] rounded-sm'
               />
               <span>På distans</span>
