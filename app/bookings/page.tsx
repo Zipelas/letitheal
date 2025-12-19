@@ -95,12 +95,12 @@ export default function BookingsPage() {
           {/* DatePicker above first/last name */}
           <label className='flex flex-col'>
             <span className='mb-1'>Datum</span>
-            <div className='border border-[#2e7d32] rounded-md p-2'>
-              <DatePicker
-                value={scheduledDate}
-                onChange={setScheduledDate}
-              />
-            </div>
+            <DatePicker
+              value={scheduledDate}
+              onChange={setScheduledDate}
+            />
+            {/* Removed extra border wrapper for compact appearance */}
+
             {/* Hidden input for form submission */}
             <input
               type='hidden'

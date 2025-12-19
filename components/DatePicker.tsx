@@ -160,14 +160,15 @@ export default function DatePicker({
   });
 
   return (
-    <div ref={rootRef} className={["relative", className].filter(Boolean).join(' ')}>
+    <div
+      ref={rootRef}
+      className={['relative', className].filter(Boolean).join(' ')}>
       <button
         type='button'
         aria-haspopup='dialog'
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className='w-full border border-[#2e7d32] rounded-md p-2 flex items-center justify-between'
-      >
+        className='w-full border border-[#2e7d32] rounded-md p-2 flex items-center justify-between'>
         <span>{displayText}</span>
         <span aria-hidden>📅</span>
       </button>
@@ -176,15 +177,13 @@ export default function DatePicker({
         <div
           role='dialog'
           aria-label='Välj datum'
-          className='absolute z-50 mt-2 w-72 rounded-md border border-[#2e7d32] bg-(--background) shadow-lg p-3'
-        >
+          className='absolute z-50 mt-2 w-72 rounded-md border border-[#2e7d32] bg-(--background) shadow-lg p-3'>
           <div className='flex items-center justify-between mb-2'>
             <button
               type='button'
               onClick={prevMonth}
               className='px-2 py-1 border border-[#2e7d32] rounded-md text-sm hover:bg-(--muted)'
-              aria-label='Föregående månad'
-            >
+              aria-label='Föregående månad'>
               ‹
             </button>
             <div className='text-quicksand-sans-serif font-semibold'>
@@ -194,15 +193,16 @@ export default function DatePicker({
               type='button'
               onClick={nextMonth}
               className='px-2 py-1 border border-[#2e7d32] rounded-md text-sm hover:bg-(--muted)'
-              aria-label='Nästa månad'
-            >
+              aria-label='Nästa månad'>
               ›
             </button>
           </div>
 
           <div className='grid grid-cols-7 gap-1 text-center text-xs text-gray-600 mb-1'>
             {svWeekdays.map((d) => (
-              <div key={d} className='py-1'>
+              <div
+                key={d}
+                className='py-1'>
                 {d}
               </div>
             ))}
@@ -211,13 +211,18 @@ export default function DatePicker({
             {grid.map(({ date, inMonth, disabled }, idx) => {
               const isToday = isSameDay(today, date);
               const isSelected = selected ? isSameDay(selected, date) : false;
-              const base = 'h-9 rounded-md flex items-center justify-center select-none';
+              const base =
+                'h-9 rounded-md flex items-center justify-center select-none';
               const styles = [
                 'border',
                 'text-sm',
                 inMonth ? 'bg-(--background)' : 'bg-gray-50 text-gray-400',
-                disabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer hover:bg-(--muted)',
-                isSelected ? 'border-[#2e7d32] ring-2 ring-[#2e7d32]/30' : 'border-gray-200',
+                disabled
+                  ? 'opacity-40 cursor-not-allowed'
+                  : 'cursor-pointer hover:bg-(--muted)',
+                isSelected
+                  ? 'border-[#2e7d32] ring-2 ring-[#2e7d32]/30'
+                  : 'border-gray-200',
                 isToday && !isSelected ? 'ring-1 ring-[#2e7d32]/40' : '',
               ].join(' ');
               return (
@@ -226,9 +231,11 @@ export default function DatePicker({
                   key={idx}
                   className={`${base} ${styles}`}
                   disabled={disabled}
-                  onClick={() => { onChange(startOfDay(date)); setOpen(false); }}
-                  aria-pressed={isSelected}
-                >
+                  onClick={() => {
+                    onChange(startOfDay(date));
+                    setOpen(false);
+                  }}
+                  aria-pressed={isSelected}>
                   {date.getDate()}
                 </button>
               );
