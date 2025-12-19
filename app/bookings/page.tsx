@@ -6,9 +6,43 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { z } from 'zod';
 
+// Allowed time slot IDs (aligned with TimePicker DEFAULT_SLOTS)
+const ALLOWED_SLOT_IDS = [
+  '09:00-09:45',
+  '10:00-10:45',
+  '11:00-11:45',
+  '13:00-13:45',
+  '14:00-14:45',
+  '15:00-15:45',
+  '16:00-16:45',
+] as const;
+
 const BookingSchema = z.object({
-  scheduledDate: z.string().min(1, 'Datum är obligatoriskt'),
-  scheduledTime: z.string().min(1, 'Tid är obligatoriskt'),
+  scheduledDate: z
+    .string()
+    .min(1, 'Datum är obligatoriskt')
+    .refine((val) => !Number.isNaN(new Date(val).getTime()), {
+      message: 'Ogiltigt datum',
+    })
+    .refine((val) => {
+      const d = new Date(val);
+      const dDay = new Date(d);
+      dDay.setHours(0, 0, 0, 0);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return dDay >= today;
+    }, {
+      message: 'Datum kan inte vara i det förflutna',
+    }),
+  scheduledTime: z
+    .string()
+    .min(1, 'Tid är obligatoriskt')
+    .refine((val) => /^\d{2}:\d{2}-\d{2}:\d{2}$/.test(val), {
+      message: 'Ogiltigt tidsformat',
+    })
+    .refine((val) => ALLOWED_SLOT_IDS.includes(val as typeof ALLOWED_SLOT_IDS[number]), {
+      message: 'Välj en giltig tidslucka',
+    }),
   mode: z.enum(['onsite', 'online'], {
     required_error: 'Välj bokningsläge',
     invalid_type_error: 'Ogiltigt bokningsläge',
