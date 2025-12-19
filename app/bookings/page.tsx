@@ -127,7 +127,10 @@ export default function BookingsPage() {
             </label>
           </div>
           {/* Mode selection: Onsite + Remote under date/time */}
-          <div className='flex items-center gap-6 mt-2' role='radiogroup' aria-label='Bokningsläge'>
+          <div
+            className='flex items-center gap-6 mt-2'
+            role='radiogroup'
+            aria-label='Bokningsläge'>
             <label className='inline-flex items-center gap-2 cursor-pointer select-none'>
               <input
                 type='radio'
