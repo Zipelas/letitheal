@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 type Props = {
   value?: Date | null;
@@ -49,6 +49,8 @@ export default function DatePicker({
   const initial = value ?? new Date();
   const [viewYear, setViewYear] = useState<number>(initial.getFullYear());
   const [viewMonth, setViewMonth] = useState<number>(initial.getMonth());
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement | null>(null);
 
   const today = useMemo(() => startOfDay(new Date()), []);
   const selected = value ? startOfDay(value) : null;
@@ -56,7 +58,7 @@ export default function DatePicker({
   function prevMonth() {
     const m = viewMonth - 1;
     if (m < 0) {
-      setViewMonth(0);
+      setViewMonth(11);
       setViewYear((y) => y - 1);
     } else setViewMonth(m);
   }
@@ -64,7 +66,7 @@ export default function DatePicker({
   function nextMonth() {
     const m = viewMonth + 1;
     if (m > 11) {
-      setViewMonth(11);
+      setViewMonth(0);
       setViewYear((y) => y + 1);
     } else setViewMonth(m);
   }
@@ -131,68 +133,109 @@ export default function DatePicker({
     );
   }
 
-  return (
-    <div className={['w-full', className].filter(Boolean).join(' ')}>
-      <div className='flex items-center justify-between mb-2'>
-        <button
-          type='button'
-          onClick={prevMonth}
-          className='px-2 py-1 border border-[#2e7d32] rounded-md text-sm hover:bg-(--muted)'
-          aria-label='Föregående månad'>
-          ‹
-        </button>
-        <div className='text-quicksand-sans-serif font-semibold'>
-          {svMonths[viewMonth]} {viewYear}
-        </div>
-        <button
-          type='button'
-          onClick={nextMonth}
-          className='px-2 py-1 border border-[#2e7d32] rounded-md text-sm hover:bg-(--muted)'
-          aria-label='Nästa månad'>
-          ›
-        </button>
-      </div>
+  // Close popover on outside click or Escape
+  useEffect(() => {
+    function onDocClick(e: MouseEvent) {
+      if (!open) return;
+      const root = rootRef.current;
+      if (root && !root.contains(e.target as Node)) setOpen(false);
+    }
+    function onKey(e: KeyboardEvent) {
+      if (!open) return;
+      if (e.key === 'Escape') setOpen(false);
+    }
+    document.addEventListener('mousedown', onDocClick);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDocClick);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
 
-      <div className='grid grid-cols-7 gap-1 text-center text-xs text-gray-600 mb-1'>
-        {svWeekdays.map((d) => (
-          <div
-            key={d}
-            className='py-1'>
-            {d}
-          </div>
-        ))}
-      </div>
-      <div className='grid grid-cols-7 gap-1'>
-        {grid.map(({ date, inMonth, disabled }, idx) => {
-          const isToday = isSameDay(today, date);
-          const isSelected = selected ? isSameDay(selected, date) : false;
-          const base =
-            'h-9 rounded-md flex items-center justify-center select-none';
-          const styles = [
-            'border',
-            'text-sm',
-            inMonth ? 'bg-(--background)' : 'bg-gray-50 text-gray-400',
-            disabled
-              ? 'opacity-40 cursor-not-allowed'
-              : 'cursor-pointer hover:bg-(--muted)',
-            isSelected
-              ? 'border-[#2e7d32] ring-2 ring-[#2e7d32]/30'
-              : 'border-gray-200',
-            isToday && !isSelected ? 'ring-1 ring-[#2e7d32]/40' : '',
-          ].join(' ');
-          return (
+  const displayDate = selected ?? today;
+  const displayText = displayDate.toLocaleDateString('sv-SE', {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+  });
+
+  return (
+    <div ref={rootRef} className={["relative", className].filter(Boolean).join(' ')}>
+      <button
+        type='button'
+        aria-haspopup='dialog'
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+        className='w-full border border-[#2e7d32] rounded-md p-2 flex items-center justify-between'
+      >
+        <span>{displayText}</span>
+        <span aria-hidden>📅</span>
+      </button>
+
+      {open && (
+        <div
+          role='dialog'
+          aria-label='Välj datum'
+          className='absolute z-50 mt-2 w-72 rounded-md border border-[#2e7d32] bg-(--background) shadow-lg p-3'
+        >
+          <div className='flex items-center justify-between mb-2'>
             <button
               type='button'
-              key={idx}
-              className={`${base} ${styles}`}
-              disabled={disabled}
-              onClick={() => onChange(startOfDay(date))}
-              aria-pressed={isSelected}>
-              {date.getDate()}
+              onClick={prevMonth}
+              className='px-2 py-1 border border-[#2e7d32] rounded-md text-sm hover:bg-(--muted)'
+              aria-label='Föregående månad'
+            >
+              ‹
             </button>
-          );
-        })}
-      </div>
+            <div className='text-quicksand-sans-serif font-semibold'>
+              {svMonths[viewMonth]} {viewYear}
+            </div>
+            <button
+              type='button'
+              onClick={nextMonth}
+              className='px-2 py-1 border border-[#2e7d32] rounded-md text-sm hover:bg-(--muted)'
+              aria-label='Nästa månad'
+            >
+              ›
+            </button>
+          </div>
+
+          <div className='grid grid-cols-7 gap-1 text-center text-xs text-gray-600 mb-1'>
+            {svWeekdays.map((d) => (
+              <div key={d} className='py-1'>
+                {d}
+              </div>
+            ))}
+          </div>
+          <div className='grid grid-cols-7 gap-1'>
+            {grid.map(({ date, inMonth, disabled }, idx) => {
+              const isToday = isSameDay(today, date);
+              const isSelected = selected ? isSameDay(selected, date) : false;
+              const base = 'h-9 rounded-md flex items-center justify-center select-none';
+              const styles = [
+                'border',
+                'text-sm',
+                inMonth ? 'bg-(--background)' : 'bg-gray-50 text-gray-400',
+                disabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer hover:bg-(--muted)',
+                isSelected ? 'border-[#2e7d32] ring-2 ring-[#2e7d32]/30' : 'border-gray-200',
+                isToday && !isSelected ? 'ring-1 ring-[#2e7d32]/40' : '',
+              ].join(' ');
+              return (
+                <button
+                  type='button'
+                  key={idx}
+                  className={`${base} ${styles}`}
+                  disabled={disabled}
+                  onClick={() => { onChange(startOfDay(date)); setOpen(false); }}
+                  aria-pressed={isSelected}
+                >
+                  {date.getDate()}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
