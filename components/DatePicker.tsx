@@ -199,9 +199,9 @@ export default function DatePicker({
           </div>
 
           <div className='grid grid-cols-7 gap-1 text-center text-xs text-gray-600 mb-1'>
-            {svWeekdays.map((d) => (
+            {svWeekdays.map((d, i) => (
               <div
-                key={d}
+                key={`${d}-${i}`}
                 className='py-1'>
                 {d}
               </div>
