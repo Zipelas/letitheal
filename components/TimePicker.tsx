@@ -146,10 +146,10 @@ export default function TimePicker({
                 aria-selected={isSelected}
                 key={s.id}
                 className={[
-                  'w-full text-left px-3 py-2 text-sm',
+                  'w-full text-left px-3 py-2 text-sm rounded-md border transition-colors',
                   isSelected
-                    ? 'bg-(--muted) border-l-2 border-[#2e7d32]'
-                    : 'hover:bg-(--muted)',
+                    ? 'bg-(--muted) border-[#2e7d32]'
+                    : 'border-transparent hover:bg-(--muted) hover:border-[#2e7d32]',
                 ].join(' ')}
                 onClick={() => {
                   onChange(s.id);
