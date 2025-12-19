@@ -24,25 +24,32 @@ const BookingSchema = z.object({
     .refine((val) => !Number.isNaN(new Date(val).getTime()), {
       message: 'Ogiltigt datum',
     })
-    .refine((val) => {
-      const d = new Date(val);
-      const dDay = new Date(d);
-      dDay.setHours(0, 0, 0, 0);
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      return dDay >= today;
-    }, {
-      message: 'Datum kan inte vara i det förflutna',
-    }),
+    .refine(
+      (val) => {
+        const d = new Date(val);
+        const dDay = new Date(d);
+        dDay.setHours(0, 0, 0, 0);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        return dDay >= today;
+      },
+      {
+        message: 'Datum kan inte vara i det förflutna',
+      }
+    ),
   scheduledTime: z
     .string()
     .min(1, 'Tid är obligatoriskt')
     .refine((val) => /^\d{2}:\d{2}-\d{2}:\d{2}$/.test(val), {
       message: 'Ogiltigt tidsformat',
     })
-    .refine((val) => ALLOWED_SLOT_IDS.includes(val as typeof ALLOWED_SLOT_IDS[number]), {
-      message: 'Välj en giltig tidslucka',
-    }),
+    .refine(
+      (val) =>
+        ALLOWED_SLOT_IDS.includes(val as (typeof ALLOWED_SLOT_IDS)[number]),
+      {
+        message: 'Välj en giltig tidslucka',
+      }
+    ),
   mode: z.enum(['onsite', 'online'], {
     required_error: 'Välj bokningsläge',
     invalid_type_error: 'Ogiltigt bokningsläge',
