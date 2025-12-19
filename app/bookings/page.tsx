@@ -187,7 +187,7 @@ export default function BookingsPage() {
               <input
                 name='postalCode'
                 className='border border-[#2e7d32] rounded-md p-2'
-                placeholder='131 98'
+                placeholder='13198'
               />
             </label>
             <label className='flex flex-col'>
