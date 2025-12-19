@@ -1,12 +1,14 @@
 'use client';
 
 import DatePicker from '@/components/DatePicker';
+import TimePicker from '@/components/TimePicker';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { z } from 'zod';
 
 const BookingSchema = z.object({
   scheduledDate: z.string().min(1, 'Datum är obligatoriskt'),
+  scheduledTime: z.string().min(1, 'Tid är obligatoriskt'),
   firstName: z.string().trim().min(1, 'Förnamn är obligatoriskt'),
   lastName: z.string().trim().min(1, 'Efternamn är obligatoriskt'),
   street: z.string().trim().min(1, 'Gatuadress är obligatoriskt'),
@@ -50,6 +52,7 @@ export default function BookingsPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [scheduledDate, setScheduledDate] = useState<Date | null>(null);
+  const [scheduledTime, setScheduledTime] = useState<string | null>(null);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,6 +62,9 @@ export default function BookingsPage() {
     // Inject selected date into payload as ISO string (date only)
     if (scheduledDate) {
       formData.set('scheduledDate', scheduledDate.toISOString());
+    }
+    if (scheduledTime) {
+      formData.set('scheduledTime', scheduledTime);
     }
     const payload = Object.fromEntries(formData.entries()) as Record<
       string,
@@ -92,22 +98,34 @@ export default function BookingsPage() {
         <form
           onSubmit={onSubmit}
           className='flex flex-col gap-3'>
-          {/* DatePicker above first/last name */}
-          <label className='flex flex-col'>
-            <span className='mb-1'>Datum</span>
-            <DatePicker
-              value={scheduledDate}
-              onChange={setScheduledDate}
-            />
-            {/* Removed extra border wrapper for compact appearance */}
-
-            {/* Hidden input for form submission */}
-            <input
-              type='hidden'
-              name='scheduledDate'
-              value={scheduledDate ? scheduledDate.toISOString() : ''}
-            />
-          </label>
+          {/* Date + Time row */}
+          <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+            <label className='flex flex-col'>
+              <span className='mb-1'>Datum</span>
+              <DatePicker
+                value={scheduledDate}
+                onChange={setScheduledDate}
+              />
+              <input
+                type='hidden'
+                name='scheduledDate'
+                value={scheduledDate ? scheduledDate.toISOString() : ''}
+              />
+            </label>
+            <label className='flex flex-col'>
+              <span className='mb-1'>Välj tid</span>
+              <TimePicker
+                value={scheduledTime}
+                onChange={setScheduledTime}
+                disabled={!scheduledDate}
+              />
+              <input
+                type='hidden'
+                name='scheduledTime'
+                value={scheduledTime ?? ''}
+              />
+            </label>
+          </div>
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
             <label className='flex flex-col'>
               <span className='mb-1'>Förnamn</span>
