@@ -126,6 +126,16 @@ export default function BookingsPage() {
               />
             </label>
           </div>
+          {/* Mode selection: Onsite under date/time */}
+          <label className='inline-flex items-center gap-2 mt-2 cursor-pointer select-none'>
+            <input
+              type='checkbox'
+              name='mode'
+              value='onsite'
+              className='h-5 w-5 accent-[#2e7d32] border-2 border-[#2e7d32] rounded-sm'
+            />
+            <span>På plats</span>
+          </label>
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
             <label className='flex flex-col'>
               <span className='mb-1'>Förnamn</span>
