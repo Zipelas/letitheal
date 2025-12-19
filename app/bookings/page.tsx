@@ -9,6 +9,10 @@ import { z } from 'zod';
 const BookingSchema = z.object({
   scheduledDate: z.string().min(1, 'Datum är obligatoriskt'),
   scheduledTime: z.string().min(1, 'Tid är obligatoriskt'),
+  mode: z.enum(['onsite', 'online'], {
+    required_error: 'Välj bokningsläge',
+    invalid_type_error: 'Ogiltigt bokningsläge',
+  }),
   firstName: z.string().trim().min(1, 'Förnamn är obligatoriskt'),
   lastName: z.string().trim().min(1, 'Efternamn är obligatoriskt'),
   street: z.string().trim().min(1, 'Gatuadress är obligatoriskt'),
