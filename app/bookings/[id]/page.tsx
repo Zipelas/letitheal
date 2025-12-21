@@ -142,13 +142,13 @@ export default async function BookingDetailPage({ params }: PageProps) {
         </div>
 
         {/* Åtgärder */}
-        <div className='mt-6 flex items-center gap-3'>
-          <DeleteBookingButton id={id} />
+        <div className='mt-6 flex items-center justify-between'>
           <Link
             href='/'
             className='login-button font-medium'>
             Till startsidan
           </Link>
+          <DeleteBookingButton id={id} />
         </div>
       </section>
     </main>
