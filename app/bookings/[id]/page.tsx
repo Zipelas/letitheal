@@ -39,7 +39,11 @@ export default async function BookingDetailPage({ params }: PageProps) {
               : 'Ogiltigt boknings-ID.'}
           </p>
           <div className='mt-4'>
-            <Link href='/bookings' className='underline'>Tillbaka till bokning</Link>
+            <Link
+              href='/bookings'
+              className='underline'>
+              Tillbaka till bokning
+            </Link>
           </div>
         </section>
       </main>
