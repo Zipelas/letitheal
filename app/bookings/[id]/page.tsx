@@ -1,3 +1,4 @@
+import DeleteBookingButton from '@/components/DeleteBookingButton';
 import { dbConnect } from '@/lib/mongoose';
 import Booking from '@/models/Booking';
 import mongoose from 'mongoose';
@@ -140,8 +141,9 @@ export default async function BookingDetailPage({ params }: PageProps) {
           </div>
         </div>
 
-        {/* Stäng-knapp */}
-        <div className='mt-6'>
+        {/* Åtgärder */}
+        <div className='mt-6 flex items-center gap-3'>
+          <DeleteBookingButton id={id} />
           <Link
             href='/'
             className='login-button font-medium'>
