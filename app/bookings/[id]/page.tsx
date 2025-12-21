@@ -3,7 +3,7 @@ import Booking from '@/models/Booking';
 import mongoose from 'mongoose';
 import Link from 'next/link';
 
-type PageProps = { params: { id: string } };
+type PageProps = { params: Promise<{ id: string }> };
 
 function formatDateTime(d: Date): { date: string; time: string } {
   const date = new Intl.DateTimeFormat('sv-SE', {
@@ -19,7 +19,7 @@ function formatDateTime(d: Date): { date: string; time: string } {
 }
 
 export default async function BookingDetailPage({ params }: PageProps) {
-  const { id } = params;
+  const { id } = await params;
   const valid = mongoose.isValidObjectId(id);
   await dbConnect();
   const booking = valid
