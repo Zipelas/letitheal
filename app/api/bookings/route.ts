@@ -1,5 +1,6 @@
 import { dbConnect } from '@/lib/mongoose';
 import Booking from '@/models/Booking';
+import User from '@/models/User';
 import mongoose from 'mongoose';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
@@ -125,7 +126,9 @@ export async function POST(req: Request) {
     // Provide a placeholder heal ObjectId until UI supplies a real one
     const healId = new mongoose.Types.ObjectId('000000000000000000000000');
 
+    const existingUser = await User.findOne({ email }).select('_id').lean();
     const created = await Booking.create({
+      user: existingUser?._id,
       heal: healId,
       firstName,
       lastName,
