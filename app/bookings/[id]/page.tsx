@@ -23,9 +23,7 @@ export default async function BookingDetailPage({ params }: PageProps) {
   const valid = mongoose.isValidObjectId(id);
   await dbConnect();
   const booking = valid
-    ? await Booking.findById(new mongoose.Types.ObjectId(id))
-        .populate('heal', 'title location mode')
-        .lean()
+    ? await Booking.findById(new mongoose.Types.ObjectId(id)).lean()
     : null;
 
   if (!valid || !booking) {
@@ -54,9 +52,6 @@ export default async function BookingDetailPage({ params }: PageProps) {
 
   const { date, time } = formatDateTime(new Date(booking.scheduledAt));
   const created = formatDateTime(new Date(booking.createdAt));
-  const healTitle =
-    (booking as unknown as { heal?: { title?: string } }).heal?.title ||
-    'Bokning';
   const modeLabel = booking.mode === 'onsite' ? 'På plats' : 'På distans';
 
   return (
@@ -88,8 +83,9 @@ export default async function BookingDetailPage({ params }: PageProps) {
 
         {/* Vad och när (mellan Läge och Namn) */}
         <div className='mt-4 border border-[#2e7d32] rounded-md p-3'>
-          <p className='font-medium'>Vad och när</p>
-          <p>{healTitle}</p>
+          <p className='font-medium'>Vad</p>
+          <p>{modeLabel}</p>
+          <p className='font-medium mt-2'>När</p>
           <p className='text-sm text-gray-600'>
             {date} kl {time}
           </p>
