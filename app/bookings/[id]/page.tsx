@@ -81,14 +81,22 @@ export default async function BookingDetailPage({ params }: PageProps) {
           </div>
         </div>
 
-        {/* Vad och när (mellan Läge och Namn) */}
-        <div className='mt-4 border border-[#2e7d32] rounded-md p-3'>
-          <p className='font-medium'>Vad</p>
-          <p>{modeLabel}</p>
-          <p className='font-medium mt-2'>När</p>
-          <p className='text-sm text-gray-600'>
-            {date} kl {time}
-          </p>
+        {/* Typ av healing + Skapad (samma bredd som Läge) */}
+        <div className='mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4'>
+          <div className='border border-[#2e7d32] rounded-md p-3'>
+            <p className='font-medium'>Typ av healing</p>
+            <p>{modeLabel}</p>
+            <p className='font-medium mt-2'>När</p>
+            <p className='text-sm text-gray-600'>
+              {date} kl {time}
+            </p>
+          </div>
+          <div className='border border-[#2e7d32] rounded-md p-3'>
+            <p className='font-medium'>Skapad</p>
+            <p className='text-sm text-gray-600'>
+              {created.date} kl {created.time}
+            </p>
+          </div>
         </div>
 
         {/* Namn med adress, telefon och e-post under */}
@@ -116,16 +124,13 @@ export default async function BookingDetailPage({ params }: PageProps) {
           </div>
         </div>
 
-        {/* Stäng-knapp och skapad-tid */}
-        <div className='mt-6 flex items-center justify-between'>
+        {/* Stäng-knapp */}
+        <div className='mt-6'>
           <Link
             href='/'
             className='login-button font-medium'>
             Till startsidan
           </Link>
-          <p className='text-sm text-gray-600'>
-            Skapad: {created.date} kl {created.time}
-          </p>
         </div>
       </section>
     </main>
