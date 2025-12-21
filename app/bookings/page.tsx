@@ -222,7 +222,7 @@ export default function BookingsPage() {
               <span className='mb-1'>Förnamn</span>
               <input
                 name='firstName'
-                className='bo4rder border-[#2e7d32] rounded-md p-2'
+                className='border border-[#2e7d32] rounded-md p-2'
                 placeholder='Peter'
               />
             </label>
