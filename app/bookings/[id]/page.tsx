@@ -3,6 +3,12 @@ import { dbConnect } from '@/lib/mongoose';
 import Booking from '@/models/Booking';
 import mongoose from 'mongoose';
 import Link from 'next/link';
+type BookingListItem = {
+  _id: mongoose.Types.ObjectId;
+  scheduledAt: Date;
+  mode: 'onsite' | 'online';
+  status: string;
+};
 
 type PageProps = { params: Promise<{ id: string }> };
 
@@ -54,6 +60,18 @@ export default async function BookingDetailPage({ params }: PageProps) {
   const { date, time } = formatDateTime(new Date(booking.scheduledAt));
   const created = formatDateTime(new Date(booking.createdAt));
   const modeLabel = booking.mode === 'onsite' ? 'På plats' : 'På distans';
+  const allBookings = booking.user
+    ? await Booking.find({ user: booking.user })
+        .sort({ createdAt: -1 })
+        .lean<BookingListItem[]>()
+    : await Booking.find({
+        $or: [
+          ...(booking.email ? [{ email: booking.email }] : []),
+          ...(booking.phone ? [{ phone: booking.phone }] : []),
+        ],
+      })
+        .sort({ createdAt: -1 })
+        .lean<BookingListItem[]>();
 
   return (
     <main className='min-h-screen p-6 text-inter-sans-serif'>
@@ -140,6 +158,46 @@ export default async function BookingDetailPage({ params }: PageProps) {
             <p>{booking.email || '—'}</p>
           </div>
         </div>
+
+        {allBookings.length > 1 && (
+          <div className='mt-8'>
+            <h3 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>
+              Dina bokningar
+            </h3>
+            <div className='mt-2 space-y-3'>
+              {allBookings.map((b) => {
+                const { date: d, time: t } = formatDateTime(
+                  new Date(b.scheduledAt)
+                );
+                const label = b.mode === 'onsite' ? 'På plats' : 'På distans';
+                const isCurrent = b._id?.toString() === id;
+                return (
+                  <div
+                    key={b._id?.toString()}
+                    className={`border border-[#2e7d32] rounded-md p-3 ${
+                      isCurrent ? 'bg-[#f0fff0]' : ''
+                    }`}>
+                    <div className='flex items-center justify-between'>
+                      <div>
+                        <p className='text-sm text-gray-700'>
+                          {d} kl {t}
+                        </p>
+                        <p className='text-sm text-gray-600'>
+                          {label} • {b.status}
+                        </p>
+                      </div>
+                      <Link
+                        href={`/bookings/${b._id?.toString()}`}
+                        className='login-button font-medium'>
+                        Visa
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Åtgärder */}
         <div className='mt-6 flex items-center justify-between'>
