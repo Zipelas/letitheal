@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server';
-import { z } from 'zod';
-import mongoose from 'mongoose';
 import { dbConnect } from '@/lib/mongoose';
 import Booking from '@/models/Booking';
+import mongoose from 'mongoose';
+import { NextResponse } from 'next/server';
+import { z } from 'zod';
 
 export const runtime = 'nodejs';
 
@@ -29,8 +29,15 @@ const BodySchema = z.object({
     .refine((v) => !Number.isNaN(new Date(v).getTime()), 'Ogiltigt datum'),
   scheduledTime: z
     .string()
-    .refine((val) => /^\d{2}:\d{2}-\d{2}:\d{2}$/.test(val), 'Ogiltigt tidsformat')
-    .refine((val) => ALLOWED_SLOT_IDS.includes(val as (typeof ALLOWED_SLOT_IDS)[number]), 'Välj en giltig tidslucka'),
+    .refine(
+      (val) => /^\d{2}:\d{2}-\d{2}:\d{2}$/.test(val),
+      'Ogiltigt tidsformat'
+    )
+    .refine(
+      (val) =>
+        ALLOWED_SLOT_IDS.includes(val as (typeof ALLOWED_SLOT_IDS)[number]),
+      'Välj en giltig tidslucka'
+    ),
   mode: z.enum(['onsite', 'online']),
   firstName: z.string().trim().min(1),
   lastName: z.string().trim().min(1),
@@ -43,10 +50,26 @@ const BodySchema = z.object({
     .min(1)
     .superRefine((val, ctx) => {
       const digits = val.replace(/\D/g, '');
-      if (digits.length < 7) ctx.addIssue({ code: 'custom', message: 'Telefonnumret måste innehålla minst 7 siffror' });
-      if (digits.length > 12) ctx.addIssue({ code: 'custom', message: 'Telefonnumret får innehålla högst 12 siffror' });
-      if (!/^\+?[\d\s\-()]+$/.test(val)) ctx.addIssue({ code: 'custom', message: 'Ogiltigt telefonnummerformat' });
-      if (val.includes('+') && !val.startsWith('+')) ctx.addIssue({ code: 'custom', message: 'Plustecken får bara stå först i numret' });
+      if (digits.length < 7)
+        ctx.addIssue({
+          code: 'custom',
+          message: 'Telefonnumret måste innehålla minst 7 siffror',
+        });
+      if (digits.length > 12)
+        ctx.addIssue({
+          code: 'custom',
+          message: 'Telefonnumret får innehålla högst 12 siffror',
+        });
+      if (!/^\+?[\d\s\-()]+$/.test(val))
+        ctx.addIssue({
+          code: 'custom',
+          message: 'Ogiltigt telefonnummerformat',
+        });
+      if (val.includes('+') && !val.startsWith('+'))
+        ctx.addIssue({
+          code: 'custom',
+          message: 'Plustecken får bara stå först i numret',
+        });
     }),
   email: z.string().trim().toLowerCase().email('Ogiltig e-postadress'),
   termsAccepted: z.coerce.boolean(),
@@ -72,7 +95,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: first }, { status: 400 });
     }
     if (!parsed.data.termsAccepted) {
-      return NextResponse.json({ error: 'Du måste godkänna villkoren' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Du måste godkänna villkoren' },
+        { status: 400 }
+      );
     }
 
     const {

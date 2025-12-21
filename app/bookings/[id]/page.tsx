@@ -30,9 +30,9 @@ export default async function BookingDetailPage({ params }: PageProps) {
     <main className='min-h-screen p-6 text-inter-sans-serif'>
       <section className='max-w-2xl mx-auto'>
         <h1 className='text-quicksand-sans-serif text-2xl sm:text-3xl font-semibold'>
-          Bokningsdetaljer
+          Tack för din beställning, {booking.firstName} {booking.lastName}
         </h1>
-        <p className='mt-2 text-gray-600'>ID: {id}</p>
+        <p className='mt-2 text-gray-600'>Din bokning är mottagen. ID: {id}</p>
 
         <div className='mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4'>
           <div className='border border-[#2e7d32] rounded-md p-3'>
