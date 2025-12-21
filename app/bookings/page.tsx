@@ -126,7 +126,6 @@ export default function BookingsPage() {
       setError('Du måste godkänna villkoren');
       return;
     }
-
   };
   return (
     <div className='fixed inset-0 z-30 flex items-start justify-center backdrop-blur-sm bg-black/20 overflow-y-auto p-4'>
