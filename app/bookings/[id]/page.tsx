@@ -24,7 +24,9 @@ export default async function BookingDetailPage({ params }: PageProps) {
     return notFound();
   }
   await dbConnect();
-  const booking = await Booking.findById(new mongoose.Types.ObjectId(id)).lean();
+  const booking = await Booking.findById(
+    new mongoose.Types.ObjectId(id)
+  ).lean();
   if (!booking) return notFound();
 
   const { date, time } = formatDateTime(new Date(booking.scheduledAt));
