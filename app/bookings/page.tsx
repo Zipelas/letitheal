@@ -126,6 +126,25 @@ export default function BookingsPage() {
       setError('Du måste godkänna villkoren');
       return;
     }
+    try {
+      const res = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(parsed.data),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || 'Kunde inte skapa bokningen');
+        return;
+      }
+      const data = (await res.json()) as { id: string };
+      router.push(`/bookings/${data.id}`);
+    } catch (err) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Booking failed:', err);
+      }
+      setError('Något gick fel. Försök igen.');
+    }
   };
   return (
     <div className='fixed inset-0 z-30 flex items-start justify-center backdrop-blur-sm bg-black/20 overflow-y-auto p-4'>
