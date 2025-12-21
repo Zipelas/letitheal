@@ -1,5 +1,6 @@
 import { dbConnect } from '@/lib/mongoose';
 import Booking from '@/models/Booking';
+import mongoose from 'mongoose';
 import { notFound } from 'next/navigation';
 
 type PageProps = { params: { id: string } };
@@ -19,8 +20,11 @@ function formatDateTime(d: Date): { date: string; time: string } {
 
 export default async function BookingDetailPage({ params }: PageProps) {
   const { id } = params;
+  if (!mongoose.isValidObjectId(id)) {
+    return notFound();
+  }
   await dbConnect();
-  const booking = await Booking.findById(id).lean();
+  const booking = await Booking.findById(new mongoose.Types.ObjectId(id)).lean();
   if (!booking) return notFound();
 
   const { date, time } = formatDateTime(new Date(booking.scheduledAt));
