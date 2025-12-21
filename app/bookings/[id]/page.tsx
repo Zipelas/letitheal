@@ -23,7 +23,9 @@ export default async function BookingDetailPage({ params }: PageProps) {
   const valid = mongoose.isValidObjectId(id);
   await dbConnect();
   const booking = valid
-    ? await Booking.findById(new mongoose.Types.ObjectId(id)).lean()
+    ? await Booking.findById(new mongoose.Types.ObjectId(id))
+        .populate('heal', 'title location mode')
+        .lean()
     : null;
 
   if (!valid || !booking) {
@@ -51,6 +53,10 @@ export default async function BookingDetailPage({ params }: PageProps) {
   }
 
   const { date, time } = formatDateTime(new Date(booking.scheduledAt));
+  const created = formatDateTime(new Date(booking.createdAt));
+  const healTitle =
+    (booking as unknown as { heal?: { title?: string } }).heal?.title ||
+    'Bokning';
   const modeLabel = booking.mode === 'onsite' ? 'På plats' : 'På distans';
 
   return (
@@ -80,19 +86,22 @@ export default async function BookingDetailPage({ params }: PageProps) {
           </div>
         </div>
 
-        <div className='mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4'>
-          <div className='border border-[#2e7d32] rounded-md p-3'>
-            <p className='font-medium'>Namn</p>
-            <p>
-              {booking.firstName} {booking.lastName}
-            </p>
-          </div>
-          <div className='border border-[#2e7d32] rounded-md p-3'>
-            <p className='font-medium'>Kontakt</p>
-            <p>{booking.email || '—'}</p>
-            <p>{booking.phone || '—'}</p>
-          </div>
-          <div className='border border-[#2e7d32] rounded-md p-3 sm:col-span-2'>
+        {/* Vad och när (mellan Läge och Namn) */}
+        <div className='mt-4 border border-[#2e7d32] rounded-md p-3'>
+          <p className='font-medium'>Vad och när</p>
+          <p>{healTitle}</p>
+          <p className='text-sm text-gray-600'>
+            {date} kl {time}
+          </p>
+        </div>
+
+        {/* Namn med adress, telefon och e-post under */}
+        <div className='mt-6 border border-[#2e7d32] rounded-md p-3'>
+          <p className='font-medium'>Namn</p>
+          <p>
+            {booking.firstName} {booking.lastName}
+          </p>
+          <div className='mt-2'>
             <p className='font-medium'>Adress</p>
             <p>
               {[
@@ -104,6 +113,23 @@ export default async function BookingDetailPage({ params }: PageProps) {
                 .join(' ')}
             </p>
           </div>
+          <div className='mt-2'>
+            <p className='font-medium'>Kontakt</p>
+            <p>{booking.phone || '—'}</p>
+            <p>{booking.email || '—'}</p>
+          </div>
+        </div>
+
+        {/* Stäng-knapp och skapad-tid */}
+        <div className='mt-6 flex items-center justify-between'>
+          <Link
+            href='/'
+            className='login-button font-medium'>
+            Till startsidan
+          </Link>
+          <p className='text-sm text-gray-600'>
+            Skapad: {created.date} kl {created.time}
+          </p>
         </div>
       </section>
     </main>
