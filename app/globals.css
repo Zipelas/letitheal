@@ -91,7 +91,6 @@ h2 {
   font-family: var(--font-quicksand-sans-serif);
 }
 h3 {
-  font-size: 1.5rem; /* mobile base <640px */
   font-family: var(--font-quicksand-sans-serif);
 }
 p {
@@ -115,7 +114,4 @@ footer {
     padding-top: 72px;
   }
 
-  h3 {
-    font-size: 1.75rem;
-  }
 }
