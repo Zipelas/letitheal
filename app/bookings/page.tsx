@@ -91,6 +91,7 @@ const BookingSchema = z.object({
       }
     }),
   email: z.string().trim().toLowerCase().email('Ogiltig e-postadress'),
+  termsAccepted: z.coerce.boolean(),
 });
 
 export default function BookingsPage() {
@@ -121,9 +122,11 @@ export default function BookingsPage() {
       setError(firstErr);
       return;
     }
-    // TODO: Submit to bookings API endpoint when ready
-    // For now, just close modal or keep user on page
-    // console.log('Booking payload', parsed.data);
+    if (!parsed.data.termsAccepted) {
+      setError('Du måste godkänna villkoren');
+      return;
+    }
+
   };
   return (
     <div className='fixed inset-0 z-30 flex items-start justify-center backdrop-blur-sm bg-black/20 overflow-y-auto p-4'>
@@ -201,7 +204,7 @@ export default function BookingsPage() {
               <span className='mb-1'>Förnamn</span>
               <input
                 name='firstName'
-                className='border border-[#2e7d32] rounded-md p-2'
+                className='bo4rder border-[#2e7d32] rounded-md p-2'
                 placeholder='Peter'
               />
             </label>
@@ -260,6 +263,19 @@ export default function BookingsPage() {
               />
             </label>
           </div>
+          {/* Terms acceptance */}
+          <label className='inline-flex items-center gap-2 mt-1 text-inter-sans-serif'>
+            <input
+              name='termsAccepted'
+              type='checkbox'
+              className='h-5 w-5 accent-[#2e7d32] border-2 border-[#2e7d32] rounded-sm'
+            />
+            <span>Jag godkänner villkoren</span>
+          </label>
+          <p className='text-sm text-gray-600 -mt-1 text-inter-sans-serif'>
+            Jag godkänner villkoren och samtycker till att mina personuppgifter
+            lagras i en databas och behandlas enligt GDPR.
+          </p>
           {error && <p className='text-red-600'>{error}</p>}
           <button
             type='submit'
