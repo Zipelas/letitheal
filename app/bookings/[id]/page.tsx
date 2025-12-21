@@ -1,7 +1,7 @@
 import { dbConnect } from '@/lib/mongoose';
 import Booking from '@/models/Booking';
 import mongoose from 'mongoose';
-import { notFound } from 'next/navigation';
+import Link from 'next/link';
 
 type PageProps = { params: { id: string } };
 
@@ -20,14 +20,31 @@ function formatDateTime(d: Date): { date: string; time: string } {
 
 export default async function BookingDetailPage({ params }: PageProps) {
   const { id } = params;
-  if (!mongoose.isValidObjectId(id)) {
-    return notFound();
-  }
+  const valid = mongoose.isValidObjectId(id);
   await dbConnect();
-  const booking = await Booking.findById(
-    new mongoose.Types.ObjectId(id)
-  ).lean();
-  if (!booking) return notFound();
+  const booking = valid
+    ? await Booking.findById(new mongoose.Types.ObjectId(id)).lean()
+    : null;
+
+  if (!valid || !booking) {
+    return (
+      <main className='min-h-screen p-6 text-inter-sans-serif'>
+        <section className='max-w-2xl mx-auto'>
+          <h1 className='text-quicksand-sans-serif text-2xl sm:text-3xl font-semibold'>
+            Bokning kunde inte hittas
+          </h1>
+          <p className='mt-2 text-gray-600'>
+            {valid
+              ? `Vi hittar ingen bokning med ID: ${id}.`
+              : 'Ogiltigt boknings-ID.'}
+          </p>
+          <div className='mt-4'>
+            <Link href='/bookings' className='underline'>Tillbaka till bokning</Link>
+          </div>
+        </section>
+      </main>
+    );
+  }
 
   const { date, time } = formatDateTime(new Date(booking.scheduledAt));
   const modeLabel = booking.mode === 'onsite' ? 'På plats' : 'På distans';
