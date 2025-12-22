@@ -9,8 +9,43 @@ export const runtime = 'nodejs';
 
 // Minimal API stubs to satisfy Next.js module requirements
 // TODO: Implement real booking CRUD
-export async function GET() {
-  return NextResponse.json([]);
+export async function GET(req: Request) {
+  try {
+    const url = new URL(req.url);
+    const userId = url.searchParams.get('userId');
+    const email = url.searchParams.get('email');
+
+    await dbConnect();
+
+    const filter: Record<string, unknown> = {};
+    if (userId && mongoose.Types.ObjectId.isValid(userId)) {
+      filter.user = new mongoose.Types.ObjectId(userId);
+    } else if (email) {
+      filter.email = email.toLowerCase();
+    }
+
+    const bookings = await Booking.find(filter)
+      .sort({ createdAt: -1 })
+      .lean();
+
+    return NextResponse.json(
+      bookings.map((b) => ({
+        _id: b._id,
+        user: b.user,
+        heal: b.heal,
+        firstName: b.firstName,
+        lastName: b.lastName,
+        address: b.address,
+        phone: b.phone,
+        email: b.email,
+        scheduledAt: b.scheduledAt,
+        mode: b.mode,
+        createdAt: b.createdAt,
+      }))
+    );
+  } catch {
+    return NextResponse.json({ error: 'Serverfel' }, { status: 500 });
+  }
 }
 
 const ALLOWED_SLOT_IDS = [
