@@ -31,25 +31,32 @@ const Header = async () => {
         </Link>
       </div>
       <nav>
-        <ul className='flex items-center gap-4'>
+        <ul className='flex items-center gap-3'>
           <Link
             href='/#onSite'
-            className='text-inter-sans-serif font-medium p-1 sm:p-4'>
+            className='text-inter-sans-serif font-medium p-1 sm:p-4 text-sm sm:text-base'>
             På plats
           </Link>
           <Link
             href='/#online'
-            className='text-inter-sans-serif font-medium p-1 sm:p-4'>
+            className='text-inter-sans-serif font-medium p-1 sm:p-4 text-sm sm:text-base'>
             Online
           </Link>
           {session && (
             <Link
               href='/bookings'
-              className='text-inter-sans-serif font-medium p-1 sm:p-4'>
+              className='text-inter-sans-serif font-medium p-1 sm:p-4 text-sm sm:text-base'>
               Boka
             </Link>
           )}
-          <AuthButton />
+          {session && (
+            <Link
+              href='/bookings/mine'
+              className='text-inter-sans-serif font-medium p-1 sm:p-4 text-sm sm:text-base'>
+              Mina bokningar
+            </Link>
+          )}
+          <AuthButton className='text-sm sm:text-base' />
         </ul>
       </nav>
     </header>
