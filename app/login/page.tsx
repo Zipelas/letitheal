@@ -65,10 +65,14 @@ export default function LoginPage() {
     const res = await signIn('credentials', {
       email,
       password,
-      redirect: true,
-      callbackUrl: '/',
+      redirect: false,
     });
-    if (!res?.ok) setError('Felaktig e-post eller lösenord.');
+    if (res?.error) {
+      setError('Felaktig e-post eller lösenord.');
+      return;
+    }
+    setError(null);
+    router.push('/');
   };
 
   const [showRegister, setShowRegister] = useState(false);
