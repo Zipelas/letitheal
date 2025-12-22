@@ -2,6 +2,7 @@
 
 import DatePicker from '@/components/DatePicker';
 import TimePicker from '@/components/TimePicker';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { z } from 'zod';
@@ -96,6 +97,8 @@ const BookingSchema = z.object({
 
 export default function BookingsPage() {
   const router = useRouter();
+  const { status } = useSession();
+  const isAuthed = status === 'authenticated';
   const [error, setError] = useState<string | null>(null);
   const [scheduledDate, setScheduledDate] = useState<Date | null>(null);
   const [scheduledTime, setScheduledTime] = useState<string | null>(null);
@@ -146,6 +149,16 @@ export default function BookingsPage() {
       setError('Något gick fel. Försök igen.');
     }
   };
+  if (status === 'loading') {
+    return (
+      <div className='fixed inset-0 z-30 flex items-center justify-center backdrop-blur-sm bg-black/20 p-4'>
+        <div className='border-2 border-[#2e7d32] rounded-xl p-6 bg-(--background) text-inter-sans-serif'>
+          Laddar...
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className='fixed inset-0 z-30 flex items-start justify-center backdrop-blur-sm bg-black/20 overflow-y-auto p-4'>
       <section className='relative border-2 border-[#2e7d32] rounded-xl w-full sm:max-w-md lg:w-[70vw] lg:max-w-none mx-auto p-6 text-inter-sans-serif bg-(--background) shadow-lg my-8 max-h-[90vh] overflow-y-auto'>
@@ -161,146 +174,160 @@ export default function BookingsPage() {
         <h1 className='text-quicksand-sans-serif text-2xl sm:text-3xl font-semibold mb-4'>
           Boka tid
         </h1>
-        <form
-          onSubmit={onSubmit}
-          className='flex flex-col gap-3'>
-          {/* Date + Time row */}
-          <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
-            <label className='flex flex-col'>
-              <span className='mb-1'>Datum</span>
-              <DatePicker
-                value={scheduledDate}
-                onChange={setScheduledDate}
-              />
-              <input
-                type='hidden'
-                name='scheduledDate'
-                value={scheduledDate ? scheduledDate.toISOString() : ''}
-              />
-            </label>
-            <label className='flex flex-col'>
-              <span className='mb-1'>Välj tid</span>
-              <TimePicker
-                value={scheduledTime}
-                onChange={setScheduledTime}
-                disabled={!scheduledDate}
-              />
-              <input
-                type='hidden'
-                name='scheduledTime'
-                value={scheduledTime ?? ''}
-              />
-            </label>
+        {!isAuthed ? (
+          <div>
+            <p className='text-gray-700 mb-3'>
+              Du måste vara inloggad för att boka tid.
+            </p>
+            <button
+              type='button'
+              className='login-button font-medium'
+              onClick={() => router.push('/login')}>
+              Logga in
+            </button>
           </div>
-          {/* Mode selection: Onsite + Remote under date/time */}
-          <div
-            className='flex items-center gap-6 mt-2'
-            role='radiogroup'
-            aria-label='Bokningsläge'>
-            <label className='inline-flex items-center gap-2 cursor-pointer select-none'>
+        ) : (
+          <form
+            onSubmit={onSubmit}
+            className='flex flex-col gap-3'>
+            {/* Date + Time row */}
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+              <label className='flex flex-col'>
+                <span className='mb-1'>Datum</span>
+                <DatePicker
+                  value={scheduledDate}
+                  onChange={setScheduledDate}
+                />
+                <input
+                  type='hidden'
+                  name='scheduledDate'
+                  value={scheduledDate ? scheduledDate.toISOString() : ''}
+                />
+              </label>
+              <label className='flex flex-col'>
+                <span className='mb-1'>Välj tid</span>
+                <TimePicker
+                  value={scheduledTime}
+                  onChange={setScheduledTime}
+                  disabled={!scheduledDate}
+                />
+                <input
+                  type='hidden'
+                  name='scheduledTime'
+                  value={scheduledTime ?? ''}
+                />
+              </label>
+            </div>
+            {/* Mode selection: Onsite + Remote under date/time */}
+            <div
+              className='flex items-center gap-6 mt-2'
+              role='radiogroup'
+              aria-label='Bokningsläge'>
+              <label className='inline-flex items-center gap-2 cursor-pointer select-none'>
+                <input
+                  type='radio'
+                  name='mode'
+                  value='onsite'
+                  required
+                  className='h-5 w-5 accent-[#2e7d32] border-2 border-[#2e7d32] rounded-sm'
+                />
+                <span>På plats</span>
+              </label>
+              <label className='inline-flex items-center gap-2 cursor-pointer select-none'>
+                <input
+                  type='radio'
+                  name='mode'
+                  value='online'
+                  className='h-5 w-5 accent-[#2e7d32] border-2 border-[#2e7d32] rounded-sm'
+                />
+                <span>På distans</span>
+              </label>
+            </div>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+              <label className='flex flex-col'>
+                <span className='mb-1'>Förnamn</span>
+                <input
+                  name='firstName'
+                  className='border border-[#2e7d32] rounded-md p-2'
+                  placeholder='Peter'
+                />
+              </label>
+              <label className='flex flex-col'>
+                <span className='mb-1'>Efternamn</span>
+                <input
+                  name='lastName'
+                  className='border border-[#2e7d32] rounded-md p-2'
+                  placeholder='Andersson'
+                />
+              </label>
+            </div>
+            <label className='flex flex-col'>
+              <span className='mb-1'>Gatuadress</span>
               <input
-                type='radio'
-                name='mode'
-                value='onsite'
-                required
+                name='street'
+                className='border border-[#2e7d32] rounded-md p-2'
+                placeholder='Vasagatan 7'
+              />
+            </label>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+              <label className='flex flex-col'>
+                <span className='mb-1'>Postnummer</span>
+                <input
+                  name='postalCode'
+                  className='border border-[#2e7d32] rounded-md p-2'
+                  placeholder='13198'
+                />
+              </label>
+              <label className='flex flex-col'>
+                <span className='mb-1'>Stad</span>
+                <input
+                  name='city'
+                  className='border border-[#2e7d32] rounded-md p-2'
+                  placeholder='Stockholm'
+                />
+              </label>
+            </div>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+              <label className='flex flex-col'>
+                <span className='mb-1'>Telefon</span>
+                <input
+                  name='phone'
+                  type='tel'
+                  className='border border-[#2e7d32] rounded-md p-2'
+                  placeholder='031-12 34 56'
+                />
+              </label>
+              <label className='flex flex-col'>
+                <span className='mb-1'>E-post</span>
+                <input
+                  name='email'
+                  type='email'
+                  className='border border-[#2e7d32] rounded-md p-2'
+                  placeholder='exempel@gmail.com'
+                />
+              </label>
+            </div>
+            {/* Terms acceptance */}
+            <label className='inline-flex items-center gap-2 mt-1 text-inter-sans-serif'>
+              <input
+                name='termsAccepted'
+                type='checkbox'
                 className='h-5 w-5 accent-[#2e7d32] border-2 border-[#2e7d32] rounded-sm'
               />
-              <span>På plats</span>
+              <span>Jag godkänner villkoren</span>
             </label>
-            <label className='inline-flex items-center gap-2 cursor-pointer select-none'>
-              <input
-                type='radio'
-                name='mode'
-                value='online'
-                className='h-5 w-5 accent-[#2e7d32] border-2 border-[#2e7d32] rounded-sm'
-              />
-              <span>På distans</span>
-            </label>
-          </div>
-          <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
-            <label className='flex flex-col'>
-              <span className='mb-1'>Förnamn</span>
-              <input
-                name='firstName'
-                className='border border-[#2e7d32] rounded-md p-2'
-                placeholder='Peter'
-              />
-            </label>
-            <label className='flex flex-col'>
-              <span className='mb-1'>Efternamn</span>
-              <input
-                name='lastName'
-                className='border border-[#2e7d32] rounded-md p-2'
-                placeholder='Andersson'
-              />
-            </label>
-          </div>
-          <label className='flex flex-col'>
-            <span className='mb-1'>Gatuadress</span>
-            <input
-              name='street'
-              className='border border-[#2e7d32] rounded-md p-2'
-              placeholder='Vasagatan 7'
-            />
-          </label>
-          <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
-            <label className='flex flex-col'>
-              <span className='mb-1'>Postnummer</span>
-              <input
-                name='postalCode'
-                className='border border-[#2e7d32] rounded-md p-2'
-                placeholder='13198'
-              />
-            </label>
-            <label className='flex flex-col'>
-              <span className='mb-1'>Stad</span>
-              <input
-                name='city'
-                className='border border-[#2e7d32] rounded-md p-2'
-                placeholder='Stockholm'
-              />
-            </label>
-          </div>
-          <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
-            <label className='flex flex-col'>
-              <span className='mb-1'>Telefon</span>
-              <input
-                name='phone'
-                type='tel'
-                className='border border-[#2e7d32] rounded-md p-2'
-                placeholder='031-12 34 56'
-              />
-            </label>
-            <label className='flex flex-col'>
-              <span className='mb-1'>E-post</span>
-              <input
-                name='email'
-                type='email'
-                className='border border-[#2e7d32] rounded-md p-2'
-                placeholder='exempel@gmail.com'
-              />
-            </label>
-          </div>
-          {/* Terms acceptance */}
-          <label className='inline-flex items-center gap-2 mt-1 text-inter-sans-serif'>
-            <input
-              name='termsAccepted'
-              type='checkbox'
-              className='h-5 w-5 accent-[#2e7d32] border-2 border-[#2e7d32] rounded-sm'
-            />
-            <span>Jag godkänner villkoren</span>
-          </label>
-          <p className='text-sm text-gray-600 -mt-1 text-inter-sans-serif'>
-            Jag godkänner villkoren och samtycker till att mina personuppgifter
-            lagras i en databas och behandlas enligt GDPR.
-          </p>
-          {error && <p className='text-red-600'>{error}</p>}
-          <button
-            type='submit'
-            className='login-button font-medium w-fit self-start'>
-            Fortsätt
-          </button>
-        </form>
+            <p className='text-sm text-gray-600 -mt-1 text-inter-sans-serif'>
+              Jag godkänner villkoren och samtycker till att mina
+              personuppgifter lagras i en databas och behandlas enligt GDPR.
+            </p>
+            {error && <p className='text-red-600'>{error}</p>}
+            <button
+              type='submit'
+              className='login-button font-medium w-fit self-start'>
+              Fortsätt
+            </button>
+          </form>
+        )}
       </section>
     </div>
   );
