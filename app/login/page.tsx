@@ -54,27 +54,38 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitting) return;
     setError(null);
+    setSubmitting(true);
     if (!email.includes('@')) {
       setError('E-post måste innehålla @');
+      setSubmitting(false);
       return;
     }
-    const res = await signIn('credentials', {
-      email,
-      password,
-      redirect: false,
-    });
-    if (res?.error) {
-      setError('Felaktig e-post eller lösenord.');
-      return;
+    try {
+      const res = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+        callbackUrl: '/',
+      });
+      if (!res || res.error) {
+        setError('Felaktig e-post eller lösenord.');
+        return;
+      }
+      setError(null);
+      const url = (res && 'url' in res && (res as any).url) || '/';
+      router.replace(url);
+      router.refresh();
+    } catch (e) {
+      setError('Kunde inte logga in just nu. Försök igen.');
+    } finally {
+      setSubmitting(false);
     }
-    setError(null);
-    const url = (res && 'url' in res && (res as any).url) || '/';
-    router.push(url);
-    router.refresh();
   };
 
   const [showRegister, setShowRegister] = useState(false);
@@ -156,8 +167,9 @@ export default function LoginPage() {
           {error && <p className='text-red-600'>{error}</p>}
           <button
             type='submit'
-            className='login-button font-medium'>
-            Logga in
+            disabled={submitting}
+            className='login-button font-medium disabled:opacity-70 disabled:cursor-not-allowed'>
+            {submitting ? 'Loggar in…' : 'Logga in'}
           </button>
           <button
             type='button'
