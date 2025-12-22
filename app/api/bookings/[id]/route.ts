@@ -7,10 +7,10 @@ export const runtime = 'nodejs';
 
 export async function DELETE(
   _req: Request,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = context.params.id;
+    const { id } = await context.params;
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ error: 'Ogiltigt ID' }, { status: 400 });
     }
@@ -26,7 +26,7 @@ export async function DELETE(
     }
 
     return NextResponse.json({ success: true }, { status: 200 });
-  } catch (e) {
+  } catch {
     return NextResponse.json({ error: 'Serverfel' }, { status: 500 });
   }
 }
