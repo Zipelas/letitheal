@@ -12,16 +12,29 @@ export const runtime = 'nodejs';
 export async function GET(req: Request) {
   try {
     const url = new URL(req.url);
-    const userId = url.searchParams.get('userId');
-    const email = url.searchParams.get('email');
+    const userIdParam = url.searchParams.get('userId');
+    const emailParam = url.searchParams.get('email');
+
+    // Require a filter to avoid exposing all bookings
+    if (!userIdParam && !emailParam) {
+      return NextResponse.json(
+        { error: 'Ange userId eller email som filter' },
+        { status: 400 }
+      );
+    }
+
+    if (userIdParam && !mongoose.Types.ObjectId.isValid(userIdParam)) {
+      return NextResponse.json({ error: 'Ogiltigt userId' }, { status: 400 });
+    }
 
     await dbConnect();
 
     const filter: Record<string, unknown> = {};
-    if (userId && mongoose.Types.ObjectId.isValid(userId)) {
-      filter.user = new mongoose.Types.ObjectId(userId);
-    } else if (email) {
-      filter.email = email.toLowerCase();
+    if (userIdParam) {
+      filter.user = new mongoose.Types.ObjectId(userIdParam);
+    }
+    if (emailParam) {
+      filter.email = emailParam.toLowerCase();
     }
 
     const bookings = await Booking.find(filter).sort({ createdAt: -1 }).lean();
@@ -156,8 +169,13 @@ export async function POST(req: Request) {
 
     await dbConnect();
 
-    // Provide a placeholder heal ObjectId until UI supplies a real one
-    const healId = new mongoose.Types.ObjectId('000000000000000000000000');
+    // Provide stable sentinel Heal ObjectIds by mode
+    // These can later be replaced with real Heal documents
+    const healId = new mongoose.Types.ObjectId(
+      mode === 'onsite'
+        ? '000000000000000000005001'
+        : '000000000000000000005002'
+    );
 
     const existingUser = await User.findOne({ email }).select('_id').lean();
     const created = await Booking.create({
