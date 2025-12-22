@@ -28,8 +28,11 @@ export default function DeleteBookingButton({ id, className }: Props) {
       // If we're on "Mina bokningar", stay and refresh the list
       if (pathname?.startsWith('/bookings/mine')) {
         router.refresh();
+      } else if (pathname?.startsWith('/bookings/')) {
+        // If we're on a booking detail page, go back to the list
+        router.push('/bookings/mine');
       } else {
-        // Otherwise, go back to the start page
+        // Fallback: go to start page
         router.push('/');
       }
     } finally {
