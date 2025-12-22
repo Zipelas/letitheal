@@ -113,5 +113,12 @@ footer {
   main {
     padding-top: 72px;
   }
-
+  /* Header mobile sizing */
+  @media (max-width: 640px) {
+    .site-header .login-button,
+    .site-header .logout-button {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+    }
+  }
 }
