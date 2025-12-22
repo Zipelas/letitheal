@@ -36,8 +36,15 @@ export default function DeleteBookingButton({ id, className }: Props) {
       type='button'
       onClick={onDelete}
       disabled={loading}
-      className={`logout-button font-medium ${className ?? ''}`}>
-      {loading ? 'Tar bort…' : 'Ta bort bokning'}
+      className={`logout-button font-medium px-4 sm:px-6 ${className ?? ''}`}>
+      {loading ? (
+        'Tar bort…'
+      ) : (
+        <>
+          <span className='sm:hidden'>Ta bort</span>
+          <span className='hidden sm:inline'>Ta bort bokning</span>
+        </>
+      )}
     </button>
   );
 }
