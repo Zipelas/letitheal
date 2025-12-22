@@ -72,7 +72,9 @@ export default function LoginPage() {
       return;
     }
     setError(null);
-    router.push('/');
+    const url = (res && 'url' in res && (res as any).url) || '/';
+    router.push(url);
+    router.refresh();
   };
 
   const [showRegister, setShowRegister] = useState(false);
