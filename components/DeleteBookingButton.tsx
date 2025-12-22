@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 type Props = {
@@ -10,6 +10,7 @@ type Props = {
 
 export default function DeleteBookingButton({ id, className }: Props) {
   const router = useRouter();
+  const pathname = usePathname();
   const [loading, setLoading] = useState(false);
 
   async function onDelete() {
@@ -24,8 +25,13 @@ export default function DeleteBookingButton({ id, className }: Props) {
         alert(data?.error || 'Kunde inte ta bort bokningen');
         return;
       }
-      // Go back to start page after deletion
-      router.push('/');
+      // If we're on "Mina bokningar", stay and refresh the list
+      if (pathname?.startsWith('/bookings/mine')) {
+        router.refresh();
+      } else {
+        // Otherwise, go back to the start page
+        router.push('/');
+      }
     } finally {
       setLoading(false);
     }
