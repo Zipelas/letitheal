@@ -24,9 +24,7 @@ export async function GET(req: Request) {
       filter.email = email.toLowerCase();
     }
 
-    const bookings = await Booking.find(filter)
-      .sort({ createdAt: -1 })
-      .lean();
+    const bookings = await Booking.find(filter).sort({ createdAt: -1 }).lean();
 
     return NextResponse.json(
       bookings.map((b) => ({
