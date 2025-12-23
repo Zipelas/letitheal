@@ -15,13 +15,7 @@ export async function GET(req: Request) {
     const userIdParam = url.searchParams.get('userId');
     const emailParam = url.searchParams.get('email');
 
-    // Require a filter to avoid exposing all bookings
-    if (!userIdParam && !emailParam) {
-      return NextResponse.json(
-        { error: 'Ange userId eller email som filter' },
-        { status: 400 }
-      );
-    }
+    // Allow optional filtering; if none provided, return all
 
     if (userIdParam && !mongoose.Types.ObjectId.isValid(userIdParam)) {
       return NextResponse.json({ error: 'Ogiltigt userId' }, { status: 400 });
@@ -193,7 +187,104 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ id: created._id.toString() }, { status: 201 });
-  } catch (e) {
+  } catch {
+    return NextResponse.json({ error: 'Serverfel' }, { status: 500 });
+  }
+}
+
+// Update booking via query id (supports requests.rest)
+export async function PUT(req: Request) {
+  try {
+    const url = new URL(req.url);
+    const id = url.searchParams.get('id');
+
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json({ error: 'Ogiltigt id' }, { status: 400 });
+    }
+
+    await dbConnect();
+
+    const booking = await Booking.findById(id).lean();
+    if (!booking) {
+      return NextResponse.json(
+        { error: 'Bokning hittades inte' },
+        { status: 404 }
+      );
+    }
+
+    const UpdateSchema = z.object({
+      firstName: z.string().trim().optional(),
+      lastName: z.string().trim().optional(),
+      address: z
+        .object({
+          street: z.string().trim().optional(),
+          city: z.string().trim().optional(),
+          postalCode: z.string().trim().optional(),
+        })
+        .optional(),
+      phone: z.string().trim().optional(),
+      email: z.string().trim().email().optional(),
+      scheduledAt: z.string().optional(),
+      mode: z.enum(['onsite', 'online']).optional(),
+      status: z
+        .enum(['pending', 'confirmed', 'cancelled', 'completed'])
+        .optional(),
+    });
+
+    const body = await req.json().catch(() => ({}));
+    const parsed = UpdateSchema.safeParse(body);
+    if (!parsed.success) {
+      const first = parsed.error.errors[0]?.message || 'Ogiltig data';
+      return NextResponse.json({ error: first }, { status: 400 });
+    }
+
+    const update: Record<string, unknown> = {};
+    if (parsed.data.firstName) update.firstName = parsed.data.firstName;
+    if (parsed.data.lastName) update.lastName = parsed.data.lastName;
+    if (parsed.data.address) update.address = parsed.data.address;
+    if (parsed.data.phone) update.phone = normalizePhone(parsed.data.phone);
+    if (parsed.data.email) update.email = parsed.data.email.toLowerCase();
+    if (parsed.data.mode) update.mode = parsed.data.mode;
+    if (parsed.data.status) update.status = parsed.data.status;
+    if (parsed.data.scheduledAt) {
+      const d = new Date(parsed.data.scheduledAt);
+      if (Number.isNaN(d.getTime())) {
+        return NextResponse.json({ error: 'Ogiltigt datum' }, { status: 400 });
+      }
+      update.scheduledAt = d;
+    }
+
+    const updated = await Booking.findByIdAndUpdate(
+      id,
+      { $set: update },
+      { new: true }
+    ).lean();
+    return NextResponse.json({ id: updated?._id?.toString() }, { status: 200 });
+  } catch {
+    return NextResponse.json({ error: 'Serverfel' }, { status: 500 });
+  }
+}
+
+// Delete booking via query id (supports requests.rest)
+export async function DELETE(req: Request) {
+  try {
+    const url = new URL(req.url);
+    const id = url.searchParams.get('id');
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json({ error: 'Ogiltigt id' }, { status: 400 });
+    }
+    await dbConnect();
+
+    const booking = await Booking.findById(id).lean();
+    if (!booking) {
+      return NextResponse.json(
+        { error: 'Bokning hittades inte' },
+        { status: 404 }
+      );
+    }
+    await Booking.findByIdAndDelete(id);
+    return NextResponse.json({ success: true }, { status: 200 });
+  } catch {
     return NextResponse.json({ error: 'Serverfel' }, { status: 500 });
   }
 }
