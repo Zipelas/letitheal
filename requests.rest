@@ -19,7 +19,7 @@ Content-Type: application/json
 GET http://localhost:3000/api/heals
 
 ### Heals API - PUT
-PUT http://localhost:3000/api/heals?id=69428c3e660ee9388e5f3133
+PUT http://localhost:3000/api/heals?id=694a7301240e54aeb90ecf26
 Content-Type: application/json
 
 {
@@ -32,7 +32,7 @@ Content-Type: application/json
 GET http://localhost:3000/api/heals?slug=onsite-healing-session
 
 ### Heals API - DELETE
-DELETE http://localhost:3000/api/heals?id=69428c3e660ee9388e5f3133
+DELETE http://localhost:3000/api/heals?id=693869152bb3191e14103e29
 
 ### Users API - CREATE
 POST http://localhost:3000/api/users
@@ -53,16 +53,16 @@ Content-Type: application/json
 GET http://localhost:3000/api/users
 
 ### Users API - PUT
-PUT http://localhost:3000/api/users?id=69428e01660ee9388e5f3142
+PUT http://localhost:3000/api/users?id=694a742b240e54aeb90ecf38
 Content-Type: application/json
 
 {
-	"firstName": "Ina",
-	"lastName": "Jönsson",
-	"address": { "street": "Fritzbergsvägen 1", "city": "Vallentund", "postalCode": "13123" },
-	"phone": "031-78 90 12",
-	"email": "ina.jonsson@gmail.com",
-	"role": "user"
+	"firstName": "Andreas",
+	"lastName": "Fagerlund",
+	"address": { "street": "Kalendervägen 107D", "city": "Göteborg", "postalCode": "41511" },
+	"phone": "031123456",
+	"email": "mcshaffa@gmail.com",
+	"role": "admin"
 }
 # Optional password reset example:
 # PUT http://localhost:3000/api/users?id=693ad402685ceb7d3addc085
@@ -71,7 +71,7 @@ Content-Type: application/json
 # }
 
 ### Users API - DELETE
-DELETE http://localhost:3000/api/users?id=69451828905132361a97573b
+DELETE http://localhost:3000/api/users?id=694a742b240e54aeb90ecf38
 
 ### Bookings API - CREATE
 POST http://localhost:3000/api/bookings
@@ -108,5 +108,5 @@ Content-Type: application/json
 }
 
 ### Bookings API - DELETE
-DELETE http://localhost:3000/api/bookings?id=69428ebc660ee9388e5f314e
+DELETE http://localhost:3000/api/bookings?id=69499fc4240e54aeb90ecf14
 

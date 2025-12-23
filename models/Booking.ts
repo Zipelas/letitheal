@@ -2,6 +2,7 @@ import mongoose, { type Document, Schema, model, models } from 'mongoose';
 import 'server-only';
 
 export interface BookingDoc extends Document {
+  user?: mongoose.Types.ObjectId;
   heal: mongoose.Types.ObjectId;
   firstName: string;
   lastName: string;
@@ -23,6 +24,7 @@ export interface BookingDoc extends Document {
 
 const BookingSchema = new Schema<BookingDoc>(
   {
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
     heal: { type: Schema.Types.ObjectId, ref: 'Heal', required: true },
     firstName: { type: String, required: true, trim: true },
     lastName: { type: String, required: true, trim: true },

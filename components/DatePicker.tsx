@@ -1,0 +1,248 @@
+'use client';
+
+import { useEffect, useMemo, useRef, useState } from 'react';
+
+type Props = {
+  value?: Date | null;
+  onChange: (date: Date) => void;
+  minDate?: Date;
+  maxDate?: Date;
+  className?: string;
+};
+
+const svWeekdays = ['M', 'T', 'O', 'T', 'F', 'L', 'S'];
+const svMonths = [
+  'januari',
+  'februari',
+  'mars',
+  'april',
+  'maj',
+  'juni',
+  'juli',
+  'augusti',
+  'september',
+  'oktober',
+  'november',
+  'december',
+];
+
+function startOfDay(d: Date) {
+  const x = new Date(d);
+  x.setHours(0, 0, 0, 0);
+  return x;
+}
+
+function inRange(d: Date, min?: Date, max?: Date) {
+  const time = d.getTime();
+  if (min && time < startOfDay(min).getTime()) return false;
+  if (max && time > startOfDay(max).getTime()) return false;
+  return true;
+}
+
+export default function DatePicker({
+  value = null,
+  onChange,
+  minDate,
+  maxDate,
+  className,
+}: Props) {
+  const initial = value ?? new Date();
+  const [viewYear, setViewYear] = useState<number>(initial.getFullYear());
+  const [viewMonth, setViewMonth] = useState<number>(initial.getMonth());
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+
+  const today = useMemo(() => startOfDay(new Date()), []);
+  const selected = value ? startOfDay(value) : null;
+
+  function prevMonth() {
+    const m = viewMonth - 1;
+    if (m < 0) {
+      setViewMonth(11);
+      setViewYear((y) => y - 1);
+    } else setViewMonth(m);
+  }
+
+  function nextMonth() {
+    const m = viewMonth + 1;
+    if (m > 11) {
+      setViewMonth(0);
+      setViewYear((y) => y + 1);
+    } else setViewMonth(m);
+  }
+
+  const grid = useMemo(() => {
+    const first = new Date(viewYear, viewMonth, 1);
+    const firstWeekday = (first.getDay() + 6) % 7; // 0 = Monday
+    const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+    const cells: { date: Date; inMonth: boolean; disabled: boolean }[] = [];
+
+    // Fill leading days from previous month
+    for (let i = 0; i < firstWeekday; i++) {
+      const d = new Date(viewYear, viewMonth, -(firstWeekday - 1 - i));
+      cells.push({
+        date: d,
+        inMonth: false,
+        disabled: !inRange(d, minDate, maxDate),
+      });
+    }
+    // Current month
+    for (let day = 1; day <= daysInMonth; day++) {
+      const d = new Date(viewYear, viewMonth, day);
+      cells.push({
+        date: d,
+        inMonth: true,
+        disabled: !inRange(d, minDate, maxDate),
+      });
+    }
+    // Trailing to fill to 42 cells (6 weeks)
+    while (cells.length % 7 !== 0) {
+      const last = cells[cells.length - 1].date;
+      const d = new Date(
+        last.getFullYear(),
+        last.getMonth(),
+        last.getDate() + 1
+      );
+      cells.push({
+        date: d,
+        inMonth: false,
+        disabled: !inRange(d, minDate, maxDate),
+      });
+    }
+    while (cells.length < 42) {
+      const last = cells[cells.length - 1].date;
+      const d = new Date(
+        last.getFullYear(),
+        last.getMonth(),
+        last.getDate() + 1
+      );
+      cells.push({
+        date: d,
+        inMonth: false,
+        disabled: !inRange(d, minDate, maxDate),
+      });
+    }
+    return cells;
+  }, [viewYear, viewMonth, minDate, maxDate]);
+
+  function isSameDay(a: Date, b: Date) {
+    return (
+      a.getFullYear() === b.getFullYear() &&
+      a.getMonth() === b.getMonth() &&
+      a.getDate() === b.getDate()
+    );
+  }
+
+  // Close popover on outside click or Escape
+  useEffect(() => {
+    function onDocClick(e: MouseEvent) {
+      if (!open) return;
+      const root = rootRef.current;
+      if (root && !root.contains(e.target as Node)) setOpen(false);
+    }
+    function onKey(e: KeyboardEvent) {
+      if (!open) return;
+      if (e.key === 'Escape') setOpen(false);
+    }
+    document.addEventListener('mousedown', onDocClick);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDocClick);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+
+  const displayDate = selected ?? today;
+  const displayText = displayDate.toLocaleDateString('sv-SE', {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+  });
+
+  return (
+    <div
+      ref={rootRef}
+      className={['relative', className].filter(Boolean).join(' ')}>
+      <button
+        type='button'
+        aria-haspopup='dialog'
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+        className='w-full border border-[#2e7d32] rounded-md p-2 flex items-center justify-between'>
+        <span>{displayText}</span>
+        <span aria-hidden>📅</span>
+      </button>
+
+      {open && (
+        <div
+          role='dialog'
+          aria-label='Välj datum'
+          className='absolute z-50 mt-2 w-72 rounded-md border border-[#2e7d32] bg-(--background) shadow-lg p-3'>
+          <div className='flex items-center justify-between mb-2'>
+            <button
+              type='button'
+              onClick={prevMonth}
+              className='px-2 py-1 border border-[#2e7d32] rounded-md text-sm hover:bg-(--muted)'
+              aria-label='Föregående månad'>
+              ‹
+            </button>
+            <div className='text-quicksand-sans-serif font-semibold'>
+              {svMonths[viewMonth]} {viewYear}
+            </div>
+            <button
+              type='button'
+              onClick={nextMonth}
+              className='px-2 py-1 border border-[#2e7d32] rounded-md text-sm hover:bg-(--muted)'
+              aria-label='Nästa månad'>
+              ›
+            </button>
+          </div>
+
+          <div className='grid grid-cols-7 gap-1 text-center text-xs text-gray-600 mb-1'>
+            {svWeekdays.map((d, i) => (
+              <div
+                key={`${d}-${i}`}
+                className='py-1'>
+                {d}
+              </div>
+            ))}
+          </div>
+          <div className='grid grid-cols-7 gap-1'>
+            {grid.map(({ date, inMonth, disabled }, idx) => {
+              const isToday = isSameDay(today, date);
+              const isSelected = selected ? isSameDay(selected, date) : false;
+              const base =
+                'h-9 rounded-md flex items-center justify-center select-none';
+              const styles = [
+                'border',
+                'text-sm',
+                inMonth ? 'bg-(--background)' : 'bg-gray-50 text-gray-400',
+                disabled
+                  ? 'opacity-40 cursor-not-allowed'
+                  : 'cursor-pointer hover:bg-(--muted)',
+                isSelected
+                  ? 'border-[#2e7d32] ring-2 ring-[#2e7d32]/30'
+                  : 'border-gray-200',
+                isToday && !isSelected ? 'ring-1 ring-[#2e7d32]/40' : '',
+              ].join(' ');
+              return (
+                <button
+                  type='button'
+                  key={idx}
+                  className={`${base} ${styles}`}
+                  disabled={disabled}
+                  onClick={() => {
+                    onChange(startOfDay(date));
+                    setOpen(false);
+                  }}
+                  aria-pressed={isSelected}>
+                  {date.getDate()}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
