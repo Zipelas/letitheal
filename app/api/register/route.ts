@@ -23,16 +23,28 @@ const RegisterSchema = z.object({
       if (val && val.length > 0) {
         const digits = val.replace(/\D/g, '');
         if (digits.length < 7) {
-          ctx.addIssue({ code: 'custom', message: 'Telefonnumret måste innehålla minst 7 siffror' });
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Telefonnumret måste innehålla minst 7 siffror',
+          });
         }
         if (digits.length > 12) {
-          ctx.addIssue({ code: 'custom', message: 'Telefonnumret får innehålla högst 12 siffror' });
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Telefonnumret får innehålla högst 12 siffror',
+          });
         }
         if (!/^\+?[\d\s\-()]+$/.test(val)) {
-          ctx.addIssue({ code: 'custom', message: 'Ogiltigt telefonnummerformat' });
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Ogiltigt telefonnummerformat',
+          });
         }
         if (val.includes('+') && !val.startsWith('+')) {
-          ctx.addIssue({ code: 'custom', message: 'Plustecken får bara stå först i numret' });
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Plustecken får bara stå först i numret',
+          });
         }
       }
     }),
