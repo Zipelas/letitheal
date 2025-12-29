@@ -93,7 +93,8 @@ export default async function MyBookingsPage() {
             {bookings.map((b: BookingType) => {
               const { date, time } = formatDateTime(new Date(b.scheduledAt));
               const created = formatDateTime(new Date(b.createdAt));
-              const label = b.mode === 'onsite' ? 'På plats' : 'På distans';
+              const label =
+                b.mode === 'onsite' ? 'Reiki på plats' : 'Reiki online';
               return (
                 <div
                   key={b._id?.toString()}

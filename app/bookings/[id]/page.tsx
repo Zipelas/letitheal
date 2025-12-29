@@ -53,20 +53,8 @@ export default async function BookingDetailPage({ params }: PageProps) {
 
   const { date, time } = formatDateTime(new Date(booking.scheduledAt));
   const created = formatDateTime(new Date(booking.createdAt));
-  const modeLabel = booking.mode === 'onsite' ? 'På plats' : 'På distans';
-  // Bokningslistan visas på sidan /bookings/mine
-  // const allBookings = booking.user
-  //   ? await Booking.find({ user: booking.user })
-  //       .sort({ createdAt: -1 })
-  //       .lean<BookingListItem[]>()
-  //   : await Booking.find({
-  //       $or: [
-  //         ...(booking.email ? [{ email: booking.email }] : []),
-  //         ...(booking.phone ? [{ phone: booking.phone }] : []),
-  //       ],
-  //     })
-  //       .sort({ createdAt: -1 })
-  //       .lean<BookingListItem[]>();
+  const modeLabel =
+    booking.mode === 'onsite' ? 'Reiki på plats' : 'Reiki online';
 
   return (
     <main className='min-h-screen p-6 text-inter-sans-serif'>

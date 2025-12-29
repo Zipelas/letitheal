@@ -231,7 +231,7 @@ export default function BookingsPage() {
                   required
                   className='h-5 w-5 accent-[#2e7d32] border-2 border-[#2e7d32] rounded-sm'
                 />
-                <span>På plats</span>
+                <span>Reiki på plats</span>
               </label>
               <label className='inline-flex items-center gap-2 cursor-pointer select-none'>
                 <input
@@ -240,7 +240,7 @@ export default function BookingsPage() {
                   value='online'
                   className='h-5 w-5 accent-[#2e7d32] border-2 border-[#2e7d32] rounded-sm'
                 />
-                <span>På distans</span>
+                <span>Reiki online</span>
               </label>
             </div>
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
