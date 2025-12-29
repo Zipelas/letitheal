@@ -1,6 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
-const page = () => {
+import { getSession } from '@/lib/auth';
+import type { Session } from 'next-auth';
+
+const page = async () => {
+  const session: Session | null = await getSession();
   return (
     <>
       <section>
@@ -87,11 +91,13 @@ const page = () => {
           vätska vilket är viktigt efteråt.
         </p>
         <div className='m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto mb-6 sm:mb-10 flex justify-start'>
-          <Link
-            href='/bookings'
-            className='inline-block text-sm sm:text-base bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold hover:bg-[#27642a] transition-colors'>
-            BOKA
-          </Link>
+          {session && (
+            <Link
+              href='/bookings'
+              className='inline-block text-sm sm:text-base bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold hover:bg-[#27642a] transition-colors'>
+              BOKA
+            </Link>
+          )}
         </div>
       </section>
       <section id='online'>
@@ -153,11 +159,13 @@ const page = () => {
           redo att ta itu med.
         </p>
         <div className='m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto mb-6 sm:mb-10 flex justify-start'>
-          <Link
-            href='/bookings'
-            className='inline-block text-sm sm:text-base bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold hover:bg-[#27642a] transition-colors'>
-            BOKA
-          </Link>
+          {session && (
+            <Link
+              href='/bookings'
+              className='inline-block text-sm sm:text-base bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold hover:bg-[#27642a] transition-colors'>
+              BOKA
+            </Link>
+          )}
         </div>
       </section>
     </>
