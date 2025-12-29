@@ -4,6 +4,15 @@ import Booking from '@/models/Booking';
 import User from '@/models/User';
 import Link from 'next/link';
 
+interface BookingType {
+  _id: string;
+  scheduledAt: string;
+  createdAt: string;
+  mode: 'onsite' | 'remote';
+  status: string;
+  user: string;
+}
+
 function formatDateTime(d: Date): { date: string; time: string } {
   const date = new Intl.DateTimeFormat('sv-SE', {
     year: 'numeric',
@@ -81,7 +90,7 @@ export default async function MyBookingsPage() {
           <p className='mt-2 text-gray-600'>Du har inga bokningar ännu.</p>
         ) : (
           <div className='mt-4 space-y-3'>
-            {bookings.map((b: any) => {
+            {bookings.map((b: BookingType) => {
               const { date, time } = formatDateTime(new Date(b.scheduledAt));
               const created = formatDateTime(new Date(b.createdAt));
               const label = b.mode === 'onsite' ? 'På plats' : 'På distans';
