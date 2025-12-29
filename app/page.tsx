@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import { getSession } from '@/lib/auth';
 import type { Session } from 'next-auth';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const page = async () => {
   const session: Session | null = await getSession();
@@ -112,10 +112,7 @@ const page = async () => {
           Reiki online
         </h2>
         <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
-          Reiki energin kan skickas på avstånd och fördelar med Reiki på
-          distansär att man inte behöver gå någonstans. Man kan ta emot Reiki
-          precis där man befinner sig. Reiki på distans kan vara lika effektivt
-          som att få behandlingen på plats.
+          Reiki energin kan skickas på avstånd och fördelar med Reiki på distans är att man inte behöver gå någonstans. Man kan ta emot Reiki precis där man befinner sig. Reiki på distans kan vara lika effektivt som att få behandlingen på plats.
         </p>
         <h3 className='font-bold text-center text-xl sm:text-2xl mt-6 mb-6 sm:mt-10 sm:mb-10'>
           Innan och under healingen
