@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 const page = () => {
   return (
     <>
@@ -85,6 +86,13 @@ const page = () => {
           hur det kändes och om vad som kom upp. Samtidigt får du fylla på med
           vätska vilket är viktigt efteråt.
         </p>
+        <div className='m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto mb-6 sm:mb-10 flex justify-start'>
+          <Link
+            href='/bookings'
+            className='inline-block text-sm sm:text-base border bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold'>
+            BOKA
+          </Link>
+        </div>
       </section>
       <section id='online'>
         <Image
@@ -115,7 +123,8 @@ const page = () => {
           ta flera djupa, långsamma andetag för att slappna av.
         </p>
         <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
-          Säg högt eller tyst till dig själv &quot;Jag är redo att ta emot Reiki-energier&quot;.
+          Säg högt eller tyst till dig själv &quot;Jag är redo att ta emot
+          Reiki-energier&quot;.
           <br />
           Det är allt du behöver göra!
         </p>
@@ -143,6 +152,13 @@ const page = () => {
           en viss situation eller person, något som har stört dig som du är redo
           att ta itu med.
         </p>
+        <div className='m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto mb-6 sm:mb-10 flex justify-start'>
+          <Link
+            href='/bookings'
+            className='inline-block text-sm sm:text-base border bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold'>
+            BOKA
+          </Link>
+        </div>
       </section>
     </>
   );
