@@ -89,7 +89,7 @@ const page = () => {
         <div className='m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto mb-6 sm:mb-10 flex justify-start'>
           <Link
             href='/bookings'
-            className='inline-block text-sm sm:text-base border bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold'>
+            className='inline-block text-sm sm:text-base bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold hover:bg-[#27642a] transition-colors'>
             BOKA
           </Link>
         </div>
@@ -106,10 +106,10 @@ const page = () => {
           Reiki online
         </h2>
         <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
-          Reiki energin kan skickas på avstånd och fördelar med Reiki på distans
-          är att man inte behöver gå någonstans. Man kan ta emot Reiki precis
-          där man befinner sig. Reiki på distans kan vara lika effektivt som att
-          få behandlingen på plats.
+          Reiki energin kan skickas på avstånd och fördelar med Reiki på
+          distansär att man inte behöver gå någonstans. Man kan ta emot Reiki
+          precis där man befinner sig. Reiki på distans kan vara lika effektivt
+          som att få behandlingen på plats.
         </p>
         <h3 className='font-bold text-center text-xl sm:text-2xl mt-6 mb-6 sm:mt-10 sm:mb-10'>
           Innan och under healingen
@@ -130,7 +130,7 @@ const page = () => {
         </p>
         <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
           Det är individuellt hur mottagaren upplever Reiki energierna på
-          distans. Majoriteten känner sig väldigt avslappande och en del kan
+          distans. Majoriteten känner sig väldigt avslappnade och en del kan
           till och med känna stickningar eller en pirrande känsla. Vissa kanske
           börjar gråta eller skratta utan att veta varför. Det är känslomässig
           energi som måste släppas för att du ska läka.
@@ -148,14 +148,14 @@ const page = () => {
           session är det alltid bra att dricka ett glas vatten.
         </p>
         <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto mb-6 sm:mb-10'>
-          Notera allt som kommer upp i de kommande dagarna; du kanske tänker på
-          en viss situation eller person, något som har stört dig som du är redo
-          att ta itu med.
+          Notera allt som kommer upp under de kommande dagarna. Du kanske tänker
+          på en viss situation eller person, något som har stört dig som du är
+          redo att ta itu med.
         </p>
         <div className='m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto mb-6 sm:mb-10 flex justify-start'>
           <Link
             href='/bookings'
-            className='inline-block text-sm sm:text-base border bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold'>
+            className='inline-block text-sm sm:text-base bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold hover:bg-[#27642a] transition-colors'>
             BOKA
           </Link>
         </div>
