@@ -9,7 +9,6 @@ const Header = async () => {
   try {
     session = await getSession();
   } catch {
-    // If JWT decryption fails (e.g., secret changed), treat as signed-out
     session = null;
   }
   return (
