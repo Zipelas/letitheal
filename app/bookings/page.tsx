@@ -192,8 +192,12 @@ export default function BookingsPage() {
             className='flex flex-col gap-3'>
             {/* Date + Time row */}
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
-              <label className='flex flex-col'>
-                <span className='mb-1'>Datum</span>
+              <div className='flex flex-col'>
+                <label
+                  htmlFor='scheduledDate'
+                  className='mb-1'>
+                  Datum
+                </label>
                 <DatePicker
                   value={scheduledDate}
                   onChange={setScheduledDate}
@@ -201,11 +205,16 @@ export default function BookingsPage() {
                 <input
                   type='hidden'
                   name='scheduledDate'
+                  id='scheduledDate'
                   value={scheduledDate ? scheduledDate.toISOString() : ''}
                 />
-              </label>
-              <label className='flex flex-col'>
-                <span className='mb-1'>Välj tid</span>
+              </div>
+              <div className='flex flex-col'>
+                <label
+                  htmlFor='scheduledTime'
+                  className='mb-1'>
+                  Välj tid
+                </label>
                 <TimePicker
                   value={scheduledTime}
                   onChange={setScheduledTime}
@@ -214,9 +223,10 @@ export default function BookingsPage() {
                 <input
                   type='hidden'
                   name='scheduledTime'
+                  id='scheduledTime'
                   value={scheduledTime ?? ''}
                 />
-              </label>
+              </div>
             </div>
             {/* Mode selection: Onsite + Remote under date/time */}
             <div
