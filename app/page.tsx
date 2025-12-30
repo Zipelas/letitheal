@@ -103,7 +103,7 @@ const page = async () => {
       <section id='online'>
         <Image
           src='/images/online.png'
-          alt='Hero image showing a peaceful healing scene'
+          alt='Person relaxing on a sofa with candles and a fireplace, looking out at a snowy landscape'
           width={600}
           height={400}
           className='hero-1 mx-auto my-4 rounded-lg shadow-lg mt-10 mb-6 sm:mt-16 sm:mb-8'
