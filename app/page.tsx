@@ -16,7 +16,7 @@ const page = async () => {
           alt='Hands channeling energy towards a glowing orb, symbolizing healing'
           width={600}
           height={400}
-          className='hero-1 mx-auto my-4 rounded-lg shadow-lg'
+          className='w-[80vw] max-w-3xl sm:w-[95vw] mx-auto my-4 rounded-lg shadow-lg'
         />
         <h2 className='font-bold text-center text-3xl sm:text-4xl mt-10 mb-6 sm:mt-16 sm:mb-8'>
           Välkommen till Let it Heal!
@@ -55,7 +55,7 @@ const page = async () => {
           alt='Hero image showing a peaceful healing scene'
           width={600}
           height={400}
-          className='hero-1 mx-auto my-4 rounded-lg shadow-lg mt-10 mb-6 sm:mt-16 sm:mb-8'
+          className='w-[95vw] max-w-xl mx-auto my-4 rounded-lg shadow-lg mt-10 mb-6 sm:mt-16 sm:mb-8'
         />
         <h2 className='font-bold text-center text-3xl sm:text-4xl mt-10 mb-6 sm:mt-16 sm:mb-8'>
           Reiki på plats
@@ -106,7 +106,7 @@ const page = async () => {
           alt='Person relaxing on a sofa with candles and a fireplace, looking out at a snowy landscape'
           width={600}
           height={400}
-          className='hero-1 mx-auto my-4 rounded-lg shadow-lg mt-10 mb-6 sm:mt-16 sm:mb-8'
+          className='w-[95vw] max-w-xl mx-auto my-4 rounded-lg shadow-lg mt-10 mb-6 sm:mt-16 sm:mb-8'
         />
         <h2 className='font-bold text-center text-3xl sm:text-4xl mt-10 mb-6 sm:mt-16 sm:mb-8'>
           Reiki online
