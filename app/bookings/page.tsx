@@ -196,7 +196,7 @@ export default function BookingsPage() {
                 <label
                   htmlFor='scheduledDate'
                   className='mb-1'>
-                  Datum
+                  <span className='mb-1 font-medium'>Datum</span>
                 </label>
                 <DatePicker
                   value={scheduledDate}
@@ -213,7 +213,7 @@ export default function BookingsPage() {
                 <label
                   htmlFor='scheduledTime'
                   className='mb-1'>
-                  Välj tid
+                  <span className='mb-1 font-medium'>Välj tid</span>
                 </label>
                 <TimePicker
                   value={scheduledTime}
