@@ -30,32 +30,32 @@ const Header = async () => {
         </Link>
       </div>
       <nav>
-        <ul className='flex items-center gap-3'>
+        <ul className='flex items-center gap-1 sm:gap-3 whitespace-nowrap overflow-x-auto'>
           <Link
             href='/#onSite'
-            className='text-inter-sans-serif font-medium p-1 sm:p-4 text-sm sm:text-base'>
+            className='text-inter-sans-serif font-medium px-1 py-1 sm:px-4 sm:py-1 text-xs sm:text-base whitespace-nowrap'>
             På plats
           </Link>
           <Link
             href='/#online'
-            className='text-inter-sans-serif font-medium p-1 sm:p-4 text-sm sm:text-base'>
+            className='text-inter-sans-serif font-medium px-1 py-1 sm:px-4 sm:py-1 text-xs sm:text-base whitespace-nowrap'>
             Online
           </Link>
           {session && (
             <Link
               href='/bookings'
-              className='text-inter-sans-serif font-medium p-1 sm:p-4 text-sm sm:text-base'>
+              className='text-inter-sans-serif font-medium px-1 py-1 sm:px-4 sm:py-1 text-xs sm:text-base whitespace-nowrap'>
               Boka
             </Link>
           )}
           {session && (
             <Link
               href='/bookings/mine'
-              className='text-inter-sans-serif font-medium p-1 sm:p-4 text-sm sm:text-base'>
+              className='text-inter-sans-serif font-medium px-1 py-1 sm:px-4 sm:py-1 text-xs sm:text-base whitespace-nowrap'>
               Mina bokningar
             </Link>
           )}
-          <AuthButton className='text-sm sm:text-base' />
+          <AuthButton className='text-xs sm:text-base px-1 py-1 sm:px-4 sm:py-1 whitespace-nowrap' />
         </ul>
       </nav>
     </header>
