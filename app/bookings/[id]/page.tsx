@@ -66,25 +66,25 @@ export default async function BookingDetailPage({ params }: PageProps) {
 
         <div className='mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4'>
           <div className='border border-[#2e7d32] rounded-md p-3'>
-            <h3 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>
+            <h2 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>
               Datum
-            </h3>
+            </h2>
             <p>{date}</p>
           </div>
           <div className='border border-[#2e7d32] rounded-md p-3'>
-            <h3 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>Tid</h3>
+            <h2 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>Tid</h2>
             <p>{time}</p>
           </div>
           <div className='border border-[#2e7d32] rounded-md p-3'>
-            <h3 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>
+            <h2 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>
               Läge
-            </h3>
+            </h2>
             <p>{modeLabel}</p>
           </div>
           <div className='border border-[#2e7d32] rounded-md p-3'>
-            <h3 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>
+            <h2 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>
               Status
-            </h3>
+            </h2>
             <p>{booking.status}</p>
           </div>
         </div>
@@ -92,21 +92,21 @@ export default async function BookingDetailPage({ params }: PageProps) {
         {/* Typ av healing + Skapad (samma bredd som Läge) */}
         <div className='mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4'>
           <div className='border border-[#2e7d32] rounded-md p-3'>
-            <h3 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>
+            <h2 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>
               Typ av healing
-            </h3>
+            </h2>
             <p>{modeLabel}</p>
-            <h3 className='font-medium text-[1.25rem] sm:text-[1.5rem] mt-2'>
+            <h2 className='font-medium text-[1.25rem] sm:text-[1.5rem] mt-2'>
               När
-            </h3>
+            </h2>
             <p className='text-sm text-gray-600'>
               {date} kl {time}
             </p>
           </div>
           <div className='border border-[#2e7d32] rounded-md p-3'>
-            <h3 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>
+            <h2 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>
               Skapad
-            </h3>
+            </h2>
             <p className='text-sm text-gray-600'>
               {created.date} kl {created.time}
             </p>
@@ -115,14 +115,14 @@ export default async function BookingDetailPage({ params }: PageProps) {
 
         {/* Namn med adress, telefon och e-post under */}
         <div className='mt-6 border border-[#2e7d32] rounded-md p-3'>
-          <h3 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>Namn</h3>
+          <h2 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>Namn</h2>
           <p>
             {booking.firstName} {booking.lastName}
           </p>
           <div className='mt-2'>
-            <h3 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>
+            <h2 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>
               Adress
-            </h3>
+            </h2>
             <p>
               {[
                 booking.address?.street,
@@ -134,9 +134,9 @@ export default async function BookingDetailPage({ params }: PageProps) {
             </p>
           </div>
           <div className='mt-2'>
-            <h3 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>
+            <h2 className='font-medium text-[1.25rem] sm:text-[1.5rem]'>
               Kontakt
-            </h3>
+            </h2>
             <p>{booking.phone || '—'}</p>
             <p>{booking.email || '—'}</p>
           </div>
