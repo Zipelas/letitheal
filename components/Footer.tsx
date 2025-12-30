@@ -56,50 +56,8 @@ const Footer = () => {
             </li>
           ))}
         </ul>
+        <p>&copy; 2025 Let it Heal</p>
       </nav>
-      {/* <nav className='m-4 sm:m-2'>
-        <ul>
-          <li className='flex gap-2 py-2'>
-            <Image
-              src='/icons/socials/facebook.svg'
-              alt='Facebook Logo'
-              width={32}
-              height={32}
-            />
-            <p>Facebook</p>
-          </li>
-          <li className='flex gap-2 py-2'>
-            <Image
-              src='/icons/socials/instagram.svg'
-              alt='Instagram Logo'
-              width={32}
-              height={32}
-            />
-            <p>Instagram</p>
-          </li>
-          <li className='flex gap-2 py-2'>
-            <Image
-              src='/icons/socials/x.svg'
-              alt='X Logo'
-              width={32}
-              height={32}
-            />
-            <p>X</p>
-          </li>{' '}
-          <li className='flex gap-2 py-2'>
-            <Image
-              src='/icons/socials/youtube.svg'
-              alt='Youtube Logo'
-              width={32}
-              height={32}
-            />
-            <p>Youtube</p>
-          </li>
-          <li>
-            <p>&copy; 2025 Let it Heal</p>
-          </li>
-        </ul>
-      </nav> */}
     </footer>
   );
 };
