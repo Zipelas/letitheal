@@ -67,18 +67,18 @@ export default function LoginPage() {
       return;
     }
     try {
-      const res = await signIn('credentials', {
+      const res = (await signIn('credentials', {
         email,
         password,
         redirect: false,
         callbackUrl: '/',
-      });
+      })) as { error?: string; url?: string } | null;
       if (!res || res.error) {
         setError('Felaktig e-post eller lösenord.');
         return;
       }
       setError(null);
-      const url = (res && 'url' in res && (res as any).url) || '/';
+      const url = (res && 'url' in res && res.url) || '/';
       router.replace(url);
       router.refresh();
     } catch (e) {
@@ -173,7 +173,7 @@ export default function LoginPage() {
           </button>
           <button
             type='button'
-            className='mt-2 underline text-inter-sans-serif'
+            className='mt-2 underline text-inter-sans-serif cursor-pointer'
             onClick={() => setShowRegister(true)}>
             Skapa konto
           </button>
@@ -277,7 +277,7 @@ export default function LoginPage() {
                 </button>
                 <button
                   type='button'
-                  className='font-medium underline'
+                  className='font-medium underline cursor-pointer'
                   onClick={() => setShowRegister(false)}>
                   Avbryt
                 </button>
