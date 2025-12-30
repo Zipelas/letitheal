@@ -13,24 +13,25 @@ const Header = async () => {
   }
   return (
     <header className='site-header flex flex-row items-center justify-between px-4 shadow-sm'>
-      <div className='flex items-center gap-1'>
+      <div className='flex items-center gap-0'>
         <Link
           href='/'
-          className='flex items-center gap-2'
+          className='flex items-center gap-1'
           aria-label='Let it Heal startsida'>
           <Image
             src='/images/logo.png'
             alt='Let it Heal Logo'
-            width={32}
-            height={32}
+            width={28}
+            height={28}
+            className='block'
           />
-          <span className='text-tangerine-calligraphy font-bold text-2xl sm:text-3xl hidden sm:block'>
+          <span className='text-tangerine-calligraphy font-bold text-xl sm:text-3xl hidden sm:block'>
             Let it Heal
           </span>
         </Link>
       </div>
       <nav>
-        <ul className='flex items-center gap-1 sm:gap-3 whitespace-nowrap overflow-x-auto'>
+        <ul className='flex items-center gap-0.5 sm:gap-3 whitespace-nowrap overflow-x-auto'>
           <Link
             href='/#onSite'
             className='text-inter-sans-serif font-medium px-1 py-1 sm:px-4 sm:py-1 text-xs sm:text-base whitespace-nowrap'>
@@ -55,7 +56,7 @@ const Header = async () => {
               Mina bokningar
             </Link>
           )}
-          <AuthButton className='text-xs sm:text-base px-1 py-1 sm:px-4 sm:py-1 whitespace-nowrap' />
+          <AuthButton className='text-xs sm:text-base px-0.5 py-0.5 sm:px-4 sm:py-1 whitespace-nowrap' />
         </ul>
       </nav>
     </header>
