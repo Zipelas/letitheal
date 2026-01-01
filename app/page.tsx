@@ -90,14 +90,19 @@ const page = async () => {
           hur det kändes och om vad som kom upp. Samtidigt får du fylla på med
           vätska vilket är viktigt efteråt.
         </p>
-        <div className='m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto mb-6 sm:mb-10 flex justify-start'>
-          {session && (
-            <Link
-              href='/bookings'
-              className='inline-block text-sm sm:text-base bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold hover:bg-[#27642a] transition-colors'>
-              BOKA
-            </Link>
-          )}
+        <div className='m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto mb-6 sm:mb-10'>
+          <div className='text-base sm:text-lg font-semibold mb-2'>
+            Pris: 899:-
+          </div>
+          <div className='flex justify-start'>
+            {session && (
+              <Link
+                href='/bookings'
+                className='inline-block text-sm sm:text-base bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold hover:bg-[#27642a] transition-colors'>
+                BOKA
+              </Link>
+            )}
+          </div>
         </div>
       </section>
       <section id='online'>
@@ -158,14 +163,19 @@ const page = async () => {
           på en viss situation eller person, något som har stört dig som du är
           redo att ta itu med.
         </p>
-        <div className='m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto mb-6 sm:mb-10 flex justify-start'>
-          {session && (
-            <Link
-              href='/bookings'
-              className='inline-block text-sm sm:text-base bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold hover:bg-[#27642a] transition-colors'>
-              BOKA
-            </Link>
-          )}
+        <div className='m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto mb-6 sm:mb-10'>
+          <div className='text-base sm:text-lg font-semibold mb-2'>
+            Pris: 599:-
+          </div>
+          <div className='flex justify-start'>
+            {session && (
+              <Link
+                href='/bookings'
+                className='inline-block text-sm sm:text-base bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold hover:bg-[#27642a] transition-colors'>
+                BOKA
+              </Link>
+            )}
+          </div>
         </div>
       </section>
     </>
