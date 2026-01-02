@@ -1,5 +1,15 @@
 # Let it Heal
 
+## Abstract
+Let it Heal is a web application designed to support adults seeking complementary healing methods, with a focus on Reiki.
+The project was developed using Next.js, React, TypeScript, and MongoDB, and follows modern UX/UI principles and accessibility standards (WCAG 2.1). 
+The application is fully responsive and hosted on Vercel. 
+The development process included user research, wireframing and prototyping in Figma, and continuous version control with GitHub. 
+The main goal was to create a soft, welcoming, and accessible platform for users, while learning new technologies and overcoming technical challenges such as database integration and authentication.
+The project demonstrates my growth as a frontend developer and my ability to plan, execute, and deliver a complete product.
+The final product is a visually appealing and intuitive website that makes it easy for users to book healing sessions and learn more about Reiki.
+Overall, the project successfully meets its goals by providing a professional, accessible, and user-friendly experience for the target audience.
+
 ### Go to website
 
 https://letitheal.vercel.app
