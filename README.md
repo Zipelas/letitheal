@@ -1,10 +1,11 @@
 # Let it Heal
 
 ## Abstract
+
 Let it Heal is a web application designed to support adults seeking complementary healing methods, with a focus on Reiki.
-The project was developed using Next.js, React, TypeScript, and MongoDB, and follows modern UX/UI principles and accessibility standards (WCAG 2.1). 
-The application is fully responsive and hosted on Vercel. 
-The development process included user research, wireframing and prototyping in Figma, and continuous version control with GitHub. 
+The project was developed using Next.js, React, TypeScript, and MongoDB, and follows modern UX/UI principles and accessibility standards (WCAG 2.1).
+The application is fully responsive and hosted on Vercel.
+The development process included user research, wireframing and prototyping in Figma, and continuous version control with GitHub.
 The main goal was to create a soft, welcoming, and accessible platform for users, while learning new technologies and overcoming technical challenges such as database integration and authentication.
 The project demonstrates my growth as a frontend developer and my ability to plan, execute, and deliver a complete product.
 The final product is a visually appealing and intuitive website that makes it easy for users to book healing sessions and learn more about Reiki.
@@ -19,12 +20,14 @@ https://letitheal.vercel.app
 In today’s society, mental health issues have spread rapidly. The need for various forms of support is great. You hear more about mental health in the media, and it seems like people are seeing psychologists more frequently. Healing is becoming increasingly popular in Sweden, with Reiki being one of the treatment methods. That’s why I felt inspired to create a website for someone who is trained in this field. The idea is for the website to be developed further and include more information and features. The site is aimed at adults aged 20 and older, and is intended for both men and women.
 
 ## Getting started
+
 - Clone the repository
 - Run `npm install`
 - Run `npm run dev`
 - Open http://localhost:3000 in your browser
 
 ## Tech stack
+
 Next.js (React-framework)
 React
 TypeScript
