@@ -28,16 +28,16 @@ In today’s society, mental health issues have spread rapidly. The need for var
 
 ## Tech stack
 
-Next.js (React-framework)
-React
-TypeScript
-Tailwind CSS (for styling)
-MongoDB (via Mongoose)
-NextAuth (for authentication)
-Zod (validation)
-Argon2 (password hashning)
-ESLint (code quality)
-dotenv (environmental variables)
+- Next.js (React-framework)
+- React
+- TypeScript
+- Tailwind CSS (for styling)
+- MongoDB (via Mongoose)
+- NextAuth (for authentication)
+- Zod (validation)
+- Argon2 (password hashning)
+- ESLint (code quality)
+- dotenv (environmental variables)
 
 ## Checklist
 
