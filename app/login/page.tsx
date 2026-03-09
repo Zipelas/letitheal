@@ -134,7 +134,7 @@ export default function LoginPage() {
             aria-label='Stäng'
             title='Stäng'
             onClick={() => router.back()}
-            className='h-8 w-8 rounded-full bg-[#BB1716] text-white flex items-center justify-center leading-none hover:bg-[#980e0e] focus:outline-none focus:ring-2 focus:ring-red-500'>
+            className='h-8 w-8 rounded-full bg-[#BB1716] text-white flex items-center justify-center leading-none hover:bg-[#980e0e] focus:outline-none focus:ring-2 focus:ring-red-500 cursor-pointer'>
             ×
           </button>
         </div>
