@@ -36,7 +36,7 @@ const BookingSchema = z.object({
       },
       {
         message: 'Datum kan inte vara i det förflutna',
-      }
+      },
     ),
   scheduledTime: z
     .string()
@@ -49,7 +49,7 @@ const BookingSchema = z.object({
         ALLOWED_SLOT_IDS.includes(val as (typeof ALLOWED_SLOT_IDS)[number]),
       {
         message: 'Välj en giltig tidslucka',
-      }
+      },
     ),
   mode: z.enum(['onsite', 'online'], {
     required_error: 'Välj bokningsläge',
@@ -167,7 +167,7 @@ export default function BookingsPage() {
             aria-label='Stäng'
             title='Stäng'
             onClick={() => router.back()}
-            className='h-8 w-8 rounded-full bg-[#BB1716] text-white flex items-center justify-center leading-none hover:bg-[#980e0e] focus:outline-none focus:ring-2 focus:ring-red-500'>
+            className='h-8 w-8 rounded-full bg-[#BB1716] text-white flex items-center justify-center leading-none hover:bg-[#980e0e] focus:outline-none focus:ring-2 focus:ring-red-500 cursor-pointer'>
             ×
           </button>
         </div>
