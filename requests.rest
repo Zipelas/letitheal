@@ -71,7 +71,7 @@ Content-Type: application/json
 # }
 
 ### Users API - DELETE
-DELETE http://localhost:3000/api/users?id=694abef854f2976ee5717c18
+DELETE http://localhost:3000/api/users?id=6957e990b64ae7dcda070be9
 
 ### Bookings API - CREATE
 POST http://localhost:3000/api/bookings

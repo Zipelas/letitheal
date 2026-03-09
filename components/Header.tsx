@@ -56,7 +56,7 @@ const Header = async () => {
               Mina bokningar
             </Link>
           )}
-          <AuthButton className='text-xs sm:text-base px-0.5 py-0.5 sm:px-4 sm:py-1 whitespace-nowrap' />
+          <AuthButton className='text-xs sm:text-base px-0.5 py-0.5 sm:px-4 sm:py-1 whitespace-nowrap cursor-pointer' />
         </ul>
       </nav>
     </header>
