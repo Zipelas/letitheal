@@ -333,7 +333,7 @@ export default function BookingsPage() {
             {error && <p className='text-red-600'>{error}</p>}
             <button
               type='submit'
-              className='login-button font-medium w-fit self-start'>
+              className='login-button font-medium w-fit self-start cursor-pointer'>
               Fortsätt
             </button>
           </form>
