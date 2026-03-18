@@ -95,13 +95,16 @@ const page = async () => {
             Pris: 899:-
           </div>
           <div className='flex justify-start'>
-            {session && (
-              <Link
-                href='/bookings'
-                className='inline-block text-sm sm:text-base bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold hover:bg-[#27642a] transition-colors'>
-                BOKA
-              </Link>
-            )}
+            <Link
+              href={session ? '/bookings' : '/login'}
+              className={
+                session
+                  ? 'inline-block text-sm sm:text-base bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold hover:bg-[#27642a] transition-colors'
+                  : 'inline-block text-sm sm:text-base bg-gray-300 text-gray-600 px-4 py-2 rounded font-bold cursor-not-allowed'
+              }>
+              {' '}
+              BOKA{' '}
+            </Link>
           </div>
         </div>
       </section>
@@ -168,13 +171,16 @@ const page = async () => {
             Pris: 599:-
           </div>
           <div className='flex justify-start'>
-            {session && (
-              <Link
-                href='/bookings'
-                className='inline-block text-sm sm:text-base bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold hover:bg-[#27642a] transition-colors'>
-                BOKA
-              </Link>
-            )}
+            <Link
+              href={session ? '/bookings' : '/login'}
+              className={
+                session
+                  ? 'inline-block text-sm sm:text-base bg-[#2e7d32] text-[#f0fff0] px-4 py-2 rounded font-bold hover:bg-[#27642a] transition-colors'
+                  : 'inline-block text-sm sm:text-base bg-gray-300 text-gray-600 px-4 py-2 rounded font-bold cursor-not-allowed'
+              }>
+              {' '}
+              BOKA{' '}
+            </Link>
           </div>
         </div>
       </section>
