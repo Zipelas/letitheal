@@ -154,6 +154,7 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className='border border-[#2e7d32] rounded-md p-2'
+              placeholder='exempel@gmail.com'
               required
             />
           </label>
@@ -165,6 +166,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className='border border-[#2e7d32] rounded-md p-2 pr-10 w-full'
+                placeholder='********'
                 required
               />
               <PasswordVisibility
@@ -225,7 +227,7 @@ export default function LoginPage() {
                   <input
                     name='postalCode'
                     className='border border-[#2e7d32] rounded-md p-2'
-                    placeholder='131 98'
+                    placeholder='13198'
                   />
                 </label>
                 <label className='flex flex-col'>
@@ -243,7 +245,7 @@ export default function LoginPage() {
                   name='phone'
                   type='tel'
                   className='border border-[#2e7d32] rounded-md p-2'
-                  placeholder='031-12 34 56'
+                  placeholder='0709123456'
                 />
               </label>
               <label className='flex flex-col'>
