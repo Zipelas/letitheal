@@ -15,7 +15,7 @@ export default function PasswordVisibility({
       onClick={() => setShowPassword(!showPassword)}
       aria-label={showPassword ? 'Dölj lösenord' : 'Visa lösenord'}
       aria-pressed={showPassword}
-      className='absolute right-2 top-1/2 -translate-y-1/2 p-1 text-[#111827] transition-colors hover:text-black cursor-pointer'>
+      className='absolute right-2 top-1/2 -translate-y-1/2 p-1 text-[#111827] transition-colors hover:text-gray-500 cursor-pointer'>
       {showPassword ? (
         <svg
           xmlns='http://www.w3.org/2000/svg'
