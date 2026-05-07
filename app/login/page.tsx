@@ -1,5 +1,6 @@
 'use client';
 
+import PasswordVisibility from '@/components/PasswordVisibility';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -53,6 +54,8 @@ export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRegisterPassword, setShowRegisterPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -156,19 +159,25 @@ export default function LoginPage() {
           </label>
           <label className='flex flex-col'>
             <span className='mb-1'>Lösenord</span>
-            <input
-              type='password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className='border border-[#2e7d32] rounded-md p-2'
-              required
-            />
+            <div className='relative'>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className='border border-[#2e7d32] rounded-md p-2 pr-10 w-full'
+                required
+              />
+              <PasswordVisibility
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
+              />
+            </div>
           </label>
           {error && <p className='text-red-600'>{error}</p>}
           <button
             type='submit'
             disabled={submitting}
-            className='login-button font-medium disabled:opacity-70 disabled:cursor-not-allowed'>
+            className='login-button font-medium disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer'>
             {submitting ? 'Loggar in…' : 'Logga in'}
           </button>
           <button
@@ -249,15 +258,21 @@ export default function LoginPage() {
               </label>
               <label className='flex flex-col'>
                 <span className='mb-1'>Lösenord</span>
-                <input
-                  name='password'
-                  type='password'
-                  required
-                  className='border border-[#2e7d32] rounded-md p-2'
-                  placeholder='********'
-                />
+                <div className='relative'>
+                  <input
+                    name='password'
+                    type={showRegisterPassword ? 'text' : 'password'}
+                    required
+                    className='border border-[#2e7d32] rounded-md p-2 pr-10 w-full'
+                    placeholder='********'
+                  />
+                  <PasswordVisibility
+                    showPassword={showRegisterPassword}
+                    setShowPassword={setShowRegisterPassword}
+                  />
+                </div>
               </label>
-              <label className='inline-flex items-center gap-2'>
+              <label className='inline-flex items-center gap-2 cursor-pointer'>
                 <input
                   name='termsAccepted'
                   type='checkbox'
@@ -272,7 +287,7 @@ export default function LoginPage() {
               <div className='flex gap-3'>
                 <button
                   type='submit'
-                  className='login-button font-medium'>
+                  className='login-button font-medium cursor-pointer'>
                   Registrera
                 </button>
                 <button
