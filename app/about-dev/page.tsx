@@ -1,10 +1,10 @@
+import Image from 'next/image';
+
 export default function Page() {
   return (
     <section className='mx-auto max-w-3xl px-4 py-8'>
       <h1>Om utvecklaren</h1>
-      <p>&nbsp;</p>
-      <h2>Hej! 👋</h2>
-      <p>&nbsp;</p>
+      <h2 className='mb-4 mt-4'>Hej! 👋</h2>
 
       <p className='mb-4'>Jag söker jobb som frontendutvecklare.</p>
 
@@ -79,15 +79,14 @@ export default function Page() {
 
       <p className='mb-4'>Tips och delningar uppskattas!</p>
       <p>/Andreas</p>
-      <p>
-        <img
-          src='/images/profilbild.jpg'
-          alt='Andreas Fagerlund'
-          loading='lazy'
-          className='mt-4 rounded-lg shadow-md mx-auto block'
-          align='center'
-        />
-      </p>
+      <Image
+        src='/images/profilbild.jpg'
+        alt='Andreas Fagerlund'
+        width={500}
+        height={500}
+        loading='lazy'
+        className='mt-4 mx-auto rounded-lg shadow-md'
+      />
     </section>
   );
 }
