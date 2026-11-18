@@ -63,7 +63,7 @@ export default function NavLinks({
       )}
       <li>
         <Link
-          href='/om-utvecklaren'
+          href='/about-dev'
           className={linkClassName}
           onClick={onLinkClick}>
           Om utvecklaren
