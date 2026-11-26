@@ -1,3 +1,4 @@
+import Paragraph from '@/components/Paragraph';
 import Image from 'next/image';
 
 export default function Page() {
@@ -11,9 +12,9 @@ export default function Page() {
           Hej! 👋
         </h3>
 
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto font-bold'>
+        <Paragraph className='font-bold'>
           Jag söker jobb som frontendutvecklare.
-        </p>
+        </Paragraph>
 
         <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
           Jag heter Andreas Fagerlund och bor i Göteborg, men kan tänka mig att
