@@ -80,7 +80,7 @@ export default function Page() {
         <Paragraph>
           Se mitt CV här:{' '}
           <a
-            href='/cv.pdf'
+            href='/documents/cv.pdf'
             className='text-blue-500 underline'>
             Ladda ner CV
           </a>
