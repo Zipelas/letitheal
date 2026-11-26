@@ -16,40 +16,40 @@ export default function Page() {
           Jag söker jobb som frontendutvecklare.
         </Paragraph>
 
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <Paragraph>
           Jag heter Andreas Fagerlund och bor i Göteborg, men kan tänka mig att
           flytta till Stockholm för rätt tjänst. Jag vill hitta ett jobb där jag
           kan bidra med mina kunskaper, fortsätta utvecklas och vara med på
           resan långsiktigt. I våras avslutade jag en tvåårig utbildning till
           Frontend Developer på Medieinstitutet i Göteborg.
-        </p>
+        </Paragraph>
 
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <Paragraph>
           Jag bygger responsiva och användarvänliga webbplatser med HTML, CSS,
           JavaScript, TypeScript, React och Next.js. Jag arbetar även med
           Tailwind CSS, Git/GitHub och integration med REST-API:er.
-        </p>
+        </Paragraph>
 
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <Paragraph>
           Jag gillar dessutom kombinationen av design och utveckling. Med Figma,
           wireframes och prototyper arbetar jag med hur en sida både ska se ut
           och fungera. Tillgänglighet ligger mig särskilt varmt om hjärtat:
           tydliga texter och knappar, bra kontraster och gränssnitt där det är
           lätt att hitta rätt.
-        </p>
+        </Paragraph>
 
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <Paragraph>
           Utöver frontend har jag erfarenhet av MongoDB och Mongoose samt
           automatiserade tester med Cypress. Det ger mig förståelse för hur
           gränssnitt, data och användarflöden hänger ihop.
-        </p>
+        </Paragraph>
 
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <Paragraph>
           Ett exempel är mitt projekt Let it Heal, där jag har arbetat med UX/UI
           och frontendutveckling:
-        </p>
+        </Paragraph>
 
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <Paragraph>
           <a
             href='https://letitheal.vercel.app/'
             target='_blank'
@@ -57,40 +57,37 @@ export default function Page() {
             className='underline'>
             👉 https://letitheal.vercel.app/
           </a>
-        </p>
+        </Paragraph>
 
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <Paragraph>
           Som person är jag noggrann, ansvarstagande och gillar ordning, reda
           och struktur – både i koden och i arbetet. Jag tar ansvar för mina
           uppgifter och uppskattar att samarbeta, bolla idéer och lära mig av
           andra. Jag har också med mig arbetslivserfarenhet från andra branscher
           och vet hur mycket ett bra samarbete betyder.
-        </p>
+        </Paragraph>
 
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <Paragraph>
           Sport är ett stort intresse. Jag har spelat handboll i över 30 år men
           gillar även att spela pingis. Förutom Blåvitt så ligger Manchester
           United varmt om hjärtat.
-        </p>
+        </Paragraph>
 
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <Paragraph>
           Jag uppskattar en arbetsplats där man både hjälper varandra och har
           roligt tillsammans. En gemensam fika eller after work är gärna en del
           av det!
-        </p>
+        </Paragraph>
 
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <Paragraph>
           Söker ditt företag en junior frontendutvecklare, eller känner du någon
           som gör det? Skicka gärna ett privat meddelande. Jag berättar gärna
           mer och skickar mitt CV.
-        </p>
+        </Paragraph>
 
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
-          Tips och delningar uppskattas!
-        </p>
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
-          /Andreas
-        </p>
+        <Paragraph>Tips och delningar uppskattas!</Paragraph>
+
+        <Paragraph>/Andreas</Paragraph>
         <Image
           src='/images/profilbild.jpg'
           alt='Andreas Fagerlund'
