@@ -20,7 +20,7 @@ export default function NavLinks({
     : 'block rounded-md px-3 py-2 text-inter-sans-serif font-medium hover:bg-[#2e7d32]/20';
   const authContainerClassName = isDesktop ? '' : 'pt-2';
   const authButtonClassName = isDesktop
-    ? 'text-base px-4 py-1 whitespace-nowrap cursor-pointer'
+    ? 'text-base px-4 py-2 whitespace-nowrap cursor-pointer'
     : 'w-full text-sm px-4 py-3 whitespace-nowrap cursor-pointer';
 
   return (
