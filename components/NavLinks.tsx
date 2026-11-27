@@ -21,7 +21,7 @@ export default function NavLinks({
   const authContainerClassName = isDesktop ? '' : 'pt-2';
   const authButtonClassName = isDesktop
     ? 'text-base px-4 py-1 whitespace-nowrap cursor-pointer'
-    : 'w-full text-sm px-4 py-2 whitespace-nowrap cursor-pointer';
+    : 'w-full text-sm px-4 py-3 whitespace-nowrap cursor-pointer';
 
   return (
     <>
