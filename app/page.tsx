@@ -1,3 +1,4 @@
+import Paragraph from '@/components/Paragraph';
 import { getSession } from '@/lib/auth';
 import type { Session } from 'next-auth';
 import Image from 'next/image';
@@ -21,22 +22,22 @@ const page = async () => {
         <h2 className='font-bold text-center text-3xl sm:text-4xl mt-10 mb-6 sm:mt-16 sm:mb-8'>
           Välkommen till Let it Heal!
         </h2>
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <Paragraph>
           Healing är en alternativ behandlingsform som kan hjälpa till att
           balansera och harmonisera energier i kroppen genom att stärka kroppens
           naturliga läkningsprocess. Detta görs med handpåläggning eller på
           distans.
-        </p>
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        </Paragraph>
+        <Paragraph>
           Healing används till att minska stress och främja mental, fysisk och
           själsligt välmående. Det handlar om att återställa balans, frigöra
           blockeringar och stärka kroppens egna förmåga till återhämtning. Många
           upplever en djup avslappning och att de får en ökad energi efteråt.
-        </p>
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        </Paragraph>
+        <Paragraph>
           Det finns olika healingsmetoder men den som används här på Let it heal
           är Reiki som är en japansk behandlingsmetod.
-        </p>
+        </Paragraph>
         <h3 className='font-bold text-center text-xl sm:text-2xl mt-6 mb-6 sm:mt-10 sm:mb-10'>
           Vad man kan förvänta sig
         </h3>
@@ -63,13 +64,13 @@ const page = async () => {
         <h3 className='font-bold text-center text-xl sm:text-2xl mt-6 mb-6 sm:mt-10 sm:mb-10'>
           Vad är Reiki?
         </h3>
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <Paragraph>
           För 100 år sedan började reikimetoden att användas i Japan, men nu
           finns Reiki utspritt över hela världen. Många länder har integrerat
           Reiki i inom den konventionella vården och i Sverige är det godkänt
           som friskvård.
-        </p>
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        </Paragraph>
+        <Paragraph>
           Reiki är japanska och sammansatt av två ord: rei och ki. Hela ordet
           rei-ki kan t.ex. översättas som ”livsenergi med universellt
           medvetande” eller ”själskraft”. Livsenergin strömmar genom kroppens
@@ -77,11 +78,11 @@ const page = async () => {
           bra, men när flödet avtar, eller rent av blockeras någonstans,
           försvagas kroppens funktioner och blir det långvarigt kan det fysiska
           och psykiska hälsotillståndet påverkas negativt.
-        </p>
+        </Paragraph>
         <h3 className='font-bold text-center text-xl sm:text-2xl mt-6 mb-6 sm:mt-10 sm:mb-10'>
           En gåva
         </h3>
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <Paragraph>
           Ge dig själv eller någon nära en stund av lugn och avslappning i en
           stillsam miljö. Innan behandlingen har vi ett kort samtal där vi går
           igenom hur du mår och vad du önskar att få ut av behandlingen.
@@ -89,8 +90,8 @@ const page = async () => {
           massagebänk. Efter behandlingen så har vi ett ytterligare samtal om
           hur det kändes och om vad som kom upp. Samtidigt får du fylla på med
           vätska vilket är viktigt efteråt.
-        </p>
-        <div className='m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto mb-6 sm:mb-10'>
+        </Paragraph>
+        <div className='my-4 px-4 w-[90vw] sm:w-[50vw] mx-auto mb-6 sm:mb-10'>
           <div className='text-base sm:text-lg font-semibold mb-2'>
             Pris: 899:-
           </div>
@@ -119,53 +120,53 @@ const page = async () => {
         <h2 className='font-bold text-center text-3xl sm:text-4xl mt-10 mb-6 sm:mt-16 sm:mb-8'>
           Reiki online
         </h2>
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <Paragraph>
           Reiki energin kan skickas på avstånd och fördelar med Reiki på distans
           är att man inte behöver gå någonstans. Man kan ta emot Reiki precis
           där man befinner sig. Reiki på distans kan vara lika effektivt som att
           få behandlingen på plats.
-        </p>
+        </Paragraph>
         <h3 className='font-bold text-center text-xl sm:text-2xl mt-6 mb-6 sm:mt-10 sm:mb-10'>
           Innan och under healingen
         </h3>
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <Paragraph>
           Behandlingen är ca 45 minuter. Skapa en lugn och trivsam miljö som t
           ex. på soffan eller i sängen. Använd kuddar och filt om så önskas. För
           att skapa en härlig atmosfär så kan du tända ljus, stänga av
           elektroniska enheter, klä dig i mjuka bekväma kläder och/eller använda
           kristaller. När det är dags att ta emot Reiki ligg bekvämt. Blunda och
           ta flera djupa, långsamma andetag för att slappna av.
-        </p>
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        </Paragraph>
+        <Paragraph>
           Säg högt eller tyst till dig själv &quot;Jag är redo att ta emot
           Reiki-energier&quot;.
           <br />
           Det är allt du behöver göra!
-        </p>
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        </Paragraph>
+        <Paragraph>
           Det är individuellt hur mottagaren upplever Reiki energierna på
           distans. Majoriteten känner sig väldigt avslappnade och en del kan
           till och med känna stickningar eller en pirrande känsla. Vissa kanske
           börjar gråta eller skratta utan att veta varför. Det är känslomässig
           energi som måste släppas för att du ska läka.
-        </p>
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        </Paragraph>
+        <Paragraph>
           Efter behandlingen kontaktar jag dig med SMS eller e- mail och
           bekräftar att jag är klar.
-        </p>
+        </Paragraph>
         <h3 className='font-bold text-center text-xl sm:text-2xl mt-6 mb-6 sm:mt-10 sm:mb-10'>
           Efter behandlingen
         </h3>
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto'>
+        <Paragraph>
           Ta en stund att skriva ner alla tankar som dök upp under din tid, ofta
           kommer de mest gyllene idéerna till dig i tysta stunder. Efter din
           session är det alltid bra att dricka ett glas vatten.
-        </p>
-        <p className='text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto mb-6 sm:mb-10'>
+        </Paragraph>
+        <Paragraph>
           Notera allt som kommer upp under de kommande dagarna. Du kanske tänker
           på en viss situation eller person, något som har stört dig som du är
           redo att ta itu med.
-        </p>
+        </Paragraph>
         <div className='m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto mb-6 sm:mb-10'>
           <div className='text-base sm:text-lg font-semibold mb-2'>
             Pris: 599:-
