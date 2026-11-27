@@ -16,7 +16,6 @@ body {
 @media (max-width: 640px) {
   .site-header .login-button,
   .site-header .logout-button {
-    padding: 0.15rem 0.5rem;
     font-size: 0.85rem;
     margin: 0;
   }
@@ -64,7 +63,6 @@ main {
 .login-button {
   background-color: #2e7d32;
   color: #f0fff0;
-  padding: 0.5rem 1rem;
   border-radius: 5px;
   font-family: var(--font-inter-sans-serif);
 }
@@ -76,7 +74,6 @@ main {
 .logout-button {
   background-color: #bb1716;
   color: #f0fff0;
-  padding: 0.5rem 1rem;
   border-radius: 5px;
   font-family: var(--font-inter-sans-serif);
 }
