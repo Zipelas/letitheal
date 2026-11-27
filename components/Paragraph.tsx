@@ -6,7 +6,7 @@ type ParagraphProps = {
 export default function Paragraph({ children, className }: ParagraphProps) {
   return (
     <p
-      className={`text-sm sm:text-base text-left text-color m-4 px-4 w-[90vw] sm:w-[50vw] mx-auto ${className ?? ''}`}>
+      className={`text-sm sm:text-base text-left text-color my-4 px-4 w-full max-w-2xl mx-auto ${className ?? ''}`}>
       {children}
     </p>
   );
